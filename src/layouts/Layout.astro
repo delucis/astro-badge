@@ -1,4 +1,8 @@
 ---
+const title = Astro.props.title || 'Astro Badge';
+const description = 'Badges to show off your Astro pride';
+const ogImgURL = new URL('/ogimg.png', Astro.site).href;
+const ogImgAlt = 'Badge with the text “Built with Astro”';
 ---
 
 <html lang="en">
@@ -6,7 +10,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width" />
-  <title>{Astro.props.title || 'Astro Badge'}</title>
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={Astro.canonicalURL}>
+
+  <!-- OpenGraph Tags -->
+  <meta property="og:title" content={title}>
+  <meta property="og:type" content="article">
+  <meta property="og:url" content={Astro.canonicalURL}>
+  <meta property="og:locale" content="en">
+  <meta property="og:image" content={ogImgURL}>
+  <meta property="og:image:alt" content={ogImgAlt}>
+  <meta name="description" property="og:description" content={description}>
+  <meta property="og:site_name" content="Astro Badge">
+
+  <!-- Twitter Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="swithinbank">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImgURL}>
+  <meta name="twitter:image:alt" content={ogImgAlt}>
 </head>
 
 <body>
@@ -76,11 +100,11 @@
     padding: 2rem .5rem;
   }
 
-  body > :first-child {
+  body> :first-child {
     margin-top: 0;
   }
 
-  body > * {
+  body>* {
     max-width: 50rem;
     margin-left: auto;
     margin-right: auto;
@@ -91,5 +115,4 @@
     user-select: all;
     text-align: left;
   }
-  
 </style>
