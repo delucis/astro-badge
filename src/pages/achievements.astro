@@ -1,0 +1,78 @@
+---
+import Layout from "../layouts/Layout.astro";
+import contributors from '../data/contributors.json';
+const title = 'Astro Achievements';
+const dataID = 'contributor-usernames';
+---
+
+<Layout title={title}>
+  <h1>{title}</h1>
+  <form onsubmit="return false">
+    <label>
+      Find an Astro contributor
+      <input type="text" name="s" id="find-contributor" list={dataID} autocomplete="off">
+    </label>
+    <input type="submit" value="Search">
+  </form>
+
+  <div id="svg-display">Enter a username</div>
+
+  <p id="more-link">&nbsp;</p>
+
+  <p>One of {Object.keys(contributors).length} contributors! 🧑‍🚀💜</p>
+
+  <datalist id={dataID}>
+    {Object.keys(contributors).map(username =>
+    <option value={username} />)}
+  </datalist>
+</Layout>
+
+<script>
+  const searchBox = document.getElementById('find-contributor') as HTMLInputElement;
+  const svgDisplay = document.getElementById('svg-display') as HTMLDivElement;
+  const moreP = document.getElementById('more-link') as HTMLParagraphElement;
+
+  let to: NodeJS.Timeout;
+
+  searchBox.addEventListener('input', async () => {
+    if (to) {
+      clearTimeout(to);
+      to = null;
+    }
+    svgDisplay.innerHTML = `<p>Searching…</p>`;
+    moreP.innerHTML = '&nbsp;';
+    to = setTimeout(async () => {
+      const username = searchBox.value;
+      try {
+        if (!username) throw new Error('Enter a username')
+        const imageSrc = new URL(`/v1/contributor/${username}.svg`, window.location.href);
+        const moreHref = new URL(`/achievements/${username}/`, window.location.href);
+        const res = await fetch(imageSrc.href, { method: 'HEAD' });
+        if (res.ok) {
+          svgDisplay.innerHTML = `<img src="${imageSrc.href}">`;
+          moreP.innerHTML = `<a href="${moreHref}">More about this contributor →</a>`;
+        } else {
+          throw new Error('Contributor not found!');
+        }
+      } catch (error: unknown) {
+        svgDisplay.innerHTML = `<p>${error instanceof Error ? error.message : error}</p>`;
+      }
+    }, 200);
+  });
+</script>
+
+<style>
+  #svg-display {
+    width: 300px;
+    height: 200px;
+    background-color: #eee;
+    display: grid;
+    place-content: center;
+    border-radius: 20px;
+    margin: 2rem auto;
+  }
+
+  #more-link {
+    margin-bottom: 3rem;
+  }
+</style>
