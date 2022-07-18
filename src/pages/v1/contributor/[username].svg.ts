@@ -1,4 +1,5 @@
 import type { APIContext, EndpointOutput } from 'astro';
+import sharp from 'sharp';
 import contributors from '../../../data/contributors.json';
 import { getAchievements } from '../../../util/getAchievements';
 import { getStats } from '../../../util/getStats';
@@ -38,9 +39,7 @@ export async function get({ params }: APIContext): Promise<EndpointOutput> {
   const { username } = params;
   const contributor = contributors[username];
   const avatar = await fetch(contributor.avatar_url);
-  const b64 = Buffer.from(await (await avatar.blob()).arrayBuffer()).toString(
-    'base64'
-  );
+  const b64 = (await sharp(Buffer.from(await (await avatar.blob()).arrayBuffer())).resize(60, 60).toBuffer()).toString('base64');
 
   const achievements = getAchievements(contributor);
   const stats = getStats(contributor);

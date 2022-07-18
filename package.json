@@ -11,7 +11,9 @@
   },
   "devDependencies": {
     "@octokit/core": "^4.0.4",
+    "@types/sharp": "^0.30.4",
     "astro": "^1.0.0-beta.70",
+    "sharp": "^0.30.7",
     "tsm": "^2.2.1"
   }
 }
