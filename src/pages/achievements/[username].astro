@@ -1,0 +1,42 @@
+---
+import contributors from '../../data/contributors.json';
+import Layout from '../../layouts/Layout.astro';
+import { getAchievements } from '../../util/getAchievements';
+
+export function getStaticPaths() {
+  return Object.keys(contributors).map((username) => ({
+    params: { username },
+  }));
+}
+
+const { username } = Astro.params;
+const contributor = contributors[username]
+const achievements = getAchievements(contributor, { exhaustive: true });
+---
+
+<Layout title={`@${username} — Astro Achievements`}>
+  <h1>@{username}</h1>
+
+  <div>
+    <img src={`/v1/contributor/${username}.svg`} width="300" height="200">
+  </div>
+
+  <h2>All Achievements</h2>
+  <ol>
+    {achievements.map(({ title, details }) => <li><strong>{title}</strong> {details}</li>)}
+  </ol>
+
+  <p>
+    <a href="/achievements/">← Find more Astro contributors</a>
+  </p>
+</Layout>
+
+<style>
+  ol {
+    margin: 1rem auto;
+    width: max-content;
+    max-width: 100%;
+    padding: 0;
+    text-align: left;
+  }
+</style>
