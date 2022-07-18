@@ -1,5 +1,8 @@
 ---
-const title = Astro.props.title || 'Astro Badge';
+export interface Props {
+  title?: string;
+}
+const { title = 'Astro Badge' } = Astro.props as Props;
 const description = 'Badges to show off your Astro pride';
 const ogImgURL = new URL('/ogimg.png', Astro.site).href;
 const ogImgAlt = 'Badge with the text “Built with Astro”';
@@ -34,7 +37,9 @@ const ogImgAlt = 'Badge with the text “Built with Astro”';
 </head>
 
 <body>
-  <slot />
+  <main>
+    <slot />
+  </main>
 </body>
 
 </html>
@@ -100,7 +105,7 @@ const ogImgAlt = 'Badge with the text “Built with Astro”';
     padding: 2rem .5rem;
   }
 
-  body> :first-child {
+  main> :first-child {
     margin-top: 0;
   }
 
