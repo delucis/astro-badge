@@ -1,6 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import contributors from '../data/contributors.json';
+import { objSum } from "../util/objSum";
+
+const sortedUsernames = Object.entries(contributors)
+  .map(([username, { issues, merged_pulls }]): [string, number] => [username, objSum(issues) + objSum(merged_pulls)])
+  .sort(([, a], [, b]) => b - a)
+  .map(([username]) => username);
+
 const title = 'Astro Achievements';
 const dataID = 'contributor-usernames';
 ---
@@ -22,7 +29,7 @@ const dataID = 'contributor-usernames';
   <p>One of {Object.keys(contributors).length} contributors! 🧑‍🚀💜</p>
 
   <datalist id={dataID}>
-    {Object.keys(contributors).map(username =>
+    {sortedUsernames.map(username =>
     <option value={username} />)}
   </datalist>
 </Layout>
