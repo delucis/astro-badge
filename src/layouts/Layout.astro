@@ -6,6 +6,7 @@ const { title = 'Astro Badge' } = Astro.props as Props;
 const description = 'Badges to show off your Astro pride';
 const ogImgURL = new URL('/ogimg.png', Astro.site).href;
 const ogImgAlt = 'Badge with the text “Built with Astro”';
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <html lang="en">
@@ -15,12 +16,12 @@ const ogImgAlt = 'Badge with the text “Built with Astro”';
   <meta name="viewport" content="width=device-width" />
   <title>{title}</title>
   <meta name="description" content={description}>
-  <link rel="canonical" href={Astro.canonicalURL}>
+  <link rel="canonical" href={canonical}>
 
   <!-- OpenGraph Tags -->
   <meta property="og:title" content={title}>
   <meta property="og:type" content="article">
-  <meta property="og:url" content={Astro.canonicalURL}>
+  <meta property="og:url" content={canonical}>
   <meta property="og:locale" content="en">
   <meta property="og:image" content={ogImgURL}>
   <meta property="og:image:alt" content={ogImgAlt}>
