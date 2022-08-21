@@ -93,7 +93,9 @@ class StatsCollector {
     }
 
     if (page === 1)
-      console.log(`Done fetching issues for ${this.#org}/${repo}`);
+      console.log(
+        `Done fetching ${issues.length} issues for ${this.#org}/${repo}`
+      );
     return issues;
   }
 
