@@ -82,12 +82,12 @@ class StatsCollector {
     if (page === 1) console.log(`Fetching issues for ${this.#org}/${repo}...`);
     const per_page = 100;
 
-    const { data: issues } = await this.#app.request(
+    const { data: issues, headers } = await this.#app.request(
       'GET /repos/{owner}/{repo}/issues',
       { owner: this.#org, repo, page, per_page, state: 'all' }
     );
 
-    if (issues.length === per_page) {
+    if (headers.link?.includes('rel="next"')) {
       const nextPage = await this.#getAllIssues(repo, page + 1);
       issues.push(...nextPage);
     }
