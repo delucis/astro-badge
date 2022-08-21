@@ -1,10 +1,11 @@
 import { objSum } from './objSum';
 
-export function getStats({ issues, merged_pulls }) {
+export function getStats({ issues, merged_pulls, reviews }) {
   return [
-    { type: 'pulls', count: formatInt(objSum(merged_pulls)) },
     { type: 'issues', count: formatInt(objSum(issues)) },
-  ].filter(({ count }) => !!count);
+    { type: 'pulls', count: formatInt(objSum(merged_pulls)) },
+    { type: 'reviews', count: formatInt(objSum(reviews)) }
+  ].filter(({ count }) => count !== '0');
 }
 
 const formatInt = (int: number) =>
