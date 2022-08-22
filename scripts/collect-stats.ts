@@ -1,5 +1,13 @@
 import { writeFile } from 'node:fs/promises';
 import { Octokit } from '@octokit/core';
+import type { Endpoints } from '@octokit/types';
+
+type APIData<T extends keyof Endpoints> = Endpoints[T]['response']['data'];
+type Repo = APIData<'GET /orgs/{org}/repos'>[number];
+interface AugmentedRepo extends Repo {
+  reviews: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
+  issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
+}
 
 interface Contributor {
   avatar_url: string;
@@ -79,22 +87,6 @@ class StatsCollector {
     ).data.filter((repo) => !repo.private);
   }
 
-  async #getAllContributors(repo: string, page = 1) {
-    const per_page = 100;
-
-    const { data: contributors } = await this.#app.request(
-      'GET /repos/{owner}/{repo}/contributors',
-      { owner: this.#org, repo, page, per_page }
-    );
-
-    if (contributors.length === per_page) {
-      const nextPage = await this.#getAllContributors(repo, page + 1);
-      contributors.push(...nextPage);
-    }
-
-    return contributors;
-  }
-
   async #getAllIssues(repo: string, page = 1) {
     if (page === 1) console.log(`Fetching issues for ${this.#org}/${repo}...`);
     const per_page = 100;
@@ -142,14 +134,15 @@ class StatsCollector {
     console.log('Fetching repos...');
     const repos = await this.#getRepos();
     console.log('Done fetching repos!');
-    return await Promise.all(
-      repos.map(async (repo) => ({
+    const reposWithStats: AugmentedRepo[] = [];
+    for (const repo of repos) {
+      reposWithStats.push({
         ...repo,
-        // contributors: await this.#getAllContributors(repo.name),
         issues: await this.#getAllIssues(repo.name),
         reviews: await this.#getAllReviews(repo.name),
-      }))
-    );
+      });
+    }
+    return reposWithStats;
   }
 
   async #writeData(data: any) {
