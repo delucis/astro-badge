@@ -73,7 +73,7 @@ const dataID = 'contributor-usernames';
       try {
         if (!username) throw new Error('Enter a username')
         const imageSrc = new URL(`/v1/contributor/${username}.svg`, window.location.href);
-        const moreHref = new URL(`/achievements/${username}/`, window.location.href);
+        const moreHref = new URL(`/v1/contributor/${username}/`, window.location.href);
         const res = await fetch(imageSrc.href, { method: 'HEAD' });
         if (res.ok) {
           svgDisplay.innerHTML = `<img src="${imageSrc.href}">`;

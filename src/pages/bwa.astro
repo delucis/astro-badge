@@ -1,7 +1,11 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import { Code } from "astro/components";
+import Copy from "../components/Copy.astro";
+import Layout from "../layouts/Layout.astro";
 const title = "Badges";
+
+const mdSnippet = `[![Built with Astro](${Astro.site}v1/built-with-astro.svg)](https://astro.build)`;
+const htmlSnippet = `<a href="https://astro.build">\n <img src="${Astro.site}v1/built-with-astro.svg" alt="Built with Astro" width="150" height="27.5">\n</a>`;
 ---
 
 <Layout {title}>
@@ -19,17 +23,17 @@ const title = "Badges";
       </a>
     </p>
 
-    <h3>Markdown</h3>
-    <Code
-      code={`[![Built with Astro](${Astro.site}v1/built-with-astro.svg)](https://astro.build)`}
-      lang="md"
-    />
-
-    <h3>HTML</h3>
-    <Code
-      code={`<a href="https://astro.build">\n <img src="${Astro.site}v1/built-with-astro.svg" alt="Built with Astro" width="150" height="27.5">\n</a>`}
-      lang="html"
-    />
+    <div class="flex items-baseline justify-between">
+      <h3 class="m-0">Markdown</h3>
+      <Copy text={mdSnippet} />
+    </div>
+    <Code code={mdSnippet} lang="md" />
+    
+    <div class="flex items-baseline justify-between">
+      <h3 class="m-0">HTML</h3>
+      <Copy text={htmlSnippet} />
+    </div>
+    <Code code={htmlSnippet} lang="html" />
 
     <h2>Sizes</h2>
 

@@ -1,0 +1,77 @@
+---
+import { Code } from "astro/components";
+import Copy from "../../../components/Copy.astro";
+import contributors from '../../../data/contributors.json';
+import Layout from '../../../layouts/Layout.astro';
+import { getAchievements } from '../../../util/getAchievements';
+import { getStats } from '../../../util/getStats';
+
+export function getStaticPaths() {
+  return Object.keys(contributors).map((username) => ({
+    params: { username },
+  }));
+}
+
+const { username } = Astro.params;
+const contributor = contributors[username]
+const achievements = getAchievements(contributor, { exhaustive: true });
+const stats = getStats(contributor);
+
+const mdSnippet = `[![@${username} Astro contributions](${Astro.site}v1/contributor/${username}.svg)](${Astro.url.href})`;
+const htmlSnippet = `<a href="${Astro.url.href}">\n <img src="${Astro.site}v1/contributor/${username}.svg" alt="@${username} Astro contributions" width="300" height="200">\n</a>`;
+---
+
+<Layout title={`@${username} — Astro Achievements`}>
+  <div class="prose prose-invert prose-a:text-accent-300 mx-auto">
+    <div class="flex items-baseline gap-6 flex-wrap">
+      <h1 class="m-0">@{username}</h1>
+      <a href={`https://github.com/${username}`}>
+        <span class="sr-only">GitHub Profile</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="1.85rem" height="1.85rem" class="fill-neutral-50 opacity-20 hover:opacity-40 translate-y-1">
+          <path fill-rule="evenodd" d="M8 0a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.5c-2 .4-2.5-.5-2.7-1 0-.1-.5-.9-.8-1-.3-.2-.7-.6 0-.6.6 0 1 .6 1.2.8.7 1.2 1.9 1 2.4.7 0-.5.2-.9.5-1-1.8-.3-3.7-1-3.7-4 0-.9.3-1.6.8-2.2 0-.2-.3-1 .1-2 0 0 .7-.3 2.2.7a7.4 7.4 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.5 1.1.2 2 .1 2.1.5.6.8 1.3.8 2.2 0 3-1.9 3.7-3.6 4 .3.2.5.7.5 1.4v2.2c0 .2.1.5.5.4A8 8 0 0 0 16 8a8 8 0 0 0-8-8z"/>
+        </svg>      
+      </a>
+    </div>
+
+    <h2>Stats</h2>
+
+    <div class="not-prose">
+      <ul class="flex flex-wrap gap-2 md:gap-4">
+        {stats.map(({type,count}) => (
+          <li class="text-center p-2 bg-neutral-800 rounded-lg min-w-[6rem]">
+            <h3 class="uppercase text-sm tracking-wider">{type}</h3>
+            <p class="text-2xl font-black">{count}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <h2>Shareable Badge</h2>
+
+    <div>
+      <img src={`/v1/contributor/${username}.svg`} width="300" height="200">
+    </div>
+
+    <div class="flex items-baseline justify-between">
+      <h3 class="m-0">Markdown</h3>
+      <Copy text={mdSnippet} />
+    </div>
+
+    <Code code={mdSnippet} lang="md" />
+
+    <div class="flex items-baseline justify-between">
+      <h3 class="m-0">HTML</h3>
+      <Copy text={htmlSnippet} />
+    </div>
+    <Code code={htmlSnippet} lang="html" />
+
+    <h2>All Achievements</h2>
+    <ol>
+      {achievements.map(({ title, details }) => <li><strong>{title}</strong> {details}</li>)}
+    </ol>
+
+    <p class="text-center my-24">
+      <a href="/contributors/">← Find more Astro contributors</a>
+    </p>
+  </div>
+</Layout>
