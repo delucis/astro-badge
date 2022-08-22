@@ -10,7 +10,9 @@
     "preview": "astro preview"
   },
   "devDependencies": {
+    "@astrojs/tailwind": "^1.0.0",
     "@octokit/core": "^4.0.4",
+    "@tailwindcss/typography": "^0.5.4",
     "@types/sharp": "^0.30.4",
     "astro": "^1.0.6",
     "sharp": "^0.30.7",
