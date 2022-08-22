@@ -1,38 +1,50 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { Code } from 'astro/components';
+
+const ctas = [
+  {
+    title: "Badges",
+    description: "Add a badge to your repository or website",
+    href: "/bwa/",
+    img: {
+      src: "/v1/built-with-astro/large.svg",
+      alt: "@FredKSchott Astro contributions",
+      width: "300",
+      height: "200",
+    },
+  },
+  {
+    title: "Contributors",
+    description: "Celebrate your GitHub contributions 🥳",
+    href: "/contributors/",
+    img: {
+      src: "/v1/contributor/FredKSchott.svg",
+      alt: "Built with Astro",
+      width: "300",
+      height: "55",
+    },
+  },
+];
 ---
 
 <Layout>
-  <h1>Astro Badge</h1>
-  <p>
-    Add badges to your <a href="https://astro.build">Astro</a> projects and show off your Astro pride!
-  </p>
-  
-  <h2>Built with Astro</h2>
-  <p>
-    <a href="https://astro.build">
-      <img src="/v1/built-with-astro.svg" alt="Built with Astro">
-    </a>
-  </p>
-  
-  <h3>Markdown</h3>
-  <Code code={`[![Built with Astro](${Astro.site}v1/built-with-astro.svg)](https://astro.build)`} lang="md" />
-  
-  <h3>HTML</h3>
-  <Code code={`<a href="https://astro.build">\n <img src="${Astro.site}v1/built-with-astro.svg" alt="Built with Astro">\n</a>`} lang="html" />
-
-  <h2>Sizes</h2>
-
-  <h3>Small</h3>
-  <p><code>{Astro.site}v1/built-with-astro/small.svg</code></p>
-  <p><img src="/v1/built-with-astro/small.svg" alt="Built with Astro"></p>
-  
-  <h3>Medium</h3>
-  <p><code>{Astro.site}v1/built-with-astro/medium.svg</code></p>
-  <p><img src="/v1/built-with-astro/medium.svg" alt="Built with Astro"></p>
-
-  <h3>Large</h3>
-  <p><code>{Astro.site}v1/built-with-astro/large.svg</code></p>
-  <p><img src="/v1/built-with-astro/large.svg" alt="Built with Astro"></p>
+  <div class="grid gap-12 md:gap-24 place-items-center">
+    <h1 class="text-5xl md:text-8xl font-thin">Astro Badges</h1>
+    
+    <ul class="flex flex-wrap justify-center gap-12">
+      {
+        ctas.map(({ href, title, description, img }) => (
+          <li class="p-6 -m-6 md:m-0 relative group space-y-4 rounded-3xl hover:bg-accent-400/5 focus-within:bg-accent-400/5 focus-within:outline outline-accent-400/30 motion-safe:transition motion-safe:duration-700 hover:-translate-y-1 focus-within:-translate-y-1">
+            <h2 class="font-black text-3xl">
+              <a {href} class="after:absolute after:inset-0 text-transparent bg-clip-text bg-gradient-to-r from-accent-400 via-primary-200 to-accent-400 motion-safe:transition-all motion-safe:duration-500 bg-[length:200%_100%] bg-right hover:bg-left focus:outline-none">
+                {title}
+              </a>
+            </h2>
+            <p class="text-neutral-300">{description}</p>
+            <img {...img} class="rounded-3xl shadow-2xl shadow-primary-400/20 group-focus-within:shadow-lg group-hover:shadow-lg group-focus-within:shadow-primary-500/20 group-hover:shadow-primary-500/20 group-focus-within:translate-y-1 group-hover:translate-y-1 motion-safe:transition motion-safe:duration-700" />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </Layout>

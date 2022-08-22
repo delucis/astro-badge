@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Code } from "astro/components";
+const title = "Badges";
+---
+
+<Layout {title}>
+  <div class="mx-auto prose prose-invert prose-a:text-accent-300">
+    <h1>Badges</h1>
+    <p>
+      Add a badge to your <a href="https://astro.build">Astro</a> projects and show
+      off your Astro pride!
+    </p>
+
+    <h2>Built with Astro</h2>
+    <p>
+      <a href="https://astro.build">
+        <img src="/v1/built-with-astro.svg" alt="Built with Astro" />
+      </a>
+    </p>
+
+    <h3>Markdown</h3>
+    <Code
+      code={`[![Built with Astro](${Astro.site}v1/built-with-astro.svg)](https://astro.build)`}
+      lang="md"
+    />
+
+    <h3>HTML</h3>
+    <Code
+      code={`<a href="https://astro.build">\n <img src="${Astro.site}v1/built-with-astro.svg" alt="Built with Astro" width="150" height="27.5">\n</a>`}
+      lang="html"
+    />
+
+    <h2>Sizes</h2>
+
+    <h3>Small</h3>
+    <p><code>{Astro.site}v1/built-with-astro/small.svg</code></p>
+    <p><img src="/v1/built-with-astro/small.svg" alt="Built with Astro" /></p>
+
+    <h3>Medium</h3>
+    <p><code>{Astro.site}v1/built-with-astro/medium.svg</code></p>
+    <p><img src="/v1/built-with-astro/medium.svg" alt="Built with Astro" /></p>
+
+    <h3>Large</h3>
+    <p><code>{Astro.site}v1/built-with-astro/large.svg</code></p>
+    <p><img src="/v1/built-with-astro/large.svg" alt="Built with Astro" /></p>
+  </div>
+</Layout>
