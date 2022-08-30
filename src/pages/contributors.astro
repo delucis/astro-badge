@@ -1,12 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import contributors from '../data/contributors.json';
-import { objSum } from "../util/objSum";
+import { contributors } from '../util/getContributors'
 
-const sortedUsernames = Object.entries(contributors)
-  .map(([username, { issues, merged_pulls, reviews }]): [string, number] => [username, objSum(issues) + objSum(merged_pulls) + objSum(reviews)])
-  .sort(([, a], [, b]) => b - a)
-  .map(([username]) => username);
+const sortedUsernames = contributors.map(c => c.username);
 
 const title = 'Astro Contributors';
 const dataID = 'contributor-usernames';
@@ -41,7 +37,7 @@ const dataID = 'contributor-usernames';
   </div>
   
   <footer class="mx-auto max-w-prose">
-    <p>One of {Object.keys(contributors).length} contributors! 🧑‍🚀💜</p>
+    <p>One of {contributors.length} contributors! 🧑‍🚀💜</p>
     <small>Data is updated once per day at midnight GMT.</small>
   </footer>
 

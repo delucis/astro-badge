@@ -1,21 +1,19 @@
 ---
 import { Code } from "astro/components";
 import Copy from "../../../components/Copy.astro";
-import contributors from '../../../data/contributors.json';
+import { contributors } from "../../../util/getContributors";
 import Layout from '../../../layouts/Layout.astro';
-import { getAchievements } from '../../../util/getAchievements';
-import { getStats } from '../../../util/getStats';
 
 export function getStaticPaths() {
-  return Object.keys(contributors).map((username) => ({
-    params: { username },
+  return contributors.map((contributor) => ({
+    params: { username: contributor.username },
+    props: { contributor },
   }));
 }
 
 const { username } = Astro.params;
-const contributor = contributors[username]
-const achievements = getAchievements(contributor, { exhaustive: true });
-const stats = getStats(contributor);
+const { contributor } = Astro.props;
+const { achievements, stats } = contributor as typeof contributors[number];
 
 const mdSnippet = `[![@${username} Astro contributions](${Astro.site}v1/contributor/${username}.svg)](${Astro.url.href})`;
 const htmlSnippet = `<a href="${Astro.url.href}">\n <img src="${Astro.site}v1/contributor/${username}.svg" alt="@${username} Astro contributions" width="300" height="200">\n</a>`;
@@ -66,8 +64,50 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n <img src="${Astro.site}v1/co
     <Code code={htmlSnippet} lang="html" />
 
     <h2>All Achievements</h2>
-    <ol>
-      {achievements.map(({ title, details }) => <li><strong>{title}</strong> {details}</li>)}
+    <ol class="not-prose gap-16 list-none p-0 grid sm:grid-cols-2 text-neutral-400">
+      {achievements.map((group) => {
+        const { title, details, numAchieved } = group.achievements[0];
+        const percentage = numAchieved / contributors.length * 100;
+        const classBg = ['bg-bronze', 'bg-silver', 'bg-gold'];
+        const classText = ['text-bronze', 'text-silver', 'text-gold'];
+        const gradientFrom = ['from-bronze', 'from-silver', 'from-gold'][group.class];
+        return (
+          <li class="space-y-5">
+            <div class="space-y-1">
+              <h3 class="font-black text-3xl shrink-0">
+                <span class:list={["bg-gradient-to-br to-white inline-block w-6 h-6 mr-0.5 rounded-full translate-y-px", gradientFrom]} />
+                <span class:list={["bg-gradient-to-br to-white bg-clip-text text-transparent", gradientFrom]}>
+                  {title}
+                </span>
+              </h3>
+              <p class="text-xl font-light text-white">{details}</p>
+              <p class="text-xs leading-6">
+                {percentage < 1 ? '<1' : Math.round(percentage)}% of contributors have this
+              </p>
+            </div>
+            {group.achievements.length > 1 && (
+              <div class="space-y-2">
+                <h4 class="text-xs uppercase tracking-wide font-semibold">
+                  Previously
+                </h4>
+                <ol class="space-y-2 text-sm">
+                  {group.achievements.map((previous, i) => i > 0 && (
+                    <li>
+                      <div class="flex items-baseline space-x-2">
+                        <span class:list={["inline-block w-2 h-2 rounded-full", classBg[previous.class]]} />
+                        <h5 class:list={["font-bold", classText[previous.class]]}>
+                          {previous.title}
+                        </h5>
+                        <p class="text-xs">{previous.details}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+          </li>
+        );
+      })}
     </ol>
 
     <p class="text-center my-24">
