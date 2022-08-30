@@ -3,6 +3,7 @@ import { Code } from "astro/components";
 import Copy from "../../../components/Copy.astro";
 import { contributors } from "../../../util/getContributors";
 import Layout from '../../../layouts/Layout.astro';
+import CTA from "../../../components/CTA.astro";
 
 export function getStaticPaths() {
   return contributors.map((contributor) => ({
@@ -110,8 +111,8 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n <img src="${Astro.site}v1/co
       })}
     </ol>
 
-    <p class="text-center my-24">
-      <a href="/contributors/">← Find more Astro contributors</a>
+    <p class="not-prose my-24">
+      <CTA href="/contributors/">← Find more Astro contributors</CTA>
     </p>
   </div>
 </Layout>
