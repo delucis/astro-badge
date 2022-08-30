@@ -1,20 +1,13 @@
 import { writeFile } from 'node:fs/promises';
 import { Octokit } from '@octokit/core';
 import type { Endpoints } from '@octokit/types';
+import { Contributor } from '../src/types';
 
 type APIData<T extends keyof Endpoints> = Endpoints[T]['response']['data'];
 type Repo = APIData<'GET /orgs/{org}/repos'>[number];
 interface AugmentedRepo extends Repo {
   reviews: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
   issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
-}
-
-interface Contributor {
-  avatar_url: string;
-  issues: Record<string, number>;
-  pulls: Record<string, number>;
-  merged_pulls: Record<string, number>;
-  reviews: Record<string, number>;
 }
 
 class StatsCollector {
