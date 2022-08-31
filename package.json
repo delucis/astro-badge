@@ -14,7 +14,7 @@
     "@octokit/core": "^4.0.4",
     "@tailwindcss/typography": "^0.5.4",
     "@types/sharp": "^0.30.4",
-    "astro": "^1.0.6",
+    "astro": "^1.1.2",
     "sharp": "^0.30.7",
     "tsm": "^2.2.1"
   },
