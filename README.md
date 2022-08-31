@@ -1,43 +1,25 @@
-# Astro Starter Kit: Minimal
+# Astro Badges
 
-```
-npm init astro -- --template minimal
-```
+[![Built with Astro](https://astro.badg.es/v1/built-with-astro.svg)](https://astro.build)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
+This project aims to celebrate the contributions of the [Astro](https://astro.build/) community.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
+Get badges to show off on your sites and READMEs!  
+👉 **<https://astro.badg.es>** 👈
 
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:
 
-| Command           | Action                                       |
-|:----------------  |:-------------------------------------------- |
-| `npm install`     | Installs dependencies                        |
-| `npm run dev`     | Starts local dev server at `localhost:3000`  |
-| `npm run build`   | Build your production site to `./dist/`      |
-| `npm run preview` | Preview your build locally, before deploying |
+| Command        | Action                                       |
+| :------------- | :------------------------------------------- |
+| `pnpm i`       | Installs dependencies                        |
+| `pnpm start`   | Starts local dev server at `localhost:3000`  |
+| `pnpm build`   | Build your production site to `./dist/`      |
+| `pnpm preview` | Preview your build locally, before deploying |
 
-## 👀 Want to learn more?
+### Data collection
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This project uses the GitHub REST API to gather public data about contributions to [the `withastro` org](https://github.com/withastro/). Data collection is run once per day in a GitHub action and automatically committed to this repository.
+
+You can run `pnpm collect-stats` to run data collection locally (for example to test changes to the script), but should first ensure a `GITHUB_TOKEN` [environment variable](https://docs.astro.build/en/guides/environment-variables/) is set up, containing a GitHub personal access token.
