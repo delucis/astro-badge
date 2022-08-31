@@ -41,9 +41,9 @@ export async function get({ params }: APIContext): Promise<EndpointOutput> {
 
   const body = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 300 200" width="300" font-family="sans-serif" direction="ltr">
   <defs>
-    <linearGradient id="a" x1="0" x2="0" y1="200" y2="0" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="hsl(280, 65%, 20%)"/>
-      <stop offset="1" stop-color="hsl(250, 43%, 26%)"/>
+    <linearGradient id="a" x1="0" x2="0" y1="200%" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#602199"/>
+      <stop offset="1" stop-color="rgb(15 23 42)"/>
     </linearGradient>
     <clipPath id="avatar-clip"><circle cx="20" cy="20" r="15" /></clipPath>
   </defs>
