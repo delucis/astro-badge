@@ -4,8 +4,8 @@ export interface Props {
 }
 const { title = "Astro Badges" } = Astro.props as Props;
 const description = "Badges to show off your Astro pride";
-const ogImgURL = new URL("/ogimg.png", Astro.site).href;
-const ogImgAlt = "Badge with the text “Built with Astro”";
+const ogImgURL = new URL("/ogimg.jpg", Astro.site).href;
+const ogImgAlt = "The text “Astro Badges” with a purple illustration of a rocket launching in the background";
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
 const navItems = [
