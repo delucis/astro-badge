@@ -22,7 +22,7 @@ const { contributor } = Astro.props;
 const { achievements, stats } = contributor;
 
 const mdSnippet = `[![@${username} Astro contributions](${Astro.site}v1/contributor/${username}.svg)](${Astro.url.href})`;
-const htmlSnippet = `<a href="${Astro.url.href}">\n <img src="${Astro.site}v1/contributor/${username}.svg" alt="@${username} Astro contributions" width="300" height="200">\n</a>`;
+const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v1/contributor/${username}.svg" alt="@${username} Astro contributions" width="300" height="200">\n</a>`;
 ---
 
 <Layout title={`@${username} — Astro Achievements`}>
