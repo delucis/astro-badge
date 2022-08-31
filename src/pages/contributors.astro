@@ -5,10 +5,11 @@ import { contributors } from '../util/getContributors'
 const sortedUsernames = contributors.map(c => c.username);
 
 const title = 'Astro Contributors';
+const description = 'Find an Astro contributor and check out their awesome work!';
 const dataID = 'contributor-usernames';
 ---
 
-<Layout title={title}>
+<Layout {title} {description}>
   <div class="prose prose-invert prose-a:text-accent-300 mx-auto">
     <h1>{title}</h1>
 

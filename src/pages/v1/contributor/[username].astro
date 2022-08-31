@@ -25,7 +25,10 @@ const mdSnippet = `[![@${username} Astro contributions](${Astro.site}v1/contribu
 const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v1/contributor/${username}.svg" alt="@${username} Astro contributions" width="300" height="200">\n</a>`;
 ---
 
-<Layout title={`@${username} — Astro Achievements`}>
+<Layout
+  title={`@${username} — Astro Achievements`}
+  description={`Let’s celebrate @${username}’s awesome contributions to Astro! 🥳`}
+>
   <div class="mx-auto space-y-16">
     <header class="flex items-baseline gap-6 flex-wrap">
       <h1 class="text-4xl font-extrabold">@{username}</h1>
