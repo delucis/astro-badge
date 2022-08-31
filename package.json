@@ -16,7 +16,7 @@
     "@types/sharp": "^0.30.4",
     "astro": "^1.1.2",
     "sharp": "^0.30.7",
-    "tsm": "^2.2.1"
+    "tsm": "^2.2.2"
   },
   "packageManager": "pnpm@7.9.0"
 }

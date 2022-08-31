@@ -7,7 +7,7 @@ specifiers:
   '@types/sharp': ^0.30.4
   astro: ^1.1.2
   sharp: ^0.30.7
-  tsm: ^2.2.1
+  tsm: ^2.2.2
 
 devDependencies:
   '@astrojs/tailwind': 1.0.0
@@ -16,7 +16,7 @@ devDependencies:
   '@types/sharp': 0.30.4
   astro: 1.1.2
   sharp: 0.30.7
-  tsm: 2.2.1
+  tsm: 2.2.2
 
 packages:
 
@@ -538,7 +538,7 @@ packages:
       '@proload/core': ^0.3.2
     dependencies:
       '@proload/core': 0.3.2
-      tsm: 2.2.1
+      tsm: 2.2.2
     dev: true
 
   /@tailwindcss/typography/0.5.4:
@@ -3436,8 +3436,8 @@ packages:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
     dev: true
 
-  /tsm/2.2.1:
-    resolution: {integrity: sha512-qvJB0baPnxQJolZru11mRgGTdNlx17WqgJnle7eht3Vhb+VUR4/zFA5hFl6NqRe7m8BD9w/6yu0B2XciRrdoJA==}
+  /tsm/2.2.2:
+    resolution: {integrity: sha512-bXkt675NbbqfwRHSSn8kSNEEHvoIUFDM9G6tUENkjEKpAEbrEzieO3PxUiRJylMw8fEGpcf5lSjadzzz12pc2A==}
     engines: {node: '>=12'}
     hasBin: true
     dependencies:
