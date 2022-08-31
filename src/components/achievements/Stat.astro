@@ -1,0 +1,55 @@
+---
+import { objSum } from "../../util/objSum";
+
+type HeadingLevels = "1" | "2" | "3" | "4" | "5" | "6";
+
+export interface Props {
+  contributor: Record<
+    "merged_pulls" | "issues" | "reviews",
+    Record<string, number>
+  >;
+  count: string;
+  type: "pulls" | "issues" | "reviews";
+  hLevel: HeadingLevels;
+}
+
+const { contributor, count, hLevel, type } = Astro.props;
+const H: `h${HeadingLevels}` = `h${hLevel}`;
+const stat = contributor[type === "pulls" ? "merged_pulls" : type];
+const maxCount = objSum(stat);
+const maxLeftColChars = 1 + Math.max(...Object.keys(stat).map((k) => k.length));
+const repoCounts = Object.entries(stat).sort(([, a], [, b]) => b - a);
+---
+
+<li class="text-center px-2 py-4 md:px-4 bg-neutral-800 rounded-lg">
+  <H class="uppercase text-sm tracking-wider">{type}</H>
+  <p class="text-3xl font-black">{count}</p>
+  <ul class="text-xs my-4 leading-none space-y-1">
+    {
+      repoCounts.map(([repo, repoCount]) => {
+        const percentage = (repoCount / maxCount) * 100;
+        return (
+          <li class="flex items-center rounded hover:bg-neutral-50/10">
+            <span
+              class="text-right w-[var(--col-l-w)] py-0.5 px-1 border-r border-neutral-50/30"
+              style={`--col-l-w: ${maxLeftColChars}ch;`}
+            >
+              {repo}
+            </span>
+            <span
+              class="w-[var(--col-r-w)] px-1"
+              style={`--col-r-w: calc(100% - ${maxLeftColChars}ch)`}
+            >
+              <span
+                class="block w-[var(--bar-w)] bg-primary-400 h-1 rounded sm:col-span-2"
+                style={`--bar-w: ${percentage}%;`}
+              >
+                <span class="sr-only">{percentage.toFixed(1)}%</span>
+              </span>
+            </span>
+          </li>
+        );
+      })
+    }
+  </ul>
+</li>

@@ -4,6 +4,7 @@ import Copy from "../../../components/Copy.astro";
 import { contributors } from "../../../util/getContributors";
 import Layout from '../../../layouts/Layout.astro';
 import CTA from "../../../components/CTA.astro";
+import Stat from "../../../components/achievements/Stat.astro";
 
 export function getStaticPaths() {
   return contributors.map((contributor) => ({
@@ -12,9 +13,13 @@ export function getStaticPaths() {
   }));
 }
 
+export interface Props {
+  contributor: typeof contributors[number];
+}
+
 const { username } = Astro.params;
 const { contributor } = Astro.props;
-const { achievements, stats } = contributor as typeof contributors[number];
+const { achievements, stats } = contributor;
 
 const mdSnippet = `[![@${username} Astro contributions](${Astro.site}v1/contributor/${username}.svg)](${Astro.url.href})`;
 const htmlSnippet = `<a href="${Astro.url.href}">\n <img src="${Astro.site}v1/contributor/${username}.svg" alt="@${username} Astro contributions" width="300" height="200">\n</a>`;
@@ -31,18 +36,6 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n <img src="${Astro.site}v1/co
         </svg>      
       </a>
     </header>
-
-    <section class="space-y-6">
-      <h2 class="text-2xl font-bold">Stats</h2>
-      <ul class="flex flex-wrap gap-2 md:gap-4">
-        {stats.map(({type,count}) => (
-          <li class="text-center p-2 bg-neutral-800 rounded-lg min-w-[6rem]">
-            <h3 class="uppercase text-sm tracking-wider">{type}</h3>
-            <p class="text-2xl font-black">{count}</p>
-          </li>
-        ))}
-      </ul>
-    </section>
 
     <section class="space-y-6">
       <h2 class="text-2xl font-bold">Shareable Badge</h2>
@@ -118,6 +111,13 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n <img src="${Astro.site}v1/co
           );
         })}
       </ol>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold">Stats</h2>
+      <ul class="grid sm:grid-cols-3 gap-4 sm:gap-2 md:gap-4">
+        {stats.map((stat) => <Stat {...{ ...stat, contributor, hLevel: '3' }} />)}
+      </ul>
     </section>
 
     <footer class="my-24">
