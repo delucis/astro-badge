@@ -79,6 +79,15 @@ export default AchievementSpec({
       { count: 30, title: 'Token Wrangler', details: '30 language-tools PRs' },
     ],
   },
+  'astro.new-merges': {
+    repo: 'astro.new',
+    stat: 'merges',
+    achievements: [
+      { count: 1, title: 'Launch Pad', details: 'First astro.new PR' },
+      { count: 5, title: 'Browser IDEator', details: '5 astro.new PRs' },
+      { count: 15, title: 'New Code, Who Dis?', details: '15 astro.new PRs' },
+    ]
+  },
   'total-issues': {
     stat: 'issues',
     achievements: [
