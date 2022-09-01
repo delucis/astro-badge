@@ -34,7 +34,7 @@ const ctas = [
     <ul class="flex flex-wrap justify-center gap-12">
       {
         ctas.map(({ href, title, description, img }) => (
-          <li class="p-6 -m-6 md:m-0 relative group space-y-4 rounded-3xl hover:bg-accent-400/5 focus-within:bg-accent-400/5 focus-within:outline outline-accent-400/30 motion-safe:transition motion-safe:duration-700 hover:-translate-y-1 focus-within:-translate-y-1">
+          <li class="p-6 -m-6 md:m-0 relative group space-y-4 rounded-3xl will-change-transform hover:bg-accent-400/5 focus-within:bg-accent-400/5 focus-within:outline outline-accent-400/30 motion-safe:transition motion-safe:duration-700 hover:-translate-y-1 focus-within:-translate-y-1">
             <h2 class="font-black text-3xl">
               <a {href} class="after:absolute after:inset-0 text-transparent bg-clip-text bg-gradient-to-r from-accent-400 via-primary-200 to-accent-400 motion-safe:transition-all motion-safe:duration-500 bg-[length:200%_100%] bg-right hover:bg-left focus:outline-none">
                 {title}
