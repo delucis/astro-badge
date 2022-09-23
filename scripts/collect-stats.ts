@@ -1,6 +1,7 @@
-import { writeFile } from 'node:fs/promises';
 import { Octokit } from '@octokit/core';
 import type { Endpoints } from '@octokit/types';
+import { writeFile } from 'node:fs/promises';
+import pRretry from 'p-retry';
 import { Contributor } from '../src/types';
 
 type APIData<T extends keyof Endpoints> = Endpoints[T]['response']['data'];
@@ -9,6 +10,16 @@ interface AugmentedRepo extends Repo {
   reviews: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
   issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
 }
+
+const retry: typeof pRretry = (fn, opts) =>
+  pRretry(fn, {
+    onFailedAttempt: (e) =>
+      console.log(
+        `Attempt ${e.attemptNumber} failed. There are ${e.retriesLeft} retries left.\n `,
+        e.message
+      ),
+    ...opts,
+  });
 
 class StatsCollector {
   #org: string;
@@ -72,21 +83,26 @@ class StatsCollector {
   }
 
   async #getRepos() {
-    return (
-      await this.#app.request(`GET /orgs/{org}/repos`, {
+    const request = () =>
+      this.#app.request(`GET /orgs/{org}/repos`, {
         org: this.#org,
         type: 'sources',
-      })
-    ).data.filter((repo) => !repo.private);
+      });
+    return (await retry(request)).data.filter((repo) => !repo.private);
   }
 
   async #getAllIssues(repo: string, page = 1) {
     if (page === 1) console.log(`Fetching issues for ${this.#org}/${repo}...`);
     const per_page = 100;
 
-    const { data: issues, headers } = await this.#app.request(
-      'GET /repos/{owner}/{repo}/issues',
-      { owner: this.#org, repo, page, per_page, state: 'all' }
+    const { data: issues, headers } = await retry(() =>
+      this.#app.request('GET /repos/{owner}/{repo}/issues', {
+        owner: this.#org,
+        repo,
+        page,
+        per_page,
+        state: 'all',
+      })
     );
 
     if (headers.link?.includes('rel="next"')) {
@@ -106,9 +122,13 @@ class StatsCollector {
       console.log(`Fetching PR reviews for ${this.#org}/${repo}...`);
     const per_page = 100;
 
-    const { data: reviews, headers } = await this.#app.request(
-      'GET /repos/{owner}/{repo}/pulls/comments',
-      { owner: this.#org, repo, page, per_page }
+    const { data: reviews, headers } = await retry(() =>
+      this.#app.request('GET /repos/{owner}/{repo}/pulls/comments', {
+        owner: this.#org,
+        repo,
+        page,
+        per_page,
+      })
     );
 
     if (headers.link?.includes('rel="next"')) {
