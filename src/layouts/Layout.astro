@@ -42,6 +42,11 @@ const navItems = [
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImgURL} />
     <meta name="twitter:image:alt" content={ogImgAlt} />
+
+    <script>
+      import { inject } from '@vercel/analytics';
+      inject();
+    </script>
   </head>
 
   <body class="h-full bg-neutral-900 text-neutral-50">
