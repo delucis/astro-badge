@@ -1,4 +1,5 @@
 ---
+import Footer from '../components/Footer.astro';
 export interface Props {
   title?: string;
   description?: string;
@@ -49,7 +50,7 @@ const navItems = [
     </script>
   </head>
 
-  <body class="h-full bg-neutral-900 text-neutral-50">
+  <body class="h-full bg-neutral-900 text-neutral-50 flex flex-col">
     <header class="flex justify-between p-4">
       <a href="/" class="font-black">
         <span aria-hidden="true">📛</span>
@@ -74,6 +75,9 @@ const navItems = [
         <slot />
       </div>
     </main>
+    <div class="mt-auto">
+      <Footer />
+    </div>
     <style is:global>
       .astro-code {
         @apply p-4 select-all text-left text-sm;
