@@ -86,7 +86,16 @@ export default AchievementSpec({
       { count: 1, title: 'Launch Pad', details: 'First astro.new PR' },
       { count: 5, title: 'Browser IDEator', details: '5 astro.new PRs' },
       { count: 15, title: 'New Code, Who Dis?', details: '15 astro.new PRs' },
-    ]
+    ],
+  },
+  'action-merges': {
+    repo: 'action',
+    stat: 'merges',
+    achievements: [
+      { count: 1, title: 'Deploy Buddy', details: 'First withastro/action PR' },
+      { count: 5, title: 'Action Packed', details: '5 withastro/action PRs' },
+      { count: 15, title: 'Action Hero', details: '15 withastro/action PRs' },
+    ],
   },
   'total-issues': {
     stat: 'issues',
