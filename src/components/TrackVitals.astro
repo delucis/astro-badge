@@ -17,6 +17,7 @@ const path = Object.entries(Astro.params).reduce(
 <script>
   // Based on https://vercel.com/docs/concepts/analytics/api
 
+  import type { Metric } from 'web-vitals';
   import { onCLS, onFCP, onFID, onLCP, onTTFB } from 'web-vitals';
 
   const vitalsUrl = 'https://vitals.vercel-analytics.com/v1/vitals';
@@ -40,7 +41,19 @@ const path = Object.entries(Astro.params).reduce(
     debug?: boolean;
   }
 
-  function sendToAnalytics(metric, options: VitalsOpts) {
+  function webVitals(options: VitalsOpts): void {
+    try {
+      onFID((metric) => sendToAnalytics(metric, options));
+      onTTFB((metric) => sendToAnalytics(metric, options));
+      onLCP((metric) => sendToAnalytics(metric, options));
+      onCLS((metric) => sendToAnalytics(metric, options));
+      onFCP((metric) => sendToAnalytics(metric, options));
+    } catch (err) {
+      console.error('[Analytics]', err);
+    }
+  }
+
+  function sendToAnalytics(metric: Metric, options: VitalsOpts) {
     const body = {
       dsn: options.analyticsId, // qPgJqYH9LQX5o31Ormk8iWhCxZO
       id: metric.id, // v2-1653884975443-1839479248192
@@ -68,17 +81,5 @@ const path = Object.entries(Astro.params).reduce(
         credentials: 'omit',
         keepalive: true,
       });
-  }
-
-  function webVitals(options: VitalsOpts): void {
-    try {
-      onFID((metric) => sendToAnalytics(metric, options));
-      onTTFB((metric) => sendToAnalytics(metric, options));
-      onLCP((metric) => sendToAnalytics(metric, options));
-      onCLS((metric) => sendToAnalytics(metric, options));
-      onFCP((metric) => sendToAnalytics(metric, options));
-    } catch (err) {
-      console.error('[Analytics]', err);
-    }
   }
 </script>
