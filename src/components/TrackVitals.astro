@@ -11,17 +11,22 @@ const path = Object.entries(Astro.params).reduce(
   import { onCLS, onFCP, onFID, onLCP, onTTFB } from 'web-vitals';
 
   const vitalsUrl = 'https://vitals.vercel-analytics.com/v1/vitals';
-  const analyticsId = import.meta.env.VERCEL_ANALYTICS_ID as string;
+  const analyticsId = import.meta.env.PUBLIC_VERCEL_ANALYTICS_ID as string;
   const dataEl = document.querySelector<HTMLElement>('web-vitals-data');
 
-  console.log({ analyticsId, dataEl })
+  console.log({
+    analyticsId,
+    dataEl,
+    PUBLIC_VERCEL_ANALYTICS_ID: import.meta.env.PUBLIC_VERCEL_ANALYTICS_ID,
+    PUBLIC_ANALYTICS_ID: import.meta.env.PUBLIC_ANALYTICS_ID,
+  });
 
   // if (analyticsId) {
-    webVitals({
-      analyticsId,
-      path: dataEl?.dataset.path || location.pathname,
-      debug: true,
-    });
+  webVitals({
+    analyticsId,
+    path: dataEl?.dataset.path || location.pathname,
+    debug: true,
+  });
   // }
 
   function getConnectionSpeed(): string {
