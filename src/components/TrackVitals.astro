@@ -14,20 +14,12 @@ const path = Object.entries(Astro.params).reduce(
   const analyticsId = import.meta.env.PUBLIC_VERCEL_ANALYTICS_ID as string;
   const dataEl = document.querySelector<HTMLElement>('web-vitals-data');
 
-  console.log({
-    analyticsId,
-    dataEl,
-    PUBLIC_VERCEL_ANALYTICS_ID: import.meta.env.PUBLIC_VERCEL_ANALYTICS_ID,
-    PUBLIC_ANALYTICS_ID: import.meta.env.PUBLIC_ANALYTICS_ID,
-  });
-
-  // if (analyticsId) {
-  webVitals({
-    analyticsId,
-    path: dataEl?.dataset.path || location.pathname,
-    debug: true,
-  });
-  // }
+  if (analyticsId) {
+    webVitals({
+      analyticsId,
+      path: dataEl?.dataset.path || location.pathname,
+    });
+  }
 
   function getConnectionSpeed(): string {
     return navigator?.['connection']?.['effectiveType'] || '';
