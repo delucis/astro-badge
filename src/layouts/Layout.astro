@@ -1,5 +1,6 @@
 ---
 import Footer from '../components/Footer.astro';
+import TrackVitals from '../components/TrackVitals.astro';
 export interface Props {
   title?: string;
   description?: string;
@@ -83,5 +84,6 @@ const navItems = [
         @apply p-4 select-all text-left text-sm;
       }
     </style>
+    <TrackVitals />
   </body>
 </html>
