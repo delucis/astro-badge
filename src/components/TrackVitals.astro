@@ -1,0 +1,85 @@
+---
+/**
+ * A stable path for multiple pages in the same dynamic route.
+ * For example, `/v1/contributor/jane-doe` becomes `/v1/contributor/[username]`.
+ *
+ * The web vitals script retrieves this at runtime from the `<web-vitals-data>`
+ * element this component also injects.
+ */
+const path = Object.entries(Astro.params).reduce(
+  (acc, [key, value]) => acc.replace(value as string, `[${key}]`),
+  Astro.url.pathname
+);
+---
+
+<web-vitals-data data-path={path} />
+
+<script>
+  // Based on https://vercel.com/docs/concepts/analytics/api
+
+  import type { Metric } from 'web-vitals';
+  import { onCLS, onFCP, onFID, onLCP, onTTFB } from 'web-vitals';
+
+  const vitalsUrl = 'https://vitals.vercel-analytics.com/v1/vitals';
+  const analyticsId = import.meta.env.PUBLIC_VERCEL_ANALYTICS_ID as string;
+  const dataEl = document.querySelector<HTMLElement>('web-vitals-data');
+
+  if (analyticsId) {
+    webVitals({
+      analyticsId,
+      path: dataEl?.dataset.path || location.pathname,
+    });
+  }
+
+  function getConnectionSpeed(): string {
+    return navigator?.['connection']?.['effectiveType'] || '';
+  }
+
+  interface VitalsOpts {
+    path: string;
+    analyticsId: string;
+    debug?: boolean;
+  }
+
+  function webVitals(options: VitalsOpts): void {
+    try {
+      onFID((metric) => sendToAnalytics(metric, options));
+      onTTFB((metric) => sendToAnalytics(metric, options));
+      onLCP((metric) => sendToAnalytics(metric, options));
+      onCLS((metric) => sendToAnalytics(metric, options));
+      onFCP((metric) => sendToAnalytics(metric, options));
+    } catch (err) {
+      console.error('[Analytics]', err);
+    }
+  }
+
+  function sendToAnalytics(metric: Metric, options: VitalsOpts) {
+    const body = {
+      dsn: options.analyticsId, // qPgJqYH9LQX5o31Ormk8iWhCxZO
+      id: metric.id, // v2-1653884975443-1839479248192
+      page: options.path, // /blog/my-test
+      href: location.href, // https://my-app.vercel.app/blog/my-test
+      event_name: metric.name, // TTFB
+      value: metric.value.toString(), // 60.20000000298023
+      speed: getConnectionSpeed(), // 4g
+    };
+
+    if (options.debug) {
+      console.log('[Analytics]', metric.name, JSON.stringify(body, null, 2));
+    }
+
+    const blob = new Blob([new URLSearchParams(body).toString()], {
+      // This content type is necessary for `sendBeacon`
+      type: 'application/x-www-form-urlencoded',
+    });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(vitalsUrl, blob);
+    } else
+      fetch(vitalsUrl, {
+        body: blob,
+        method: 'POST',
+        credentials: 'omit',
+        keepalive: true,
+      });
+  }
+</script>
