@@ -1,4 +1,11 @@
 ---
+/**
+ * A stable path for multiple pages in the same dynamic route.
+ * For example, `/v1/contributor/jane-doe` becomes `/v1/contributor/[username]`.
+ *
+ * The web vitals script retrieves this at runtime from the `<web-vitals-data>`
+ * element this component also injects.
+ */
 const path = Object.entries(Astro.params).reduce(
   (acc, [key, value]) => acc.replace(value as string, `[${key}]`),
   Astro.url.pathname
@@ -8,6 +15,8 @@ const path = Object.entries(Astro.params).reduce(
 <web-vitals-data data-path={path} />
 
 <script>
+  // Based on https://vercel.com/docs/concepts/analytics/api
+
   import { onCLS, onFCP, onFID, onLCP, onTTFB } from 'web-vitals';
 
   const vitalsUrl = 'https://vitals.vercel-analytics.com/v1/vitals';
