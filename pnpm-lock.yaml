@@ -11,6 +11,7 @@ specifiers:
   sharp: ^0.31.1
   tailwindcss: ^3.2.1
   tsm: ^2.2.2
+  web-vitals: ^3.1.0
 
 devDependencies:
   '@astrojs/tailwind': 2.1.1_tailwindcss@3.2.1
@@ -23,6 +24,7 @@ devDependencies:
   sharp: 0.31.1
   tailwindcss: 3.2.1
   tsm: 2.2.2
+  web-vitals: 3.1.0
 
 packages:
 
@@ -4201,6 +4203,10 @@ packages:
   /web-streams-polyfill/3.2.1:
     resolution: {integrity: sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==}
     engines: {node: '>= 8'}
+    dev: true
+
+  /web-vitals/3.1.0:
+    resolution: {integrity: sha512-zCeQ+bOjWjJbXv5ZL0r8Py3XP2doCQMZXNKlBGfUjPAVZWokApdeF/kFlK1peuKlCt8sL9TFkKzyXE9/cmNJQA==}
     dev: true
 
   /webidl-conversions/3.0.1:
