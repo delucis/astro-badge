@@ -39,6 +39,10 @@ class StatsCollector {
     for (const repo of repos) {
       for (const issue of repo.issues) {
         const { user, pull_request } = issue;
+        if (!user) {
+          console.warn(`No user found for ${repo.full_name}#${issue.number}`);
+          continue;
+        }
         const { avatar_url, login } = user;
         contributors[login] =
           contributors[login] || this.#newContributor({ avatar_url });
