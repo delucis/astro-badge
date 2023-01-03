@@ -64,6 +64,10 @@ class StatsCollector {
 
       for (const review of repo.reviews) {
         const { user, pull_request_url } = review;
+        if (!user) {
+          console.warn(`No user found for PR review: ${review.url}`);
+          continue;
+        }
         const { avatar_url, login } = user;
         contributors[login] =
           contributors[login] || this.#newContributor({ avatar_url });
