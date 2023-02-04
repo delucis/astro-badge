@@ -5,6 +5,7 @@ import { contributors } from "../../../util/getContributors";
 import Layout from '../../../layouts/Layout.astro';
 import CTA from "../../../components/CTA.astro";
 import Stat from "../../../components/achievements/Stat.astro";
+import { achievementClassBg, achievementClassGradientFrom, achievementClassText } from '../../../util/style'
 
 export function getStaticPaths() {
   return contributors.map((contributor) => ({
@@ -73,9 +74,7 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v1/c
         {achievements.map((group) => {
           const { title, details, numAchieved } = group.achievements[0];
           const percentage = numAchieved / contributors.length * 100;
-          const classBg = ['bg-bronze', 'bg-silver', 'bg-gold'];
-          const classText = ['text-bronze', 'text-silver', 'text-gold'];
-          const gradientFrom = ['from-bronze', 'from-silver', 'from-gold'][group.class];
+          const gradientFrom = achievementClassGradientFrom(group.class);
           return (
             <li class="space-y-5">
               <div class="space-y-1">
@@ -99,8 +98,8 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v1/c
                     {group.achievements.map((previous, i) => i > 0 && (
                       <li>
                         <div class="flex items-baseline space-x-2">
-                          <span class:list={["inline-block w-2 h-2 rounded-full", classBg[previous.class]]} />
-                          <h5 class:list={["font-bold", classText[previous.class]]}>
+                          <span class:list={["inline-block w-2 h-2 rounded-full", achievementClassBg(previous.class)]} />
+                          <h5 class:list={["font-bold", achievementClassText(previous.class)]}>
                             {previous.title}
                           </h5>
                           <p class="text-xs">{previous.details}</p>
