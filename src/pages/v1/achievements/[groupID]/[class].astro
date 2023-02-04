@@ -6,6 +6,7 @@ import {
   achievementClassGradientFrom,
   achievementClassSlug,
 } from '../../../../util/achievementClasses';
+import { resizedGitHubAvatarURL } from '../../../../util/resizedGitHubAvatarURL';
 
 export function getStaticPaths() {
   return globalAchievements.map((achievement) => ({
@@ -87,7 +88,7 @@ const { title, details, contributors, class: cls, repo } = Astro.props;
               <img
                 width="28"
                 height="28"
-                src={contributor.avatar_url}
+                src={resizedGitHubAvatarURL(contributor.avatar_url, 42)}
                 alt=""
                 class="w-7 h-7 rounded-full object-cover bg-neutral-700"
                 loading="lazy"
