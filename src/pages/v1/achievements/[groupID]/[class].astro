@@ -76,11 +76,13 @@ const { title, details, contributors, class: cls, repo } = Astro.props;
     </header>
 
     <section class="space-y-4">
-      <h2 class="flex gap-2 items-center">
+      <h2>
         <span class="font-bold text-2xl">
           Contributors with this achievement
         </span>
-        <span class="px-3 py-1 bg-neutral-800 rounded-full">
+        <span
+          class="inline-block align-baseline ml-2 px-3 py-1 bg-neutral-800 rounded-full"
+        >
           {contributors.length}
         </span>
       </h2>
