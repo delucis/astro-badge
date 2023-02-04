@@ -3,6 +3,7 @@ import CTA from '../../../../components/CTA.astro';
 import Layout from '../../../../layouts/Layout.astro';
 import { globalAchievements } from '../../../../util/getGlobalStats';
 import {
+  achievementClassEmoji,
   achievementClassGradientFrom,
   achievementClassSlug,
 } from '../../../../util/achievementClasses';
@@ -23,7 +24,10 @@ type Props = typeof globalAchievements[number];
 const { title, details, contributors, class: cls, repo } = Astro.props;
 ---
 
-<Layout title={`${title} — Astro Achievements`} description={details}>
+<Layout
+  title={`${title} ${achievementClassEmoji(cls)} — Astro Achievements`}
+  description={`${details}. See Astro contributors with this achievement.`}
+>
   <div class="space-y-16">
     <header class="space-y-2">
       <h1 class="text-4xl font-extrabold">

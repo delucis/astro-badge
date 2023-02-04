@@ -14,3 +14,6 @@ export const achievementClassSlug = (cls: AchievementClass) =>
 
 export const achievementClassLabel = (cls: AchievementClass) =>
   (['Bronze', 'Silver', 'Gold'] as const)[cls];
+
+export const achievementClassEmoji = (cls: AchievementClass) =>
+  (['🥉', '🥈', '🥇'] as const)[cls];
