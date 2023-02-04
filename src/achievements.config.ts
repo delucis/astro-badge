@@ -40,12 +40,12 @@ export default AchievementSpec({
     ],
   },
   'rfc-merges': {
-    repo: 'rfcs',
+    repo: 'roadmap',
     stat: 'merges',
     achievements: [
-      { count: 1, title: 'Visionary', details: 'First rfcs PR' },
-      { count: 5, title: 'Mission Control', details: '5 rfcs PRs' },
-      { count: 15, title: 'Feature Creature', details: '15 rfcs PRs' },
+      { count: 1, title: 'Visionary', details: 'First roadmap PR' },
+      { count: 5, title: 'Mission Control', details: '5 roadmap PRs' },
+      { count: 15, title: 'Feature Creature', details: '15 roadmap PRs' },
     ],
   },
   'prettier-merges': {
