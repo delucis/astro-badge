@@ -5,7 +5,7 @@ import { contributors } from "../../../util/getContributors";
 import Layout from '../../../layouts/Layout.astro';
 import CTA from "../../../components/CTA.astro";
 import Stat from "../../../components/achievements/Stat.astro";
-import { achievementClassBg, achievementClassGradientFrom, achievementClassText } from '../../../util/style'
+import { achievementClassBg, achievementClassGradientFrom, achievementClassSlug, achievementClassText } from '../../../util/achievementClasses'
 
 export function getStaticPaths() {
   return contributors.map((contributor) => ({

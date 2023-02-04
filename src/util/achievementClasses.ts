@@ -8,3 +8,9 @@ export const achievementClassText = (cls: AchievementClass) =>
 
 export const achievementClassGradientFrom = (cls: AchievementClass) =>
   (['from-bronze', 'from-silver', 'from-gold'] as const)[cls];
+
+export const achievementClassSlug = (cls: AchievementClass) =>
+  (['bronze', 'silver', 'gold'] as const)[cls];
+
+export const achievementClassLabel = (cls: AchievementClass) =>
+  (['Bronze', 'Silver', 'Gold'] as const)[cls];
