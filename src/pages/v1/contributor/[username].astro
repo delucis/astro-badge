@@ -79,10 +79,12 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v1/c
             <li class="space-y-5">
               <div class="space-y-1">
                 <h3 class="font-black text-3xl shrink-0">
-                  <span class:list={["bg-gradient-to-br to-white inline-block w-6 h-6 mr-0.5 rounded-full translate-y-px", gradientFrom]} />
-                  <span class:list={["bg-gradient-to-br to-white bg-clip-text text-transparent", gradientFrom]}>
-                    {title}
-                  </span>
+                  <a href={`/v1/achievements/${group.groupID}/${achievementClassSlug(group.class)}/`}>
+                    <span class:list={["bg-gradient-to-br to-white inline-block w-6 h-6 mr-0.5 rounded-full translate-y-px", gradientFrom]} />
+                    <span class:list={["bg-gradient-to-br to-white bg-clip-text text-transparent", gradientFrom]}>
+                      {title}
+                    </span>
+                  </a>
                 </h3>
                 <p class="text-xl font-light text-white">{details}</p>
                 <p class="text-xs leading-6">
@@ -100,7 +102,7 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v1/c
                         <div class="flex items-baseline space-x-2">
                           <span class:list={["inline-block w-2 h-2 rounded-full", achievementClassBg(previous.class)]} />
                           <h5 class:list={["font-bold", achievementClassText(previous.class)]}>
-                            {previous.title}
+                            <a href={`/v1/achievements/${group.groupID}/${achievementClassSlug(previous.class)}/`}>{previous.title}</a>
                           </h5>
                           <p class="text-xs">{previous.details}</p>
                         </div>

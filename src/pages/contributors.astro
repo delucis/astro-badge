@@ -1,4 +1,5 @@
 ---
+import CTA from "../components/CTA.astro";
 import Layout from "../layouts/Layout.astro";
 import { contributors } from '../util/getContributors'
 
@@ -40,6 +41,10 @@ const dataID = 'contributor-usernames';
   <footer class="mx-auto max-w-prose">
     <p>One of {contributors.length} contributors! 🧑‍🚀💜</p>
     <small>Data is updated once per day at midnight GMT.</small>
+
+    <div class="my-24">
+      <CTA href="/v1/achievements/">Browse achievements →</CTA>
+    </div>
   </footer>
 
   <datalist id={dataID}>
