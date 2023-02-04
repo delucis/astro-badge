@@ -1,0 +1,71 @@
+---
+import CTA from '../../../components/CTA.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { globalAchievements } from '../../../util/getGlobalStats';
+import {
+  achievementClassGradientFrom,
+  achievementClassLabel,
+  achievementClassSlug,
+} from '../../../util/achievementClasses';
+
+/** Achievements sorted alphabetically by their title. */
+const achievements = globalAchievements.sort((a, b) =>
+  a.title > b.title ? 1 : -1
+);
+---
+
+<Layout
+  title="All Achievements — Astro Achievements"
+  description="List of all achievements Astro contributors have collected."
+>
+  <div class="space-y-16">
+    <h1 class="text-4xl font-extrabold">All Achievements</h1>
+
+    {
+      [2, 1, 0].map((cls) => (
+        <div class="space-y-4 sm:space-y-6">
+          <h3 class="font-black text-3xl">
+            <span
+              class:list={[
+                'bg-gradient-to-br to-white inline-block w-6 h-6 mr-0.5 rounded-full translate-y-px',
+                achievementClassGradientFrom(cls),
+              ]}
+            />
+            <span
+              class:list={[
+                'bg-gradient-to-br to-white bg-clip-text text-transparent',
+                achievementClassGradientFrom(cls),
+              ]}
+            >
+              {achievementClassLabel(cls)}
+            </span>
+          </h3>
+
+          <ul class="flex flex-wrap gap-2 sm:gap-4 -m-2">
+            {achievements
+              .filter((a) => a.class === cls)
+              .map((achievement) => (
+                <li class="flex gap-1.5 items-center hover:bg-neutral-800 p-2 rounded sm:text-lg relative">
+                  <a
+                    class="text-neutral-300 hover:text-neutral-50 after:inset-0 after:absolute"
+                    href={`/v1/achievements/${
+                      achievement.groupID
+                    }/${achievementClassSlug(achievement.class)}/`}
+                  >
+                    {achievement.title}
+                  </a>
+                  <span class="bg-neutral-50/10 text-xs text-center py-1 px-2 min-w-[2em] rounded-full">
+                    {achievement.numAchieved}
+                  </span>
+                </li>
+              ))}
+          </ul>
+        </div>
+      ))
+    }
+
+    <footer class="my-24">
+      <CTA href="/contributors">Find a contributor →</CTA>
+    </footer>
+  </div>
+</Layout>

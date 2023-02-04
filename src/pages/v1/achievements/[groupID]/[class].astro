@@ -1,0 +1,119 @@
+---
+import CTA from '../../../../components/CTA.astro';
+import Layout from '../../../../layouts/Layout.astro';
+import { globalAchievements } from '../../../../util/getGlobalStats';
+import {
+  achievementClassEmoji,
+  achievementClassGradientFrom,
+  achievementClassSlug,
+} from '../../../../util/achievementClasses';
+import { resizedGitHubAvatarURL } from '../../../../util/resizedGitHubAvatarURL';
+
+export function getStaticPaths() {
+  return globalAchievements.map((achievement) => ({
+    params: {
+      groupID: achievement.groupID,
+      class: achievementClassSlug(achievement.class),
+    },
+    props: achievement,
+  }));
+}
+
+type Props = typeof globalAchievements[number];
+
+const { title, details, contributors, class: cls, repo } = Astro.props;
+---
+
+<Layout
+  title={`${title} ${achievementClassEmoji(cls)} — Astro Achievements`}
+  description={`${details}. See Astro contributors with this achievement.`}
+>
+  <div class="space-y-16">
+    <header class="space-y-2">
+      <h1 class="text-4xl font-extrabold">
+        <span
+          class:list={[
+            'bg-gradient-to-br to-white inline-block w-[.75em] h-[.75em] mr-0.5 rounded-full translate-y-px',
+            achievementClassGradientFrom(cls),
+          ]}></span>
+        <span
+          class:list={[
+            'bg-gradient-to-br to-white bg-clip-text text-transparent',
+            achievementClassGradientFrom(cls),
+          ]}
+        >
+          {title}
+        </span>
+      </h1>
+
+      <div class="flex flex-wrap gap-x-8 gap-y-3 items-end justify-between">
+        <p class="text-2xl font-light">{details}</p>
+        {
+          repo && (
+            <p class="text-sm">
+              <a
+                href={`https://github.com/withastro/${repo}/`}
+                class="inline-flex gap-2 items-center group text-accent-300 hover:underline"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 16 16"
+                  width="1.25rem"
+                  height="1.25rem"
+                  class="fill-neutral-50 opacity-20 group-hover:opacity-40"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 0a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.5c-2 .4-2.5-.5-2.7-1 0-.1-.5-.9-.8-1-.3-.2-.7-.6 0-.6.6 0 1 .6 1.2.8.7 1.2 1.9 1 2.4.7 0-.5.2-.9.5-1-1.8-.3-3.7-1-3.7-4 0-.9.3-1.6.8-2.2 0-.2-.3-1 .1-2 0 0 .7-.3 2.2.7a7.4 7.4 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.5 1.1.2 2 .1 2.1.5.6.8 1.3.8 2.2 0 3-1.9 3.7-3.6 4 .3.2.5.7.5 1.4v2.2c0 .2.1.5.5.4A8 8 0 0 0 16 8a8 8 0 0 0-8-8z"
+                  />
+                </svg>
+                <span>See repo on GitHub</span>
+              </a>
+            </p>
+          )
+        }
+      </div>
+    </header>
+
+    <section class="space-y-4">
+      <h2>
+        <span class="font-bold text-2xl">
+          Contributors with this achievement
+        </span>
+        <span
+          class="inline-block align-baseline ml-2 px-3 py-1 bg-neutral-800 rounded-full"
+        >
+          {contributors.length}
+        </span>
+      </h2>
+
+      <ul class="flex flex-wrap gap-2 sm:gap-4 sm:text-lg -mx-2">
+        {
+          contributors.map((contributor) => (
+            <li class="flex items-center p-2 gap-2 relative rounded text-neutral-300 hover:text-neutral-50 hover:bg-neutral-800">
+              <img
+                width="28"
+                height="28"
+                src={resizedGitHubAvatarURL(contributor.avatar_url, 42)}
+                alt=""
+                class="w-7 h-7 rounded-full object-cover bg-neutral-700"
+                loading="lazy"
+                decoding="async"
+              />
+              <a
+                href={`/v1/contributor/${contributor.username}/`}
+                class="after:absolute after:inset-0"
+              >
+                {contributor.username}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <footer class="my-24">
+      <CTA href="/v1/achievements">← Browse achievements</CTA>
+    </footer>
+  </div>
+</Layout>
