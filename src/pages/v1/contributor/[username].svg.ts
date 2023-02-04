@@ -1,6 +1,6 @@
 import type { APIContext, EndpointOutput } from 'astro';
-import sharp from 'sharp';
 import { contributors } from "../../../util/getContributors";
+import { resizedGitHubAvatarURL } from '../../../util/resizedGitHubAvatarURL';
 
 export function getStaticPaths() {
   return contributors.map(({ username }) => ({ params: { username } }));
@@ -35,9 +35,9 @@ const AstroLogo = `<svg fill="none" viewBox="0 0 1281 1280" x="5" y="160" width=
 export async function get({ params }: APIContext): Promise<EndpointOutput> {
   const { username } = params;
   const { achievements, stats, avatar_url } = contributors.find((c) => c.username === username);
-  const avatarRes = await fetch(avatar_url);
+  const avatarRes = await fetch(resizedGitHubAvatarURL(avatar_url, 60));
   const avatarBuffer = Buffer.from(await (await avatarRes.blob()).arrayBuffer());
-  const b64 = (await sharp(avatarBuffer).resize(60, 60).toBuffer()).toString('base64');
+  const b64 = avatarBuffer.toString('base64');
 
   const body = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 300 200" width="300" font-family="sans-serif" direction="ltr">
   <defs>
