@@ -97,6 +97,23 @@ export default AchievementSpec({
       { count: 15, title: 'Action Hero', details: '15 withastro/action PRs' },
     ],
   },
+  'houston-ai-merges': {
+    repo: 'houston.astro.build',
+    stat: 'merges',
+    achievements: [
+      {
+        count: 1,
+        title: 'HAL-lo World',
+        details: 'First houston.astro.build PR',
+      },
+      { count: 5, title: 'Droid Dev', details: '5 houston.astro.build PRs' },
+      {
+        count: 15,
+        title: 'Modern Prometheus',
+        details: '15 houston.astro.build PRs',
+      },
+    ],
+  },
   'total-issues': {
     stat: 'issues',
     achievements: [
