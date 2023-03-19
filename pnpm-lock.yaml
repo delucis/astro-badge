@@ -14,6 +14,7 @@ specifiers:
   react: ^18.0.0
   react-dom: ^18.0.0
   satori: ^0.4.2
+  satori-html: ^0.3.2
   tailwindcss: ^3.2.1
   tsm: ^2.2.2
   web-vitals: ^3.1.0
@@ -34,6 +35,7 @@ devDependencies:
   '@vercel/analytics': 0.1.3_react@18.2.0
   astro: 2.1.2
   p-retry: 5.1.1
+  satori-html: 0.3.2
   tailwindcss: 3.2.1
   tsm: 2.2.2
   web-vitals: 3.1.0
@@ -3224,6 +3226,12 @@ packages:
       suf-log: 2.5.3
     dev: true
 
+  /satori-html/0.3.2:
+    resolution: {integrity: sha512-wjTh14iqADFKDK80e51/98MplTGfxz2RmIzh0GqShlf4a67+BooLywF17TvJPD6phO0Hxm7Mf1N5LtRYvdkYRA==}
+    dependencies:
+      ultrahtml: 1.2.0
+    dev: true
+
   /satori/0.4.1:
     resolution: {integrity: sha512-uQm4+vQj57E9PO/ASAlxsRb+78fHkRUmkNLBBmfuEeGNLGqJ9ufYU7TzYP4XH60PLHYt9Wz1jSsgcAe2cz7+ng==}
     engines: {node: '>=16'}
@@ -3554,6 +3562,10 @@ packages:
     resolution: {integrity: sha512-9ia/jWHIEbo49HfjrLGfKbZSuWo9iTMwXO+Ca3pRsSpbsMbc7/IU8NKdCZVRRBafVPGnoJeFL76ZOAA84I9fEg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
+    dev: true
+
+  /ultrahtml/1.2.0:
+    resolution: {integrity: sha512-vxZM2yNvajRmCj/SknRYGNXk2tqiy6kRNvZjJLaleG3zJbSh/aNkOqD1/CVzypw8tyHyhpzYuwQgMMhUB4ZVNQ==}
     dev: true
 
   /undici/5.20.0:
