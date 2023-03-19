@@ -27,9 +27,15 @@ ${icons[type]}
 const Achievement = ({ achievements }: { achievements: { title: string; details: string }[] }, i: number) =>
 `<text x="50" y="${50 + i * 22}">${achievements[0].title} <tspan font-size="12" fill="#bbb">${achievements[0].details}</tspan></text>`
 
-const AstroLogo = `<svg fill="none" viewBox="0 0 1281 1280" x="5" y="160" width="30" height="30">
-<path fill="#fff" fill-rule="evenodd" d="M816 95c10 12 15 28 25 61l216 711c-80-42-167-72-259-88L657 303a18 18 0 0 0-35 0L483 779c-93 16-180 46-260 88l217-712c10-32 15-48 25-60 8-11 20-19 32-24 15-6 32-6 66-6h155c34 0 51 0 65 6 13 5 24 13 33 24Z" clip-rule="evenodd"/>
-<path fill="#FF5D01" fill-rule="evenodd" d="M842 901c-36 30-107 51-189 51-101 0-185-31-208-73-8 24-10 51-10 69 0 0-5 87 56 147 0-31 25-57 56-57 54 0 54 47 54 85v4c0 57 35 107 85 128-7-16-11-33-11-51 0-55 32-76 69-100 30-19 64-40 86-82a155 155 0 0 0 12-121Z" clip-rule="evenodd"/>
+const AstroLogo = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" x="5" y="160" viewBox="0 0 36 36" width="30" height="30">
+  <path fill="#fff" d="M22.25 4h-8.5a1 1 0 0 0-.96.73l-5.54 19.4a.5.5 0 0 0 .62.62l5.05-1.44a2 2 0 0 0 1.38-1.4l3.22-11.66a.5.5 0 0 1 .96 0l3.22 11.67a2 2 0 0 0 1.38 1.39l5.05 1.44a.5.5 0 0 0 .62-.62l-5.54-19.4a1 1 0 0 0-.96-.73Z"/>
+  <path fill="#fff" d="M18 28a7.63 7.63 0 0 1-5-2c-1.4 2.1-.35 4.35.6 5.55.14.17.41.07.47-.15.44-1.8 2.93-1.22 2.93.6 0 2.28.87 3.4 1.72 3.81.34.16.59-.2.49-.56-.31-1.05-.29-2.46 1.29-3.25 3-1.5 3.17-4.83 2.5-6-.67.67-2.6 2-5 2Z"/>
+  <defs>
+    <linearGradient id="gradient" x1="16" x2="16" y1="32" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#000"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
 </svg>`
 
 export async function get({ params }: APIContext): Promise<EndpointOutput> {
