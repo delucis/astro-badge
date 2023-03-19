@@ -1,12 +1,17 @@
-import { ImageResponse } from '@vercel/og';
 import type { APIContext, EndpointOutput } from 'astro';
 import { contributors } from "../../../util/getContributors";
 import { resizedGitHubAvatarURL } from '../../../util/resizedGitHubAvatarURL';
-import generate from './generate';
+import satori from 'satori';
+import { html as toReactElement } from 'satori-html';
 
 export function getStaticPaths() {
   return contributors.map(({ username }) => ({ params: { username } }));
 }
+
+const fontFile = await fetch(
+  'https://og-playground.vercel.app/inter-latin-ext-700-normal.woff'
+);
+const fontData: ArrayBuffer = await fontFile.arrayBuffer();
 
 const icons = {
   commits:
@@ -34,6 +39,9 @@ const AstroLogo = `<svg fill="none" viewBox="0 0 1281 1280" x="5" y="160" width=
 <path fill="#FF5D01" fill-rule="evenodd" d="M842 901c-36 30-107 51-189 51-101 0-185-31-208-73-8 24-10 51-10 69 0 0-5 87 56 147 0-31 25-57 56-57 54 0 54 47 54 85v4c0 57 35 107 85 128-7-16-11-33-11-51 0-55 32-76 69-100 30-19 64-40 86-82a155 155 0 0 0 12-121Z" clip-rule="evenodd"/>
 </svg>`
 
+const height = 200;
+const width = 300;
+
 export async function get({ params }: APIContext): Promise<EndpointOutput> {
   const { username } = params;
   const { achievements, stats, avatar_url } = contributors.find((c) => c.username === username);
@@ -42,10 +50,35 @@ export async function get({ params }: APIContext): Promise<EndpointOutput> {
   const avatarBuffer = Buffer.from(await (await avatarRes.blob()).arrayBuffer());
   const b64 = avatarBuffer.toString('base64');
 
-  // const fonts = [stro.resolve('./Inter-Regular.ttf')];
-  const body = await generate(username);
-  console.log(body)
-  return { body };
+  const html = toReactElement(`
+    <div style="background-color: white; display: flex; flex-direction: column; height: 100%; padding: 0.5rem; width: 100%">
+      <div style="display:flex; height: 100%; width: 100%; background-color: white; border: 3px solid black; border-radius: 0.5rem; padding: 1rem; filter: drop-shadow(6px 6px 0 rgb(0 0 0 / 1));">
+        <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; width: 100%; filter: drop-shadow()">
+          <div style="display: flex;">  
+            <p style="font-size: 16px;">Test With Satori</p>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline">
+            <p style="font-size: 16px">${username}</p>
+            <img src="${avatar_url}" width="50px" height="50px" style="border: 3px solid black; border-radius: 0.5rem;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  `);
+
+  const svg = await satori(html, {
+    fonts: [
+      {
+        name: 'Inter Latin',
+        data: fontData,
+        style: 'normal',
+      },
+    ],
+    height,
+    width,
+  });
+
+  return { body: svg };
 }
 
 export const head = get;
