@@ -36,21 +36,34 @@ export async function get({ params }: APIContext): Promise<EndpointOutput> {
   const { username } = params;
   const { achievements, stats, avatar_url } = contributors.find((c) => c.username === username);
 
+  const getStatistics = () => {
+    try {
+      return {
+        issues: stats.findIndex((stat) => stat.type === 'issues') >= 0 ? stats[stats.findIndex((stat) => stat.type === 'issues')].count : '0',
+        pulls: stats.findIndex((stat) => stat.type === 'pulls') >= 0 ? stats[stats.findIndex((stat) => stat.type === 'pulls')].count : '0',
+        reviews: stats.findIndex((stat) => stat.type === 'reviews') >= 0 ? stats[stats.findIndex((stat) => stat.type === 'reviews')].count : 0,
+      };
+    } catch (e) {
+      console.log(stats);
+    }
+  }
+  const statistics = getStatistics();
+
   const html = toReactElement(`
     <div style="background-color: blue; display: flex; height: 100%; width: 100%; border-radius: 1.5rem;">
       <div style="background-color: black; display: flex; flex-direction: column; gap: 32px; align-items: center; justify-items: space-between; height: 100%; width: 15%; border-radius: 9999px">
         <img src="${avatar_url}" width="135px" height="135px" style="border: 5px solid purple; border-radius: 9999px;" />
         <div style="display: flex; flex-direction: column; align-items: center;">
           ${icons.issues}
-          <span style="font-size: 48px; color: white;">${stats[stats.findIndex((stat) => stat.type === 'issues')].count}</span>
+          <span style="font-size: 48px; color: white;">${statistics.issues}</span>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center">
           ${icons.pulls}
-          <span style="font-size: 48px; color: white;">${stats[stats.findIndex((stat) => stat.type === 'pulls')].count}</span>
+          <span style="font-size: 48px; color: white;">${statistics.pulls}</span>
         </div>
         <div style="display: flex; flex-direction: column; align-items: center">
           ${icons.reviews}
-          <span style="font-size: 48px; color: white;">${stats[stats.findIndex((stat) => stat.type === 'reviews')].count}</span>
+          <span style="font-size: 48px; color: white;">${statistics.reviews}</span>
         </div>
       </div>
       <div style="display: flex; flex-direction: column; height: 100%; width: 85%; background-color: green; padding: 38px 24px">
