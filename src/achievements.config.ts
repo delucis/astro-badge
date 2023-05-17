@@ -114,6 +114,15 @@ export default AchievementSpec({
       },
     ],
   },
+  'starlight-merges': {
+    repo: 'starlight',
+    stat: 'merges',
+    achievements: [
+      { count: 1, title: 'Twinkle, twinkle', details: 'First starlight PR' },
+      { count: 10, title: 'Stargazer', details: '10 starlight PRs' },
+      { count: 30, title: 'Superstar', details: '30 starlight PRs' },
+    ],
+  },
   'total-issues': {
     stat: 'issues',
     achievements: [
