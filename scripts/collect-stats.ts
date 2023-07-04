@@ -1,11 +1,15 @@
 import { Octokit } from '@octokit/core';
 import type { Endpoints } from '@octokit/types';
 import { writeFile } from 'node:fs/promises';
+import { minimatch } from 'minimatch';
 import pRretry from 'p-retry';
 import { Contributor } from '../src/types';
 
 type APIData<T extends keyof Endpoints> = Endpoints[T]['response']['data'];
 type Repo = APIData<'GET /orgs/{org}/repos'>[number];
+type CustomCategories = {
+  [key: string]: string[],
+}
 interface AugmentedRepo extends Repo {
   reviews: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
   issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
@@ -24,10 +28,12 @@ const retry: typeof pRretry = (fn, opts) =>
 class StatsCollector {
   #org: string;
   #app: Octokit;
+  #customCategories: CustomCategories;
 
-  constructor(opts: { org: string; token: string | undefined }) {
+  constructor(opts: { org: string; token: string | undefined, customCategories: CustomCategories}) {
     this.#org = opts.org;
     this.#app = new Octokit({ auth: opts.token });
+    this.#customCategories = opts.customCategories;
   }
 
   async run() {
@@ -38,7 +44,7 @@ class StatsCollector {
     console.log('Processing data...');
     for (const repo of repos) {
       for (const issue of repo.issues) {
-        const { user, pull_request } = issue;
+        const { user, pull_request, labels } = issue;
         if (!user) {
           console.warn(`No user found for ${repo.full_name}#${issue.number}`);
           continue;
@@ -52,6 +58,15 @@ class StatsCollector {
           if (pull_request.merged_at) {
             contributors[login].merged_pulls[repo.name] =
               (contributors[login].merged_pulls[repo.name] || 0) + 1;
+            if (labels.length) {
+              if (!contributors[login].merged_pulls_by_label[repo.name]) {
+                contributors[login].merged_pulls_by_label[repo.name] = {};
+              }
+                for (const label of labels) {
+                  contributors[login].merged_pulls_by_label[repo.name][label.name] = 
+                    (contributors[login].merged_pulls_by_label[repo.name][label.name] || 0) + 1;
+                }
+            }
           }
         } else {
           contributors[login].issues[repo.name] =
@@ -62,8 +77,10 @@ class StatsCollector {
       /** Temporary store for deduplicating multiple reviews on the same PR. */
       const reviewedPRs: Record<string, Set<string>> = {};
 
+      const customCategories = this.#customCategories;
+
       for (const review of repo.reviews) {
-        const { user, pull_request_url } = review;
+        const { user, pull_request_url, path } = review;
         if (!user) {
           console.warn(`No user found for PR review: ${review.url}`);
           continue;
@@ -75,6 +92,19 @@ class StatsCollector {
         if (!reviewedPRs[login].has(pull_request_url)) {
           contributors[login].reviews[repo.name] =
             (contributors[login].reviews[repo.name] || 0) + 1;
+
+          if (!contributors[login].reviews_by_category[repo.name]) {
+            contributors[login].reviews_by_category[repo.name] = {};
+          }
+
+          for (const key of Object.keys(customCategories)) {
+            for (const glob of customCategories[key]) {
+              if (minimatch(path, glob)) {
+                contributors[login].reviews_by_category[repo.name][key] =
+                  (contributors[login].reviews_by_category[repo.name][key] || 0) + 1;
+              }
+            }
+          }
           reviewedPRs[login].add(pull_request_url);
         }
       }
@@ -87,7 +117,7 @@ class StatsCollector {
   }
 
   #newContributor({ avatar_url }): Contributor {
-    return { avatar_url, issues: {}, pulls: {}, merged_pulls: {}, reviews: {} };
+    return { avatar_url, issues: {}, pulls: {}, merged_pulls: {}, merged_pulls_by_label: {}, reviews: {}, reviews_by_category: {} };
   }
 
   async #getRepos() {
@@ -178,5 +208,17 @@ class StatsCollector {
 const collector = new StatsCollector({
   org: 'withastro',
   token: process.env.GITHUB_TOKEN,
+  customCategories: {
+    "i18n": [
+      // Astro Docs content translations
+      "src/content/docs/!(en)/**/*",
+      // Astro Docs labels translations 
+      "src/i18n/!(en)/**/*",
+      // Starlight Docs content translations
+      "docs/src/content/docs/!(en)/**/*",
+      // Starlight package labels translations
+      "packages/starlight/translations/!(en.json)"
+     ],
+  }
 });
 await collector.run();

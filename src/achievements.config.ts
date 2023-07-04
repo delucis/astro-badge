@@ -21,6 +21,21 @@ export default AchievementSpec({
       { count: 30, title: 'PR Perfectionist', details: 'Reviewed 30 PRs' },
     ],
   },
+  'i18n-reviews': {
+    getCount: ({ reviews_by_category }) => {
+      let sum = 0;
+      for (const repo of Object.keys(reviews_by_category)) {
+        if (reviews_by_category[repo]['i18n']) 
+          sum += reviews_by_category[repo]['i18n'];
+      }
+      return sum;
+    },
+    achievements: [
+      { count: 1, title: 'Proofreader', details: 'Reviewed a i18n PR' },
+      { count: 10, title: 'Editor', details: 'Reviewed 10 i18n PRs' },
+      { count: 30, title: 'Translation Director', details: 'Reviewed 30 i18n PRs' }
+    ]
+  },
   'astro-merges': {
     repo: 'astro',
     stat: 'merges',
@@ -122,6 +137,21 @@ export default AchievementSpec({
       { count: 10, title: 'Stargazer', details: '10 starlight PRs' },
       { count: 30, title: 'Superstar', details: '30 starlight PRs' },
     ],
+  },
+  'i18n-merges': {
+    getCount: ({ merged_pulls_by_label }) => {
+      let sum = 0;
+      for (const repo of Object.keys(merged_pulls_by_label)) {
+        if (merged_pulls_by_label[repo]['i18n']) 
+          sum += merged_pulls_by_label[repo]['i18n'];
+      }
+      return sum;
+    },
+    achievements: [
+      { count: 1, title: 'Dictionary', details: 'First i18n PR' },
+      { count: 10, title: 'Babel Fish', details: '10 i18n PRs' },
+      { count: 30, title: 'Universal Translator', details: '30 i18n PRs' }
+    ]
   },
   'total-issues': {
     stat: 'issues',
