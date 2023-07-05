@@ -32,9 +32,9 @@ export default AchievementSpec({
       return sum;
     },
     achievements: [
-      { count: 1, title: 'Proofreader', details: 'Reviewed a i18n PR' },
-      { count: 10, title: 'Polyglot', details: 'Reviewed 10 i18n PRs' },
-      { count: 30, title: 'Rosetta Stone', details: 'Reviewed 30 i18n PRs' }
+      { count: 1, title: 'Proofreader', details: 'Reviewed an i18n PR' },
+      { count: 15, title: 'Polyglot', details: 'Reviewed 15 i18n PRs' },
+      { count: 40, title: 'Rosetta Stone', details: 'Reviewed 40 i18n PRs' }
     ]
   },
   'astro-merges': {
@@ -151,8 +151,8 @@ export default AchievementSpec({
     },
     achievements: [
       { count: 1, title: 'Decoder', details: 'First i18n PR' },
-      { count: 10, title: 'Babel Fish', details: '10 i18n PRs' },
-      { count: 30, title: 'Universal Translator', details: '30 i18n PRs' }
+      { count: 15, title: 'Babel Fish', details: '15 i18n PRs' },
+      { count: 40, title: 'Universal Translator', details: '40 i18n PRs' }
     ]
   },
   'total-issues': {
