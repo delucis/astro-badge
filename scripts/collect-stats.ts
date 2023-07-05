@@ -8,7 +8,9 @@ import { Contributor } from '../src/types';
 type APIData<T extends keyof Endpoints> = Endpoints[T]['response']['data'];
 type Repo = APIData<'GET /orgs/{org}/repos'>[number];
 type CustomCategories = {
-  [key: string]: string[],
+  [key: string]: {
+    [key: string]: string[]
+  },
 }
 interface AugmentedRepo extends Repo {
   reviews: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
@@ -97,11 +99,14 @@ class StatsCollector {
             contributors[login].reviews_by_category[repo.name] = {};
           }
 
-          for (const key of Object.keys(customCategories)) {
-            for (const glob of customCategories[key]) {
-              if (minimatch(path, glob)) {
-                contributors[login].reviews_by_category[repo.name][key] =
-                  (contributors[login].reviews_by_category[repo.name][key] || 0) + 1;
+          for (const categoryName in customCategories) {
+            for (const repoName in customCategories[categoryName]) {
+              if (repoName !== repo.name) continue;
+              for (const glob of customCategories[categoryName][repoName]) {
+                if (minimatch(path, glob)) {
+                  contributors[login].reviews_by_category[repo.name][categoryName] =
+                    (contributors[login].reviews_by_category[repo.name][categoryName] || 0) + 1;
+                }
               }
             }
           }
@@ -208,17 +213,21 @@ class StatsCollector {
 const collector = new StatsCollector({
   org: 'withastro',
   token: process.env.GITHUB_TOKEN,
-  customCategories: {
-    "i18n": [
-      // Astro Docs content translations
-      "src/content/docs/!(en)/**/*",
-      // Astro Docs labels translations 
-      "src/i18n/!(en)/**/*",
-      // Starlight Docs content translations
-      "docs/src/content/docs/!(en)/**/*",
-      // Starlight package labels translations
-      "packages/starlight/translations/!(en.json)"
-     ],
+   customCategories: {
+    i18n: {
+      docs: [
+        // Astro Docs content translations
+        "src/content/docs/!(en)/**/*",
+        // Astro Docs labels translations 
+        "src/i18n/!(en)/**/*",
+      ],
+      starlight: [
+        // Starlight Docs content translations
+        "docs/src/content/docs/!(en)/**/*",
+        // Starlight package labels translations
+        "packages/starlight/translations/!(en.json)"
+      ],
+     },
   }
 });
 await collector.run();
