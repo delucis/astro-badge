@@ -29,6 +29,10 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v1/c
 <Layout
   title={`@${username} — Astro Achievements`}
   description={`Let’s celebrate @${username}’s awesome contributions to Astro! 🥳`}
+  ogImg={{
+    src: `/v1/contributor/${username}.png`,
+    alt: `@${username}’s Astro achievements`,
+  }}
 >
   <div class="mx-auto space-y-16">
     <header class="flex items-baseline gap-6 flex-wrap">

@@ -1,4 +1,5 @@
 import type { APIContext, EndpointOutput } from 'astro';
+import sharp from 'sharp';
 import { contributors } from "../../../util/getContributors";
 import { resizedGitHubAvatarURL } from '../../../util/resizedGitHubAvatarURL';
 
@@ -34,10 +35,8 @@ const AstroLogo = `<svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="
 
 export async function get({ params }: APIContext): Promise<EndpointOutput> {
   const { username } = params;
-  const { achievements, stats, avatar_url } = contributors.find((c) => c.username === username);
-  const avatarRes = await fetch(resizedGitHubAvatarURL(avatar_url, 60));
-  const avatarBuffer = Buffer.from(await (await avatarRes.blob()).arrayBuffer());
-  const b64 = avatarBuffer.toString('base64');
+  const { achievements, stats, getBase64Avatar } = contributors.find((c) => c.username === username);
+  const b64 = await getBase64Avatar();
 
   const body = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 300 200" width="300" font-family="sans-serif" direction="ltr">
   <defs>
