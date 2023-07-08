@@ -6,7 +6,12 @@ export { getStaticPaths } from './[username].svg';
 export async function get(ctx: APIContext): Promise<EndpointOutput> {
   const { body: svg } = await getSvg(ctx);
   const resvg = new Resvg(svg, {
-    fitTo: { mode: 'zoom', value: 2 },
+    fitTo: { mode: 'zoom', value: 4 },
+    font: {
+      loadSystemFonts: false,
+      fontDirs: ['./src/fonts'],
+      defaultFontFamily: 'Inter',
+    },
   });
   return {
     body: resvg.render().asPng(),
