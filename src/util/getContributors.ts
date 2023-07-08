@@ -1,21 +1,39 @@
+import sharp from 'sharp';
 import data from '../data/contributors.json';
 import { Contributor } from '../types';
 import { getAchievements } from './getAchievements';
 import { getStats } from './getStats';
 import { objSum } from './objSum';
+import { resizedGitHubAvatarURL } from './resizedGitHubAvatarURL';
 
 interface EnhancedContributor extends Contributor {
   username: string;
   achievements: ReturnType<typeof getAchievements>;
   stats: ReturnType<typeof getStats>;
+  getBase64Avatar: () => Promise<string>;
 }
 
-function enhanceContributor(username: string, contributor: Contributor) {
+async function getBase64Avatar(avatar_url: string) {
+  const avatarRes = await fetch(resizedGitHubAvatarURL(avatar_url, 60));
+  let avatarBuffer = Buffer.from(await (await avatarRes.blob()).arrayBuffer());
+  if (avatarRes.headers.get('content-type') !== 'image/jpeg') {
+    // resvg doesn’t like PNG avatars, so force to JPEG:
+    avatarBuffer = await sharp(avatarBuffer).flatten().jpeg().toBuffer();
+  }
+  const b64 = avatarBuffer.toString('base64');
+  return b64;
+}
+
+function enhanceContributor(
+  username: string,
+  contributor: Contributor
+): EnhancedContributor {
   return {
     username,
     ...contributor,
     achievements: getAchievements(contributor),
     stats: getStats(contributor),
+    getBase64Avatar: () => getBase64Avatar(contributor.avatar_url),
   };
 }
 
