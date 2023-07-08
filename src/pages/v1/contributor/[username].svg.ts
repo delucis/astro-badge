@@ -27,10 +27,10 @@ ${icons[type]}
 const Achievement = ({ achievements }: { achievements: { title: string; details: string }[] }, i: number) =>
 `<text x="50" y="${50 + i * 22}">${achievements[0].title} <tspan font-size="12" fill="#bbb">${achievements[0].details}</tspan></text>`
 
-const AstroLogo = `<svg fill="none" viewBox="0 0 1281 1280" x="5" y="160" width="30" height="30">
-<path fill="#fff" fill-rule="evenodd" d="M816 95c10 12 15 28 25 61l216 711c-80-42-167-72-259-88L657 303a18 18 0 0 0-35 0L483 779c-93 16-180 46-260 88l217-712c10-32 15-48 25-60 8-11 20-19 32-24 15-6 32-6 66-6h155c34 0 51 0 65 6 13 5 24 13 33 24Z" clip-rule="evenodd"/>
-<path fill="#FF5D01" fill-rule="evenodd" d="M842 901c-36 30-107 51-189 51-101 0-185-31-208-73-8 24-10 51-10 69 0 0-5 87 56 147 0-31 25-57 56-57 54 0 54 47 54 85v4c0 57 35 107 85 128-7-16-11-33-11-51 0-55 32-76 69-100 30-19 64-40 86-82a155 155 0 0 0 12-121Z" clip-rule="evenodd"/>
-</svg>`
+const AstroLogo = `<svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 64 79" x="6.5" y="162" width="28" height="28">
+  <path d="M20 66c-3.9-3.6-5-11-3.4-16.2 2.8 3.3 6.7 4.4 10.7 5 6.2 1 12.3.6 18-2.2l2-1.2c.6 1.5.7 3.1.5 4.7-.4 3.9-2.4 6.9-5.5 9.1-1.2 1-2.5 1.7-3.8 2.6-4 2.6-5 5.7-3.6 10.2l.2.5c-2-1-3.5-2.2-4.6-4a10.8 10.8 0 0 1-1.8-5.8l-.1-3.2c-.4-2.5-1.6-3.6-3.8-3.7a4.4 4.4 0 0 0-4.7 3.6l-.1.5Z"/>
+  <path d="M.5 51.4s10.6-5.2 21.2-5.2l8-24.7c.3-1.2 1.2-2 2.2-2 1 0 1.9.8 2.2 2l8 24.7a45 45 0 0 1 21.2 5.2l-18-49C44.8.9 43.9 0 42.7 0H21.1c-1.2 0-2 1-2.6 2.4l-18 49Z"/>
+</svg>`;
 
 export async function get({ params }: APIContext): Promise<EndpointOutput> {
   const { username } = params;
