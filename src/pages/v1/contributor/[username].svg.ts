@@ -1,4 +1,5 @@
 import type { APIContext, EndpointOutput } from 'astro';
+import sharp from 'sharp';
 import { contributors } from "../../../util/getContributors";
 import { resizedGitHubAvatarURL } from '../../../util/resizedGitHubAvatarURL';
 
@@ -36,7 +37,11 @@ export async function get({ params }: APIContext): Promise<EndpointOutput> {
   const { username } = params;
   const { achievements, stats, avatar_url } = contributors.find((c) => c.username === username);
   const avatarRes = await fetch(resizedGitHubAvatarURL(avatar_url, 60));
-  const avatarBuffer = Buffer.from(await (await avatarRes.blob()).arrayBuffer());
+  let avatarBuffer = Buffer.from(await (await avatarRes.blob()).arrayBuffer());
+  if (avatarRes.headers.get('content-type') !== 'image/jpeg') {
+    // resvg doesn’t like PNG avatars, so force to JPEG:
+    avatarBuffer = await sharp(avatarBuffer).flatten().jpeg().toBuffer()
+  }
   const b64 = avatarBuffer.toString('base64');
 
   const body = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 300 200" width="300" font-family="sans-serif" direction="ltr">
