@@ -221,7 +221,7 @@ const collector = new StatsCollector({
         // Astro Docs labels translations 
         "src/i18n/!(en)/**/*",
         // Astro Docs translations before migrating to Content Collections
-        "src/pages/(ar|de|es|fr|ja|pl|pt-br|ru|zh-cn|zh-tw)/**/*",
+        "src/pages/+(ar|de|es|fr|ja|pl|pt-br|ru|zh-cn|zh-tw)/**/*",
       ],
       starlight: [
         // Starlight Docs content translations
