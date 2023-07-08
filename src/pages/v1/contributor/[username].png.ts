@@ -10,7 +10,7 @@ export async function get(ctx: APIContext): Promise<EndpointOutput> {
     font: {
       loadSystemFonts: false,
       fontDirs: ['./src/fonts'],
-      defaultFontFamily: 'Inter',
+      defaultFontFamily: 'Inter Tight',
     },
   });
   return {
