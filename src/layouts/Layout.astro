@@ -4,18 +4,25 @@ import TrackVitals from '../components/TrackVitals.astro';
 export interface Props {
   title?: string;
   description?: string;
+  ogImg?: {
+    src: string;
+    alt: string;
+  };
 }
 const {
-  title = "Astro Badges",
-  description = "Badges to show off your Astro pride",
+  title = 'Astro Badges',
+  description = 'Badges to show off your Astro pride',
+  ogImg = {
+    src: '/ogimg.jpg',
+    alt: 'The text “Astro Badges” with a purple illustration of a rocket launching in the background',
+  },
 } = Astro.props;
-const ogImgURL = new URL("/ogimg.jpg", Astro.site).href;
-const ogImgAlt = "The text “Astro Badges” with a purple illustration of a rocket launching in the background";
+const ogImgURL = new URL(ogImg.src, Astro.site).href;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
 const navItems = [
-  { text: "Badges", href: "/bwa/" },
-  { text: "Contributors", href: "/contributors/" },
+  { text: 'Badges', href: '/bwa/' },
+  { text: 'Contributors', href: '/contributors/' },
 ];
 ---
 
@@ -33,7 +40,7 @@ const navItems = [
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en" />
     <meta property="og:image" content={ogImgURL} />
-    <meta property="og:image:alt" content={ogImgAlt} />
+    <meta property="og:image:alt" content={ogImg.alt} />
     <meta name="description" property="og:description" content={description} />
     <meta property="og:site_name" content="Astro Badges" />
 
@@ -43,7 +50,7 @@ const navItems = [
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImgURL} />
-    <meta name="twitter:image:alt" content={ogImgAlt} />
+    <meta name="twitter:image:alt" content={ogImg.alt} />
 
     <script>
       import { inject } from '@vercel/analytics';
