@@ -13,7 +13,12 @@ interface EnhancedContributor extends Contributor {
   getBase64Avatar: () => Promise<string>;
 }
 
+const avatarCache = new Map<string, string>();
 async function getBase64Avatar(avatar_url: string) {
+  const cached = avatarCache.get(avatar_url);
+  if (cached) {
+    return cached;
+  }
   const avatarRes = await fetch(resizedGitHubAvatarURL(avatar_url, 60));
   let avatarBuffer = Buffer.from(await (await avatarRes.blob()).arrayBuffer());
   if (avatarRes.headers.get('content-type') !== 'image/jpeg') {
@@ -21,6 +26,7 @@ async function getBase64Avatar(avatar_url: string) {
     avatarBuffer = await sharp(avatarBuffer).flatten().jpeg().toBuffer();
   }
   const b64 = avatarBuffer.toString('base64');
+  avatarCache.set(avatar_url, b64);
   return b64;
 }
 
