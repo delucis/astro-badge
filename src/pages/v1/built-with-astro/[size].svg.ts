@@ -1,11 +1,12 @@
 const sizes = {
+  tiny: 109,
   small: 150,
   medium: 200,
   large: 300,
 };
 
-const gridStroke = { small: 7, medium: 6, large: 4 };
-const textStroke = { small: 2, medium: 1, large: 0 };
+const gridStroke = { tiny: 8, small: 7, medium: 6, large: 4 };
+const textStroke = { tiny: 3, small: 2, medium: 1, large: 0 };
 
 export function getStaticPaths() {
   return Object.keys(sizes).map((size) => ({ params: { size } }));
