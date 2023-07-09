@@ -5,8 +5,8 @@ import Layout from "../layouts/Layout.astro";
 const title = "Badges";
 const description = "“Built with Astro” SVG badges to add to your sites and GitHub READMEs!";
 
-const mdSnippet = `[![Built with Astro](${Astro.site}v1/built-with-astro.svg)](https://astro.build)`;
-const htmlSnippet = `<a href="https://astro.build">\n  <img src="${Astro.site}v1/built-with-astro.svg" alt="Built with Astro" width="150" height="27.5">\n</a>`;
+const mdSnippet = `[![Built with Astro](${Astro.site}v1/built-with-astro/tiny.svg)](https://astro.build)`;
+const htmlSnippet = `<a href="https://astro.build">\n  <img src="${Astro.site}v1/built-with-astro/tiny.svg" alt="Built with Astro" width="109" height="20">\n</a>`;
 ---
 
 <Layout {title} {description}>
@@ -20,7 +20,7 @@ const htmlSnippet = `<a href="https://astro.build">\n  <img src="${Astro.site}v1
     <h2>Built with Astro</h2>
     <p>
       <a href="https://astro.build">
-        <img src="/v1/built-with-astro.svg" alt="Built with Astro" />
+        <img src="/v1/built-with-astro/tiny.svg" alt="Built with Astro" />
       </a>
     </p>
 
@@ -37,6 +37,10 @@ const htmlSnippet = `<a href="https://astro.build">\n  <img src="${Astro.site}v1
     <Code code={htmlSnippet} lang="html" />
 
     <h2>Sizes</h2>
+
+    <h3>Tiny</h3>
+    <p><code>{Astro.site}v1/built-with-astro/tiny.svg</code></p>
+    <p><img src="/v1/built-with-astro/tiny.svg" alt="Built with Astro" /></p>
 
     <h3>Small</h3>
     <p><code>{Astro.site}v1/built-with-astro/small.svg</code></p>
