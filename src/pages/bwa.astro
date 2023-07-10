@@ -1,57 +1,69 @@
 ---
-import { Code } from "astro/components";
-import Copy from "../components/Copy.astro";
-import Layout from "../layouts/Layout.astro";
-const title = "Badges";
-const description = "“Built with Astro” SVG badges to add to your sites and GitHub READMEs!";
+import { Code } from 'astro/components';
+import Copy from '../components/Copy.astro';
+import Layout from '../layouts/Layout.astro';
+import { badgeSizes } from './v1/built-with-astro/[size].svg';
+const title = 'Badges';
+const description =
+  '“Built with Astro” SVG badges to add to your sites and GitHub READMEs!';
 
-const mdSnippet = `[![Built with Astro](${Astro.site}v1/built-with-astro/tiny.svg)](https://astro.build)`;
-const htmlSnippet = `<a href="https://astro.build">\n  <img src="${Astro.site}v1/built-with-astro/tiny.svg" alt="Built with Astro" width="109" height="20">\n</a>`;
+const mdSnippet = ({ slug }: typeof badgeSizes[number]) => `[![Built with Astro](${Astro.site}v1/built-with-astro/${slug}.svg)](https://astro.build)`;
+const htmlSnippet = ({ slug, width, height }: typeof badgeSizes[number]) => `<a href="https://astro.build">
+  <img src="${Astro.site}v1/built-with-astro/${slug}.svg" alt="Built with Astro" width="${width}" height="${height}">
+</a>`;
 ---
 
 <Layout {title} {description}>
-  <div class="mx-auto prose prose-invert prose-a:text-accent-300">
-    <h1>Badges</h1>
-    <p>
-      Add a badge to your <a href="https://astro.build">Astro</a> projects and show
-      off your Astro pride!
-    </p>
-
-    <h2>Built with Astro</h2>
-    <p>
-      <a href="https://astro.build">
-        <img src="/v1/built-with-astro/tiny.svg" alt="Built with Astro" />
-      </a>
-    </p>
-
-    <div class="flex items-baseline justify-between">
-      <h3 class="m-0">Markdown</h3>
-      <Copy text={mdSnippet} />
+  <div class="mx-auto flex flex-col gap-6">
+    <div class="flex flex-col gap-4">
+      <h1 class="heading-3 text-white">Built with Astro</h1>
+      <p>
+        Add a badge to your repository or website and show off your Astro pride!
+      </p>
     </div>
-    <Code code={mdSnippet} lang="md" />
-    
-    <div class="flex items-baseline justify-between">
-      <h3 class="m-0">HTML</h3>
-      <Copy text={htmlSnippet} />
+
+    <div
+      class="flex flex-col gap-4 sm:gap-8 p-4 sm:p-10 border border-neutral-600 bg-neutral-700"
+    >
+      <!-- tabs -->
+      <div class="sm:self-start border border-neutral-300 rounded-full flex text-xs sm:text-sm text-center">
+        {badgeSizes.map(({ label, slug }) => <a href={`#${slug}`} class="grow px-3 py-2 sm:px-8 sm:py-2.5">{label}</a>)}
+      </div>
+      {badgeSizes.map(badge => (
+        <!-- panel -->
+      <div class="flex flex-col gap-4 sm:gap-8">
+        <h2 class="heading-4 text-white" id={badge.slug}>{badge.label}</h2>
+        <!-- preview well -->
+        <div
+          class="relative text-center pt-28 pb-4 rounded-lg border border-neutral-500 bg-neutral-600"
+        >
+          <a
+            href="https://astro.build"
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-md"
+          >
+            <img src={`/v1/built-with-astro/${badge.slug}.svg`} width={badge.width} height={badge.height} alt="Built with Astro" />
+          </a>
+          <p class="font-mono text-xs">Badge preview</p>
+        </div>
+        <!-- code snippets to copy/paste -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div class="flex flex-col gap-4">
+            <div class="flex items-baseline justify-between">
+              <h3 class="heading-5 text-white">Markdown</h3>
+              <Copy text={mdSnippet(badge)} />
+            </div>
+            <Code code={mdSnippet(badge)} lang="md" />
+          </div>
+          <div class="flex flex-col gap-4">
+            <div class="flex items-baseline justify-between">
+              <h3 class="heading-5 text-white">HTML</h3>
+              <Copy text={htmlSnippet(badge)} />
+            </div>
+            <Code code={htmlSnippet(badge)} lang="html" />
+          </div>
+        </div>
+      </div>
+      ))}
     </div>
-    <Code code={htmlSnippet} lang="html" />
-
-    <h2>Sizes</h2>
-
-    <h3>Tiny</h3>
-    <p><code>{Astro.site}v1/built-with-astro/tiny.svg</code></p>
-    <p><img src="/v1/built-with-astro/tiny.svg" alt="Built with Astro" /></p>
-
-    <h3>Small</h3>
-    <p><code>{Astro.site}v1/built-with-astro/small.svg</code></p>
-    <p><img src="/v1/built-with-astro/small.svg" alt="Built with Astro" /></p>
-
-    <h3>Medium</h3>
-    <p><code>{Astro.site}v1/built-with-astro/medium.svg</code></p>
-    <p><img src="/v1/built-with-astro/medium.svg" alt="Built with Astro" /></p>
-
-    <h3>Large</h3>
-    <p><code>{Astro.site}v1/built-with-astro/large.svg</code></p>
-    <p><img src="/v1/built-with-astro/large.svg" alt="Built with Astro" /></p>
   </div>
 </Layout>
