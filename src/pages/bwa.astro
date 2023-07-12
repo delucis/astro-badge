@@ -7,10 +7,6 @@ const description = "“Built with Astro” SVG badges to add to your sites and 
 
 const mdSnippet = `[![Built with Astro](${Astro.site}v1/built-with-astro/tiny.svg)](https://astro.build)`;
 const htmlSnippet = `<a href="https://astro.build">\n  <img src="${Astro.site}v1/built-with-astro/tiny.svg" alt="Built with Astro" width="109" height="20">\n</a>`;
-const tinyUrlSnippet = `${Astro.site}v1/built-with-astro/tiny.svg`;
-const smallUrlSnippet = `${Astro.site}v1/built-with-astro/small.svg`;
-const mediumUrlSnippet = `${Astro.site}v1/built-with-astro/medium.svg`;
-const largeUrlSnippet = `${Astro.site}v1/built-with-astro/large.svg`;
 ---
 
 <Layout {title} {description}>
@@ -42,20 +38,20 @@ const largeUrlSnippet = `${Astro.site}v1/built-with-astro/large.svg`;
 
     <h2>Sizes</h2>
 
-    <h3>Tiny</h3>
-    <Code code={tinyUrlSnippet} lang="html" />
+   <h3>Tiny</h3>
+    <p><code>{Astro.site}v1/built-with-astro/tiny.svg</code></p>
     <p><img src="/v1/built-with-astro/tiny.svg" alt="Built with Astro" /></p>
 
     <h3>Small</h3>
-    <Code code={smallUrlSnippet} lang="html" />
+    <p><code>{Astro.site}v1/built-with-astro/small.svg</code></p>
     <p><img src="/v1/built-with-astro/small.svg" alt="Built with Astro" /></p>
 
     <h3>Medium</h3>
-    <Code code={mediumUrlSnippet} lang="html" />
+    <p><code>{Astro.site}v1/built-with-astro/medium.svg</code></p>
     <p><img src="/v1/built-with-astro/medium.svg" alt="Built with Astro" /></p>
 
     <h3>Large</h3>
-    <Code code={largeUrlSnippet} lang="html" />
+    <p><code>{Astro.site}v1/built-with-astro/large.svg</code></p>
     <p><img src="/v1/built-with-astro/large.svg" alt="Built with Astro" /></p>
   </div>
 </Layout>
