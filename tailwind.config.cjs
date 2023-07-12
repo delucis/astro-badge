@@ -14,7 +14,15 @@ module.exports = {
         silver: 'hsl(210, 6%, 72%)',
         gold: 'hsl(48, 100%, 50%)',
       },
-    },
+      typography: {
+        "code::before": {
+          content: '""',
+        },
+        "code::after": {
+          content: '""',
+        },
+      }
+    }
   },
   plugins: [
 		require('@tailwindcss/typography'),
