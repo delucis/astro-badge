@@ -15,11 +15,13 @@ module.exports = {
         gold: 'hsl(48, 100%, 50%)',
       },
       typography: {
-        "code::before": {
-          content: '""',
-        },
-        "code::after": {
-          content: '""',
+        DEFAULT: {
+          "code::before": {
+            content: '""',
+          },
+          "code::after": {
+            content: '""',
+          },
         },
       }
     }
