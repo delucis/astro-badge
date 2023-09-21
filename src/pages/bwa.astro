@@ -2,15 +2,15 @@
 import { Code } from 'astro/components';
 import Copy from '../components/Copy.astro';
 import Layout from '../layouts/Layout.astro';
-import { badgeSizes } from './v1/built-with-astro/[size].svg';
+import { badgeSizes } from './v2/built-with-astro/_data';
 import Frame from '../components/Frame.astro';
 const title = 'Badges';
 const description =
   '“Built with Astro” SVG badges to add to your sites and GitHub READMEs!';
 
-const mdSnippet = ({ slug }: typeof badgeSizes[number]) => `[![Built with Astro](${Astro.site}v1/built-with-astro/${slug}.svg)](https://astro.build)`;
+const mdSnippet = ({ slug }: typeof badgeSizes[number]) => `[![Built with Astro](${Astro.site}v2/built-with-astro/${slug}.svg)](https://astro.build)`;
 const htmlSnippet = ({ slug, width, height }: typeof badgeSizes[number]) => `<a href="https://astro.build">
-  <img src="${Astro.site}v1/built-with-astro/${slug}.svg" alt="Built with Astro" width="${width}" height="${height}">
+  <img src="${Astro.site}v2/built-with-astro/${slug}.svg" alt="Built with Astro" width="${width}" height="${height}">
 </a>`;
 ---
 
@@ -42,13 +42,13 @@ const htmlSnippet = ({ slug, width, height }: typeof badgeSizes[number]) => `<a 
             class="relative text-center pt-28 pb-4 rounded-lg border border-neutral-500 bg-neutral-600"
           >
             <div class="absolute inset-0 grid place-content-center">
-              <img class="shadow-md" src={`/v1/built-with-astro/${badge.slug}.svg`} width={badge.width} height={badge.height} alt="Built with Astro" />
+              <img class="shadow-md" src={`/v2/built-with-astro/${badge.slug}.svg`} width={badge.width} height={badge.height} alt="Built with Astro" />
             </div>
             <p class="font-mono text-xs">Badge preview — {badge.width}×{badge.height}</p>
           </div>
           <!-- code snippets to copy/paste -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-4 [&>:last-child]:grow">
               <div class="flex items-baseline justify-between">
                 <h3 class="heading-5 text-white">Markdown</h3>
                 <Copy text={mdSnippet(badge)} />
