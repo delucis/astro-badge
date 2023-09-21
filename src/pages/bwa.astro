@@ -22,45 +22,123 @@ const htmlSnippet = ({ slug, width, height }: typeof badgeSizes[number]) => `<a 
       </p>
     </div>
 
-    <div
-      class="flex flex-col gap-4 sm:gap-8 p-4 sm:p-10 border border-neutral-600 bg-neutral-700"
-    >
-      <!-- tabs -->
-      <div class="sm:self-start border border-neutral-300 rounded-full flex text-xs sm:text-sm text-center">
-        {badgeSizes.map(({ label, slug }) => <a href={`#${slug}`} class="grow px-3 py-2 sm:px-8 sm:py-2.5">{label}</a>)}
-      </div>
-      {badgeSizes.map(badge => (
-        <!-- panel -->
-      <div class="flex flex-col gap-4 sm:gap-8">
-        <h2 class="sr-only" id={badge.slug}>{badge.label}</h2>
-        <!-- preview well -->
-        <div
-          class="relative text-center pt-28 pb-4 rounded-lg border border-neutral-500 bg-neutral-600"
-        >
-          <div class="absolute inset-0 grid place-content-center">
-            <img class="shadow-md" src={`/v1/built-with-astro/${badge.slug}.svg`} width={badge.width} height={badge.height} alt="Built with Astro" />
-          </div>
-          <p class="font-mono text-xs">Badge preview — {badge.width}×{badge.height}</p>
-        </div>
-        <!-- code snippets to copy/paste -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          <div class="flex flex-col gap-4">
-            <div class="flex items-baseline justify-between">
-              <h3 class="heading-5 text-white">Markdown</h3>
-              <Copy text={mdSnippet(badge)} />
+    <starlight-tabs>
+      <div
+        class="flex flex-col gap-4 sm:gap-8 p-4 sm:p-10 border border-neutral-600 bg-neutral-700"
+      >
+        <!-- tabs -->
+        <ul role="tablist" class="sm:self-start border border-neutral-300 rounded-full flex text-xs sm:text-sm text-center">
+          {badgeSizes.map(({ label, slug }, idx) => (
+            <li role="presentation" class="grow flex">
+              <a role="tab" class="w-full px-3 py-2 sm:px-8 sm:py-2.5 aria-selected:text-white aria-selected:bg-blue-purple-gradient rounded-full" href={`#${slug}`} aria-selected={idx === 0 ? 'true': 'false'} tabindex={idx !== 0 ? -1 : 0}>{label}</a>
+            </li>
+          ))}
+        </ul>
+        {badgeSizes.map((badge, idx) => (
+          <!-- panel -->
+        <section role="tabpanel" hidden={idx !== 0} class="flex-col gap-4 sm:gap-8 [&:not([hidden])]:flex">
+          <h2 class="sr-only" id={badge.slug}>{badge.label}</h2>
+          <!-- preview well -->
+          <div
+            class="relative text-center pt-28 pb-4 rounded-lg border border-neutral-500 bg-neutral-600"
+          >
+            <div class="absolute inset-0 grid place-content-center">
+              <img class="shadow-md" src={`/v1/built-with-astro/${badge.slug}.svg`} width={badge.width} height={badge.height} alt="Built with Astro" />
             </div>
-            <Code code={mdSnippet(badge)} lang="md" />
+            <p class="font-mono text-xs">Badge preview — {badge.width}×{badge.height}</p>
           </div>
-          <div class="flex flex-col gap-4">
-            <div class="flex items-baseline justify-between">
-              <h3 class="heading-5 text-white">HTML</h3>
-              <Copy text={htmlSnippet(badge)} />
+          <!-- code snippets to copy/paste -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div class="flex flex-col gap-4">
+              <div class="flex items-baseline justify-between">
+                <h3 class="heading-5 text-white">Markdown</h3>
+                <Copy text={mdSnippet(badge)} />
+              </div>
+              <Code code={mdSnippet(badge)} lang="md" />
             </div>
-            <Code code={htmlSnippet(badge)} lang="html" />
+            <div class="flex flex-col gap-4">
+              <div class="flex items-baseline justify-between">
+                <h3 class="heading-5 text-white">HTML</h3>
+                <Copy text={htmlSnippet(badge)} />
+              </div>
+              <Code code={htmlSnippet(badge)} lang="html" />
+            </div>
           </div>
-        </div>
+        </section>
+        ))}
       </div>
-      ))}
-    </div>
+    </starlight-tabs>
   </div>
 </Layout>
+
+<script>
+	class StarlightTabs extends HTMLElement {
+		tabs: HTMLAnchorElement[];
+		panels: HTMLElement[];
+
+		constructor() {
+			super();
+			const tablist = this.querySelector<HTMLUListElement>('[role="tablist"]')!;
+			this.tabs = [...tablist.querySelectorAll<HTMLAnchorElement>('[role="tab"]')];
+			this.panels = [...this.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+
+        console.log(this.panels);
+
+			this.tabs.forEach((tab, i) => {
+				// Handle clicks for mouse users
+				tab.addEventListener('click', (e) => {
+					e.preventDefault();
+					const currentTab = tablist.querySelector('[aria-selected]');
+					if (e.currentTarget !== currentTab) {
+						this.switchTab(e.currentTarget as HTMLAnchorElement, i);
+					}
+				});
+
+				// Handle keyboard input
+				tab.addEventListener('keydown', (e) => {
+					const index = this.tabs.indexOf(e.currentTarget as any);
+					// Work out which key the user is pressing and
+					// Calculate the new tab's index where appropriate
+					const nextIndex =
+						e.key === 'ArrowLeft'
+							? index - 1
+							: e.key === 'ArrowRight'
+							? index + 1
+							: e.key === 'Home'
+							? 0
+							: e.key === 'End'
+							? this.tabs.length - 1
+							: null;
+					if (nextIndex === null) return;
+					if (this.tabs[nextIndex]) {
+						e.preventDefault();
+						this.switchTab(this.tabs[nextIndex], nextIndex);
+					}
+				});
+			});
+		}
+
+		switchTab(newTab: HTMLAnchorElement | null | undefined, index: number) {
+			if (!newTab) return;
+
+			// Mark all tabs as unselected and hide all tab panels.
+			this.tabs.forEach((tab) => {
+				tab.removeAttribute('aria-selected');
+				tab.setAttribute('tabindex', '-1');
+			});
+			this.panels.forEach((oldPanel) => {
+				oldPanel.hidden = true;
+			});
+
+			// Show new panel and mark new tab as selected.
+			const newPanel = this.panels[index];
+			if (newPanel) newPanel.hidden = false;
+			// Restore active tab to the default tab order.
+			newTab.removeAttribute('tabindex');
+			newTab.setAttribute('aria-selected', 'true');
+			newTab.focus();
+		}
+	}
+
+	customElements.define('starlight-tabs', StarlightTabs);
+</script>
