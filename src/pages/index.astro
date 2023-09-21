@@ -7,10 +7,10 @@ const ctas = [
     description: "Add a badge to your repository or website",
     href: "/bwa/",
     img: {
-      src: "/v1/built-with-astro/large.svg",
+      src: "/v2/built-with-astro/previews.svg",
       alt: "Built with Astro",
-      width: "300",
-      height: "55",
+      width: "395",
+      height: "213",
     },
   },
   {
@@ -44,7 +44,7 @@ const ctas = [
       </span>
     </h1>
     
-    <ul class="flex flex-wrap justify-stretch gap-6">
+    <ul class="grid sm:grid-cols-2 gap-6">
       {
         ctas.map(({ href, title, description, img }) => (
           <li class="flex flex-col-reverse flex-grow border border-neutral-600 shadow-2xl relative group will-change-transform focus-within:outline motion-safe:transition motion-safe:duration-700 hover:-translate-y-1 focus-within:-translate-y-1">
@@ -56,8 +56,8 @@ const ctas = [
               </h2>
               <p>{description}</p>
             </div>
-            <div class="p-8 flex h-full bg-gradient-to-b from-black to-black/20">
-              <img {...img} class="pointer-events-none m-auto shadow-md" />
+            <div class="p-4 md:p-8 flex h-full bg-gradient-to-b from-black to-black/20">
+              <img {...img} class="pointer-events-none m-auto drop-shadow-lg" />
             </div>
           </li>
         ))
