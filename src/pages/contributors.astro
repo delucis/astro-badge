@@ -88,7 +88,7 @@ const dataID = 'contributor-usernames';
       const username = searchBox.value;
       try {
         if (!username) return resetSvg();
-        const imageSrc = new URL(`/v1/contributor/${username}.svg`, window.location.href);
+        const imageSrc = new URL(`/v2/contributor/${username}.svg`, window.location.href);
         const moreHref = new URL(`/v1/contributor/${username}/`, window.location.href);
         const res = await fetch(imageSrc.href, { method: 'HEAD' });
         resetSvg();
