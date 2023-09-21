@@ -39,10 +39,11 @@ const dataID = 'contributor-usernames';
       </form>
 
       <div class="grid gap-4 place-content-center pb-6 pt-10 sm:pt-14 rounded-lg sm:border sm:border-neutral-500 sm:bg-neutral-600">
-        <div id="svg-display" class="w-64 sm:w-[300px] max-w-full aspect-[3/2] mx-auto grid place-content-center rounded bg-neutral-400 shadow-lg">
+        <div id="svg-display" class="w-[240px] max-w-full [&>*]:aspect-[20/13] [&>*]:shadow-lg">
+          <img src="/v2/contributor-placeholder.svg" alt="">
         </div>
     
-        <p id="more-link" class="text-center text-accent-300 hover:-translate-y-0.5 hover:text-accent-200 motion-safe:transition-all">&nbsp;</p>
+        <p id="more-link" class="text-center text-sm [&>a]:inline-block [&>a]:text-accent-300 [&>a]:hover:-translate-y-0.5 [&>a]:hover:text-accent-200 [&>a]:motion-safe:transition-all">&nbsp;</p>
       </div>
 
       <div class="text-center text-neutral-200">
@@ -71,28 +72,35 @@ const dataID = 'contributor-usernames';
 
   let to: NodeJS.Timeout;
 
+  const resetSvg = () => {
+    svgDisplay.innerHTML = '<img src="/v2/contributor-placeholder.svg" alt="">';
+    svgDisplay.classList.remove('animate-pulse');
+  }
+
   searchBox.addEventListener('input', async () => {
     if (to) {
       clearTimeout(to);
       to = null;
     }
-    svgDisplay.innerHTML = `<p>Searching…</p>`;
+    svgDisplay.classList.add('animate-pulse')
     moreP.innerHTML = '&nbsp;';
     to = setTimeout(async () => {
       const username = searchBox.value;
       try {
-        if (!username) throw new Error('Enter a username')
+        if (!username) return resetSvg();
         const imageSrc = new URL(`/v1/contributor/${username}.svg`, window.location.href);
         const moreHref = new URL(`/v1/contributor/${username}/`, window.location.href);
         const res = await fetch(imageSrc.href, { method: 'HEAD' });
+        resetSvg();
         if (res.ok) {
-          svgDisplay.innerHTML = `<img src="${imageSrc.href}">`;
+          svgDisplay.innerHTML = `<img src="${imageSrc.href}" alt="@${username} Astro contributions">`;
           moreP.innerHTML = `<a href="${moreHref}">More about this contributor →</a>`;
         } else {
           throw new Error('Contributor not found!');
         }
       } catch (error: unknown) {
-        svgDisplay.innerHTML = `<p>${error instanceof Error ? error.message : error}</p>`;
+        resetSvg();
+        moreP.innerHTML = `<span>${error instanceof Error ? error.message : error}</span>`;
       }
     }, 200);
   });
