@@ -17,9 +17,9 @@ module.exports = {
         primary: colors.purple,
         secondary: colors.orange,
         accent: colors.fuchsia,
-        bronze: 'hsl(20, 30%, 55%)',
-        silver: 'hsl(210, 6%, 72%)',
-        gold: 'hsl(48, 100%, 50%)',
+        bronze: '#FF9E58',
+        silver: '#BFC1C9',
+        gold: '#FFCA58',
       },
       fontFamily: {
         ...config.theme.extend.fontFamily,

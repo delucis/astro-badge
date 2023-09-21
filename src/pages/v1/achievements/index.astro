@@ -1,60 +1,74 @@
 ---
-import CTA from '../../../components/CTA.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { globalAchievements } from '../../../util/getGlobalStats';
 import {
   achievementClassGradientFrom,
+  achievementClassGradientTo,
   achievementClassLabel,
   achievementClassSlug,
 } from '../../../util/achievementClasses';
 
 /** Achievements sorted alphabetically by their title. */
-const achievements = globalAchievements.sort((a, b) =>
-  a.title > b.title ? 1 : -1
-);
+const achievements = globalAchievements.sort((a, b) => (a.title > b.title ? 1 : -1));
 ---
 
 <Layout
   title="All Achievements — Astro Achievements"
   description="List of all achievements Astro contributors have collected."
 >
-  <div class="space-y-16">
-    <h1 class="text-4xl font-extrabold">All Achievements</h1>
+  <div class="flex flex-col gap-10">
+    <a href="/contributors" class="link text-sm">← Back to Contributors</a>
+    <div class="flex flex-col gap-4">
+      <h1 class="heading-3 text-white">All Achievements</h1>
+      <div>
+        <p>Discover all the achievements Astro contributors have collected so far.</p>
+      </div>
+    </div>
+    <hr class="border-neutral-500" />
 
     {
       [2, 1, 0].map((cls) => (
-        <div class="space-y-4 sm:space-y-6">
-          <h3 class="font-black text-3xl">
+        <div class="flex flex-col gap-4 sm:gap-6">
+          <h3 class="flex items-center gap-2 font-semibold text-2xl leading-normal">
             <span
               class:list={[
-                'bg-gradient-to-br to-white inline-block w-6 h-6 mr-0.5 rounded-full translate-y-px',
+                'bg-white bg-gradient-to-br inline-block w-4 h-4 rounded-full',
                 achievementClassGradientFrom(cls),
+                achievementClassGradientTo(cls),
               ]}
             />
             <span
               class:list={[
-                'bg-gradient-to-br to-white bg-clip-text text-transparent',
+                'bg-white bg-gradient-to-br bg-clip-text text-transparent',
                 achievementClassGradientFrom(cls),
+                achievementClassGradientTo(cls),
               ]}
             >
               {achievementClassLabel(cls)}
             </span>
           </h3>
 
-          <ul class="flex flex-wrap gap-2 sm:gap-4 -m-2">
+          <ul class="flex flex-wrap gap-4 sm:gap-6 font-semibold">
             {achievements
               .filter((a) => a.class === cls)
               .map((achievement) => (
-                <li class="flex gap-1.5 items-center hover:bg-neutral-800 p-2 rounded sm:text-lg relative">
+                <li
+                  class:list={[
+                    'flex gap-2 items-center py-2 pl-4 pr-3 rounded-full relative',
+                    'bg-gradient-to-br bg-white',
+                    achievementClassGradientFrom(cls),
+                    achievementClassGradientTo(cls),
+                  ]}
+                >
                   <a
-                    class="text-neutral-300 hover:text-neutral-50 after:inset-0 after:absolute"
-                    href={`/v1/achievements/${
-                      achievement.groupID
-                    }/${achievementClassSlug(achievement.class)}/`}
+                    class="text-black after:inset-0 after:absolute"
+                    href={`/v1/achievements/${achievement.groupID}/${achievementClassSlug(
+                      achievement.class
+                    )}/`}
                   >
                     {achievement.title}
                   </a>
-                  <span class="bg-neutral-50/10 text-xs text-center py-1 px-2 min-w-[2em] rounded-full">
+                  <span class="bg-neutral-900/60 text-white text-[13px] text-center px-2.5 py-2 min-w-[2.75em] rounded-full font-mono leading-none">
                     {achievement.numAchieved}
                   </span>
                 </li>
@@ -63,9 +77,5 @@ const achievements = globalAchievements.sort((a, b) =>
         </div>
       ))
     }
-
-    <footer class="my-24">
-      <CTA href="/contributors">Find a contributor →</CTA>
-    </footer>
   </div>
 </Layout>
