@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 240 156">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 260 156">
   <g clip-path="url(#a)">
-    <rect width="240" height="156" fill="#545864" rx="4"/>
+    <rect width="260" height="156" fill="#545864" rx="4"/>
     <path fill="#17191E" fill-opacity=".5" d="M0 0h32v156H0z"/>
     <circle cx="16" cy="20" r="12" fill="#858B98"/>
     <circle cx="16" cy="20" r="11.5" stroke="#17191E" stroke-opacity=".18"/>
@@ -16,17 +16,17 @@
     </g>
     <rect width="12" height="4" x="10" y="118" fill="#858B98" rx="2"/>
     <path fill="#858B98" d="M13.778 145.628c-.725-.661-.936-2.049-.635-3.055.524.634 1.25.835 2 .948 1.16.175 2.3.11 3.377-.419.123-.061.237-.141.372-.223.1.293.127.588.092.889-.086.732-.451 1.298-1.032 1.726-.233.172-.478.325-.718.487-.738.497-.937 1.079-.66 1.927l.027.092a1.935 1.935 0 0 1-.86-.735 2.06 2.06 0 0 1-.332-1.121c-.003-.198-.003-.397-.03-.592-.065-.475-.288-.688-.71-.7a.83.83 0 0 0-.865.674c-.007.032-.017.064-.027.101v.001Zm-4.136-3.223s2.146-1.042 4.297-1.042l1.623-5.009c.06-.242.238-.406.438-.406s.378.164.438.406l1.623 5.009c2.548 0 4.297 1.042 4.297 1.042l-3.652-9.924c-.104-.292-.28-.481-.519-.481h-4.374c-.238 0-.407.189-.519.481l-3.652 9.924Z"/>
-    <rect width="192" height="4" x="40" y="16" fill="#858B98" rx="2"/>
-    <rect width="192" height="4" x="40" y="40" fill="#858B98" rx="2"/>
-    <rect width="192" height="4" x="40" y="64" fill="#858B98" rx="2"/>
-    <rect width="192" height="4" x="40" y="88" fill="#858B98" rx="2"/>
-    <rect width="192" height="4" x="40" y="112" fill="#858B98" rx="2"/>
-    <rect width="192" height="4" x="40" y="136" fill="#858B98" rx="2"/>
+    <rect width="212" height="4" x="40" y="16" fill="#858B98" rx="2"/>
+    <rect width="212" height="4" x="40" y="40" fill="#858B98" rx="2"/>
+    <rect width="212" height="4" x="40" y="64" fill="#858B98" rx="2"/>
+    <rect width="212" height="4" x="40" y="88" fill="#858B98" rx="2"/>
+    <rect width="212" height="4" x="40" y="112" fill="#858B98" rx="2"/>
+    <rect width="212" height="4" x="40" y="136" fill="#858B98" rx="2"/>
   </g>
-  <rect width="239" height="155" x=".5" y=".5" stroke="#343841" rx="3.5"/>
+  <rect width="259" height="155" x=".5" y=".5" stroke="#343841" rx="3.5"/>
   <defs>
     <clipPath id="a">
-      <rect width="240" height="156" fill="#fff" rx="4"/>
+      <rect width="260" height="156" fill="#fff" rx="4"/>
     </clipPath>
     <clipPath id="b">
       <path fill="#fff" d="M10 42h12v12H10z"/>
