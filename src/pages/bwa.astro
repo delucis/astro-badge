@@ -32,18 +32,15 @@ const htmlSnippet = ({ slug, width, height }: typeof badgeSizes[number]) => `<a 
       {badgeSizes.map(badge => (
         <!-- panel -->
       <div class="flex flex-col gap-4 sm:gap-8">
-        <h2 class="heading-4 text-white" id={badge.slug}>{badge.label}</h2>
+        <h2 class="sr-only" id={badge.slug}>{badge.label}</h2>
         <!-- preview well -->
         <div
           class="relative text-center pt-28 pb-4 rounded-lg border border-neutral-500 bg-neutral-600"
         >
-          <a
-            href="https://astro.build"
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-md"
-          >
-            <img src={`/v1/built-with-astro/${badge.slug}.svg`} width={badge.width} height={badge.height} alt="Built with Astro" />
-          </a>
-          <p class="font-mono text-xs">Badge preview</p>
+          <div class="absolute inset-0 grid place-content-center">
+            <img class="shadow-md" src={`/v1/built-with-astro/${badge.slug}.svg`} width={badge.width} height={badge.height} alt="Built with Astro" />
+          </div>
+          <p class="font-mono text-xs">Badge preview — {badge.width}×{badge.height}</p>
         </div>
         <!-- code snippets to copy/paste -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
