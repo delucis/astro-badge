@@ -2,6 +2,7 @@
 // @ts-expect-error: no type defs yet
 const config = require('@astrojs/site-kit/tailwind');
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -19,6 +20,10 @@ module.exports = {
         bronze: 'hsl(20, 30%, 55%)',
         silver: 'hsl(210, 6%, 72%)',
         gold: 'hsl(48, 100%, 50%)',
+      },
+      fontFamily: {
+        ...config.theme.extend.fontFamily,
+        sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
       },
       typography: ({ theme }) => ({
         DEFAULT: {
