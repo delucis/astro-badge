@@ -5,9 +5,6 @@ export interface Props {
 const { href } = Astro.props;
 ---
 
-<a
-  {href}
-  class="block w-full p-3 text-center bg-primary-700 hover:bg-primary-800 text-primary-50 no-underline rounded-md"
->
+<a {href} class="button button-sm">
   <slot />
 </a>
