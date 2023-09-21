@@ -1,28 +1,21 @@
 // @ts-check
-// @ts-expect-error: no type defs yet
-const config = require('@astrojs/site-kit/tailwind');
-const colors = require('tailwindcss/colors');
-const defaultTheme = require('tailwindcss/defaultTheme');
+import config from '@astrojs/site-kit/tailwind-preset';
+import colors from 'tailwindcss/colors';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  ...config,
+  presets: [config],
   theme: {
-    ...config.theme,
     extend: {
-      ...config.theme.extend,
       colors: {
-        ...config.theme.extend.colors,
         neutral: config.theme.extend.colors['astro-gray'],
-        primary: colors.purple,
-        secondary: colors.orange,
         accent: colors.fuchsia,
         bronze: '#FF9E58',
         silver: '#BFC1C9',
         gold: '#FFCA58',
       },
       fontFamily: {
-        ...config.theme.extend.fontFamily,
         sans: ['InterVariable', ...defaultTheme.fontFamily.sans],
       },
       typography: ({ theme }) => ({
@@ -36,5 +29,5 @@ module.exports = {
       }),
     },
   },
-  plugins: [require('@tailwindcss/typography'), ...config.plugins],
+  plugins: [require('@tailwindcss/typography')],
 };

@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@astrojs/site-kit": "github:withastro/site-kit",
-    "@astrojs/tailwind": "^3.1.0",
+    "@astrojs/tailwind": "^4.0.0",
     "@fontsource-variable/inter": "^5.0.5",
     "@octokit/core": "^4.1.0",
     "@resvg/resvg-js": "^2.4.1",
