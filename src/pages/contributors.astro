@@ -1,5 +1,6 @@
 ---
 import CTA from "../components/CTA.astro";
+import Frame from "../components/Frame.astro";
 import Layout from "../layouts/Layout.astro";
 import { contributors } from '../util/getContributors'
 
@@ -11,41 +12,46 @@ const dataID = 'contributor-usernames';
 ---
 
 <Layout {title} {description}>
-  <div class="prose prose-invert prose-a:text-accent-300 mx-auto">
-    <h1>{title}</h1>
-
-    <p>
-      Show off your own or celebrate an Astro contributor’s achievements!
-    </p>
-
-    <p>
-      Enter a GitHub username to show that user’s contributions to repositories in <a href="https://github.com/withastro/">the <code>withastro</code> org</a>.
-    </p>
-  </div>
-
-  <div class="my-12 grid gap-2 place-content-center">
-    <form onsubmit="return false" class="bg-neutral-800 p-2 rounded-lg">
-      <label for="find-contributor" class="uppercase text-sm tracking-wide font-semibold block mb-2">
-        Find an Astro contributor
-      </label>
-      <input type="text" id="find-contributor" placeholder="GitHub username" list={dataID} autocomplete="off" class="p-2 w-full text-neutral-800 rounded-md">
-    </form>
-
-    <div id="svg-display" class="w-[300px] h-[200px] mx-auto grid place-content-center rounded-3xl bg-neutral-800 text-neutral-400">
-      Enter a username
+  <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-4">
+      <h1 class="heading-3 text-white">{title}</h1>
+      <div>
+        <p>
+          Show off your own or celebrate an Astro contributor’s achievements!
+        </p>
+        <p>
+          Enter a GitHub username to show that user’s contributions to repositories in <a class="link-underline" href="https://github.com/withastro/">the <code>withastro</code> org</a>.
+        </p>
+      </div>
     </div>
 
-    <p id="more-link" class="text-center text-accent-300 hover:-translate-y-0.5 hover:text-accent-200 motion-safe:transition-all">&nbsp;</p>
-  </div>
-  
-  <footer class="mx-auto max-w-prose">
-    <p>One of {contributors.length} contributors! 🧑‍🚀💜</p>
-    <small>Data is updated once per day at midnight GMT.</small>
+    <Frame>
+      <form onsubmit="return false" class="flex flex-col gap-4 sm:gap-8">
+        <label for="find-contributor" class="heading-5 text-white">
+          Find an Astro contributor
+        </label>
+        <input type="text" id="find-contributor" placeholder="GitHub username" list={dataID} autocomplete="off" class="w-full input">
+      </form>
 
-    <div class="my-24">
-      <CTA href="/v1/achievements/">Browse achievements →</CTA>
-    </div>
-  </footer>
+      <div class="grid gap-2 place-content-center pb-6 pt-12 rounded-lg border border-neutral-500 bg-neutral-600">
+        <div id="svg-display" class="w-[300px] h-[200px] mx-auto grid place-content-center rounded bg-neutral-400 shadow-lg">
+        </div>
+    
+        <p id="more-link" class="text-center text-accent-300 hover:-translate-y-0.5 hover:text-accent-200 motion-safe:transition-all">&nbsp;</p>
+      </div>
+
+      <div class="text-center text-neutral-200">
+        <p>Astro has {Intl.NumberFormat().format(contributors.length)} contributors! 🧑‍🚀💜</p>
+        <p>Data is updated once per day at midnight GMT.</p>
+      </div>
+    </Frame>
+    
+    <footer>
+      <div class="">
+        <CTA href="/v1/achievements/">Browse achievements →</CTA>
+      </div>
+    </footer>
+  </div>
 
   <datalist id={dataID}>
     {sortedUsernames.map(username =>
