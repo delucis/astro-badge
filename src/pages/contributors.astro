@@ -30,7 +30,12 @@ const dataID = 'contributor-usernames';
         <label for="find-contributor" class="heading-5 text-white">
           Find an Astro contributor
         </label>
-        <input type="text" id="find-contributor" placeholder="GitHub username" list={dataID} autocomplete="off" class="w-full input">
+        <div class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" class="absolute left-3 inset-y-3 w-4">
+            <path class="fill-neutral-200" d="M12.66 11.84 10.5 9.69a5.25 5.25 0 1 0-.81.81l2.15 2.15a.58.58 0 0 0 .82 0 .58.58 0 0 0 0-.81ZM6.42 10.5a4.08 4.08 0 1 1 0-8.17 4.08 4.08 0 0 1 0 8.17Z"/>
+          </svg>
+          <input type="text" id="find-contributor" placeholder="GitHub username" list={dataID} autocomplete="off" class="w-full input pl-10 text-white text-sm leading-4 placeholder:text-neutral-200">
+        </div>
       </form>
 
       <div class="grid gap-2 place-content-center pb-6 pt-12 rounded-lg border border-neutral-500 bg-neutral-600">
