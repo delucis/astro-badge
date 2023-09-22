@@ -101,13 +101,17 @@ const dataID = 'contributor-usernames';
   const searchBox = document.getElementById('find-contributor') as HTMLInputElement;
   const svgDisplay = document.getElementById('svg-display') as HTMLDivElement;
   const moreP = document.getElementById('more-link') as HTMLParagraphElement;
+  const datalist = document.getElementById('contributor-usernames');
+  const options = datalist.querySelectorAll('option');
+  const usernames = [...options].map((option) => option.value);
+  const lowercaseMap = new Map(usernames.map((name) => [name.toLowerCase(), name]));
+  const findUsername = (query: string) => lowercaseMap.get(query.toLowerCase());
 
   let to: NodeJS.Timeout;
 
   const resetSvg = () => {
     svgDisplay.innerHTML =
       '<img src="/v2/contributor-placeholder.svg" alt="" width="260" height="156">';
-    svgDisplay.classList.remove('animate-pulse');
   };
 
   svgDisplay.addEventListener('click', () => {
@@ -120,22 +124,19 @@ const dataID = 'contributor-usernames';
       clearTimeout(to);
       to = null;
     }
-    svgDisplay.classList.add('animate-pulse');
     moreP.innerHTML = '&nbsp;';
     to = setTimeout(async () => {
-      const username = searchBox.value;
       try {
-        if (!username) return resetSvg();
+        const input = searchBox.value.trim();
+        if (!input) return resetSvg();
+        
+        const username = findUsername(input);
+        if (!username) throw new Error('Contributor not found!');
+        
         const imageSrc = new URL(`/v2/contributor/${username}.svg`, window.location.href);
         const moreHref = new URL(`/contributor/${username}/`, window.location.href);
-        const res = await fetch(imageSrc.href, { method: 'HEAD' });
-        resetSvg();
-        if (res.ok) {
-          svgDisplay.innerHTML = `<img src="${imageSrc.href}" alt="@${username} Astro contributions" width="260" height="156" class="cursor-pointer group-hover:-translate-y-0.5 motion-safe:transition-all">`;
-          moreP.innerHTML = `<a href="${moreHref}">More about this contributor&nbsp;→</a>`;
-        } else {
-          throw new Error('Contributor not found!');
-        }
+        svgDisplay.innerHTML = `<img src="${imageSrc.href}" alt="@${username} Astro contributions" width="260" height="156" class="cursor-pointer group-hover:-translate-y-0.5 motion-safe:transition-all">`;
+        moreP.innerHTML = `<a href="${moreHref}">More about this contributor&nbsp;→</a>`;
       } catch (error: unknown) {
         resetSvg();
         moreP.innerHTML = `<span>${error instanceof Error ? error.message : error}</span>`;
