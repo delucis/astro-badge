@@ -111,9 +111,9 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
                       <li>
                         <div class="flex items-baseline gap-x-2 relative after:absolute [&:not(:last-child>*)]:after:border-l after:border-neutral-500 after:inset-y-0 after:left-[3.5px] after:translate-y-4">
                           <span class:list={["inline-block w-2 h-2 rounded-full", achievementClassGradient(previous.class)]} />
-                          <span class="flex items-baseline gap-x-2 flex-wrap">
+                          <span class="relative flex items-baseline gap-x-2 flex-wrap">
                             <h5>
-                              <a class:list={["font-semibold", achievementClassGradientText(previous.class)]} href={`/v1/achievements/${group.groupID}/${achievementClassSlug(previous.class)}/`}>{previous.title}</a>
+                              <a class:list={["font-semibold after:absolute after:-inset-0.5", achievementClassGradientText(previous.class)]} href={`/v1/achievements/${group.groupID}/${achievementClassSlug(previous.class)}/`}>{previous.title}</a>
                             </h5>
                             <p class:list={["text-xs font-mono", achievementClassGradientText(previous.class)]}>{previous.details}</p>
                           </span>
