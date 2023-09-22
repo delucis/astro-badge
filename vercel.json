@@ -1,4 +1,15 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/v1/achievements/:path*",
+      "destination": "/achievements/:path*"
+    },
+    {
+      "source": "/v1/contributor/:path*",
+      "destination": "/contributor/:path*"
+    }
+  ]
 }
