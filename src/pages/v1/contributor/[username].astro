@@ -107,12 +107,14 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
                   <ol class="space-y-1 text-sm p-0">
                     {group.achievements.map((previous, i) => i > 0 && (
                       <li>
-                        <div class="flex items-baseline space-x-2">
+                        <div class="flex items-baseline gap-x-2">
                           <span class:list={["inline-block w-2 h-2 rounded-full", achievementClassGradient(previous.class)]} />
-                          <h5>
-                            <a class:list={["font-semibold", achievementClassGradientText(previous.class)]} href={`/v1/achievements/${group.groupID}/${achievementClassSlug(previous.class)}/`}>{previous.title}</a>
-                          </h5>
-                          <p class:list={["text-xs font-mono", achievementClassGradientText(previous.class)]}>{previous.details}</p>
+                          <span class="flex items-baseline gap-x-2 flex-wrap">
+                            <h5>
+                              <a class:list={["font-semibold", achievementClassGradientText(previous.class)]} href={`/v1/achievements/${group.groupID}/${achievementClassSlug(previous.class)}/`}>{previous.title}</a>
+                            </h5>
+                            <p class:list={["text-xs font-mono", achievementClassGradientText(previous.class)]}>{previous.details}</p>
+                          </span>
                         </div>
                       </li>
                     ))}
