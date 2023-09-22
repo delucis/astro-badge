@@ -1,6 +1,4 @@
 ---
-import { objSum } from "../../util/objSum";
-
 type HeadingLevels = "1" | "2" | "3" | "4" | "5" | "6";
 
 export interface Props {
@@ -15,36 +13,37 @@ export interface Props {
 
 const { contributor, count, hLevel, type } = Astro.props;
 const H: `h${HeadingLevels}` = `h${hLevel}`;
+const { issues, reviews, merged_pulls } = contributor;
+const allCounts = [issues, reviews, merged_pulls].flatMap(type => Object.values(type));
+const maxCount = Math.max(...allCounts);
 const stat = contributor[type === "pulls" ? "merged_pulls" : type];
-const maxCount = objSum(stat);
-const maxLeftColChars = 1 + Math.max(...Object.keys(stat).map((k) => k.length));
 const repoCounts = Object.entries(stat).sort(([, a], [, b]) => b - a);
 ---
 
-<li class="text-center px-2 py-4 md:px-4 bg-neutral-800 rounded-lg">
-  <H class="uppercase text-sm tracking-wider">{type}</H>
-  <p class="text-3xl font-black">{count}</p>
-  <ul class="text-xs my-4 leading-none space-y-1">
+<li class="text-center p-6 bg-neutral-700 border border-neutral-600 flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <H class="heading-5 text-white">{type[0].toUpperCase() + type.slice(1)}</H>
+    <p class="text-[2rem] text-white font-obviously-wide font-semibold leading-none">{count}</p>
+  </div>
+  <ul class="text-[13px] text-white leading-tight">
     {
       repoCounts.map(([repo, repoCount]) => {
         const percentage = (repoCount / maxCount) * 100;
         return (
-          <li class="flex items-center rounded hover:bg-neutral-50/10">
+          <li class="grid grid-cols-2 items-center">
             <span
-              class="text-right w-[var(--col-l-w)] py-0.5 px-1 border-r border-neutral-50/30"
-              style={`--col-l-w: ${maxLeftColChars}ch;`}
+              class="text-right py-0.5 pr-2 border-r border-neutral-500 break-words"
             >
               {repo}
             </span>
             <span
-              class="w-[var(--col-r-w)] px-1"
-              style={`--col-r-w: calc(100% - ${maxLeftColChars}ch)`}
+              class="pl-2"
             >
               <span
-                class="block w-[var(--bar-w)] bg-primary-400 h-1 rounded sm:col-span-2"
+                class="block w-[var(--bar-w)] min-w-[2px] bg-blue-purple-gradient h-2 rounded-full"
                 style={`--bar-w: ${percentage}%;`}
               >
-                <span class="sr-only">{percentage.toFixed(1)}%</span>
+                <span class="sr-only">{repoCount} {type}</span>
               </span>
             </span>
           </li>

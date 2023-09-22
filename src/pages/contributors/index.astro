@@ -1,0 +1,163 @@
+---
+import CTA from '../../components/CTA.astro';
+import Frame from '../../components/Frame.astro';
+import Layout from '../../layouts/Layout.astro';
+import { contributors } from '../../util/getContributors';
+import src from './_og.jpg?url';
+
+const sortedUsernames = contributors.map((c) => c.username);
+
+const title = 'Astro Contributors';
+const description = 'Find an Astro contributor and check out their awesome work!';
+const dataID = 'contributor-usernames';
+---
+
+<Layout
+  {title}
+  {description}
+  ogImg={{
+    src,
+    alt: 'The text “Find your contributor badge” over three brightly coloured stylized cards representing Astro contributor badges.',
+  }}
+>
+  <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-4">
+      <h1 class="heading-3 text-white">{title}</h1>
+      <div>
+        <p>Show off your own or celebrate an Astro contributor’s achievements!</p>
+        <p>
+          Enter a GitHub username to show that user’s contributions to repositories in <a
+            class="link-underline"
+            href="https://github.com/withastro/">the <code>withastro</code> org</a
+          >.
+        </p>
+      </div>
+    </div>
+
+    <Frame>
+      <form onsubmit="return f
+      alse" class=
+"flex flex-col gap-4 sm:gap-8">
+        <label for="find-contributor" class="heading-5 text-white">
+          Find an Astro contributor
+        </label>
+        <div class="relative">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 14 14"
+            class="absolute left-3 inset-y-1/2 -translate-y-1/2 w-4"
+          >
+            <path
+              class="fill-neutral-200"
+              d="M12.66 11.84 10.5 9.69a5.25 5.25 0 1 0-.81.81l2.15 2.15a.58.58 0 0 0 .82 0 .58.58 0 0 0 0-.81ZM6.42 10.5a4.08 4.08 0 1 1 0-8.17 4.08 4.08 0 0 1 0 8.17Z"
+            ></path>
+          </svg>
+          <input
+            type="text"
+            id="find-contributor"
+            placeholder="GitHub username"
+            list={dataID}
+            autocomplete="off"
+            class="w-full input pl-10 text-white text-sm leading-4 placeholder:text-neutral-200"
+          />
+        </div>
+      </form>
+
+      <div
+        class="grid items-center justify-center sm:py-6 px-4 rounded-lg border border-neutral-500 bg-neutral-600"
+      >
+        <div class="group flex flex-col gap-4 py-4 sm:pt-8">
+          <div id="svg-display" class="[&>*]:shadow-lg">
+            <img src="/v2/contributor-placeholder.svg" alt="" width="260" height="156" />
+          </div>
+          <p
+            id="more-link"
+            class="text-center text-sm [&>a]:inline-block [&>a]:text-accent-300 [&>a]:group-hover:-translate-y-0.5 [&>a]:group-hover:text-accent-200 [&>a]:motion-safe:transition-all"
+          >
+            &nbsp;
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center text-neutral-200">
+        <p>Astro has {Intl.NumberFormat().format(contributors.length)} contributors! 🧑‍🚀💜</p>
+        <p>Data is updated once per day at midnight GMT.</p>
+      </div>
+    </Frame>
+
+    <footer>
+      <CTA href="/achievements/">Browse achievements →</CTA>
+    </footer>
+  </div>
+
+  <datalist id={dataID}>
+    {sortedUsernames.map((username) => <option value={username} />)}
+  </datalist>
+</Layout>
+
+<script>
+  const searchBox = document.getElementById('find-contributor') as HTMLInputElement;
+  const svgDisplay = document.getElementById('svg-display') as HTMLDivElement;
+  const moreP = document.getElementById('more-link') as HTMLParagraphElement;
+  const datalist = document.getElementById('contributor-usernames');
+  const options = datalist.querySelectorAll('option');
+  const usernames = [...options].map((option) => option.value);
+  const lowercaseMap = new Map(usernames.map((name) => [name.toLowerCase(), name]));
+
+  const findUsername = (query: string) => {
+    if (!query) return;
+    query = query.toLowerCase();
+    const fullMatch = lowercaseMap.get(query);
+    if (fullMatch) return fullMatch;
+    if (query.length > 2) {
+      const keys = [...lowercaseMap.keys()];
+      {
+        const [partialMatchKey] = keys.filter((key) => key.startsWith(query));
+        const partialMatch = lowercaseMap.get(partialMatchKey);
+        if (partialMatch) return partialMatch;
+      }
+      {
+        const [partialMatchKey] = keys.filter((key) => key.includes(query));
+        const partialMatch = lowercaseMap.get(partialMatchKey);
+        if (partialMatch) return partialMatch;
+      }
+    }
+  };
+
+  let to: NodeJS.Timeout;
+
+  const resetSvg = () => {
+    svgDisplay.innerHTML =
+      '<img src="/v2/contributor-placeholder.svg" alt="" width="260" height="156">';
+  };
+
+  svgDisplay.addEventListener('click', () => {
+    const link = moreP.querySelector('a');
+    if (link) link.click();
+  });
+
+  searchBox.addEventListener('input', async () => {
+    if (to) {
+      clearTimeout(to);
+      to = null;
+    }
+    moreP.innerHTML = '&nbsp;';
+    to = setTimeout(async () => {
+      try {
+        const input = searchBox.value.trim();
+        if (!input) return resetSvg();
+        
+        const username = findUsername(input);
+        if (!username) throw new Error('Contributor not found!');
+        
+        const imageSrc = new URL(`/v2/contributor/${username}.svg`, window.location.href);
+        const moreHref = new URL(`/contributor/${username}/`, window.location.href);
+        svgDisplay.innerHTML = `<img src="${imageSrc.href}" alt="@${username} Astro contributions" width="260" height="156" class="cursor-pointer group-hover:-translate-y-0.5 motion-safe:transition-all">`;
+        moreP.innerHTML = `<a href="${moreHref}">More about this contributor&nbsp;→</a>`;
+      } catch (error: unknown) {
+        resetSvg();
+        moreP.innerHTML = `<span>${error instanceof Error ? error.message : error}</span>`;
+      }
+    }, 200);
+  });
+</script>

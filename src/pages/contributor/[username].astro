@@ -1,0 +1,139 @@
+---
+import { Code } from "astro/components";
+import Copy from "../../components/Copy.astro";
+import { contributors } from "../../util/getContributors";
+import Layout from '../../layouts/Layout.astro';
+import Stat from "../../components/achievements/Stat.astro";
+import { achievementClassGradient, achievementClassGradientText, achievementClassSlug } from '../../util/achievementClasses'
+
+export function getStaticPaths() {
+  return contributors.map((contributor) => ({
+    params: { username: contributor.username },
+    props: { contributor },
+  }));
+}
+
+export interface Props {
+  contributor: typeof contributors[number];
+}
+
+const { username } = Astro.params;
+const { contributor } = Astro.props;
+const { achievements, stats } = contributor;
+
+const mdSnippet = `[![@${username} Astro contributions](${Astro.site}v2/contributor/${username}.svg)](${Astro.url.href})`;
+const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/contributor/${username}.svg" alt="@${username} Astro contributions" width="260" height="156">\n</a>`;
+---
+
+<Layout
+  title={`@${username} — Astro Achievements`}
+  description={`Let’s celebrate @${username}’s awesome contributions to Astro! 🥳`}
+  ogImg={{
+    src: `/v2/contributor/${username}.png`,
+    alt: `@${username}’s Astro achievements`,
+  }}
+>
+  <div class="flex flex-col gap-10">
+    <a href="/contributors" class="link text-sm">← Back to Contributors</a>
+
+    <div class="flex items-baseline gap-6 flex-wrap">
+      <h1 class="heading-3 text-white">@{username}</h1>
+      <a class="link" href={`https://github.com/${username}`}>
+        <span class="sr-only">GitHub Profile</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="1.85rem" height="1.85rem" class="fill-current">
+          <path fill-rule="evenodd" d="M8 0a8 8 0 0 0-2.5 15.6c.4 0 .5-.2.5-.4v-1.5c-2 .4-2.5-.5-2.7-1 0-.1-.5-.9-.8-1-.3-.2-.7-.6 0-.6.6 0 1 .6 1.2.8.7 1.2 1.9 1 2.4.7 0-.5.2-.9.5-1-1.8-.3-3.7-1-3.7-4 0-.9.3-1.6.8-2.2 0-.2-.3-1 .1-2 0 0 .7-.3 2.2.7a7.4 7.4 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.5 1.1.2 2 .1 2.1.5.6.8 1.3.8 2.2 0 3-1.9 3.7-3.6 4 .3.2.5.7.5 1.4v2.2c0 .2.1.5.5.4A8 8 0 0 0 16 8a8 8 0 0 0-8-8z"/>
+        </svg>      
+      </a>
+    </div>
+    
+    <hr class="border-neutral-500" />
+    
+    <section class="flex flex-col gap-6">
+      <h2 class="heading-4 text-white">Shareable Badge</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-[max-content_minmax(0,1fr)] gap-8">
+        <!-- left column — badge -->
+        <div class="flex flex-col gap-6 items-center justify-center text-center rounded-lg p-6 border border-neutral-500 bg-neutral-600">
+          <img alt={`@${username} Astro contributions summary badge`} src={`/v2/contributor/${username}.svg`} width="260" height="156" class="drop-shadow-lg">
+          <p class="text-xs">
+            Add this badge to your <a class="link-underline" href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme">GitHub profile README</a>.
+          </p>
+        </div>
+        
+        <!-- right column — code snippets -->
+        <div class="flex flex-col gap-4">
+          <div class="flex items-baseline justify-between">
+            <h3 class="heading-5 text-white">Markdown</h3>
+            <Copy text={mdSnippet} />
+          </div>
+          <Code code={mdSnippet} lang="md" />
+          <div class="flex items-baseline justify-between">
+            <h3 class="heading-5 text-white">HTML</h3>
+            <Copy text={htmlSnippet} />
+          </div>
+          <Code code={htmlSnippet} lang="html" />
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="heading-4 text-white">@{username}’s Achievements</h2>
+
+      <ol class="gap-6 list-none p-0 grid grid-cols-1 sm:fluid-cols-72">
+        {achievements.map((group) => {
+          const { title, details, numAchieved } = group.achievements[0];
+          const percentage = numAchieved / contributors.length * 100;
+          return (
+            <li class="bg-neutral-700 border border-neutral-600 p-6 flex flex-col gap-6">
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-semibold text-2xl shrink-0">
+                    <a href={`/achievements/${group.groupID}/${achievementClassSlug(group.class)}/`}>
+                      <span class:list={["inline-block w-4 h-4 mr-1 rounded-full -translate-y-px", achievementClassGradient(group.class)]} />
+                      <span class:list={[achievementClassGradientText(group.class)]}>
+                        {title}
+                      </span>
+                    </a>
+                  </h3>
+                  <p class="text-sm font-mono leading-tight">{details}</p>
+                </div>
+                <p class="text-[11px] font-mono bg-neutral-600 self-start rounded-full py-0.5 px-3">
+                  {percentage < 1 ? '<1' : Math.round(percentage)}% of contributors have this
+                </p>
+              </div>
+              {group.achievements.length > 1 && (
+                <div class="space-y-2">
+                  <h4 class="text-sm font-mono text-white">
+                    Previously
+                  </h4>
+                  <ol class="space-y-1 text-sm p-0">
+                    {group.achievements.map((previous, i) => i > 0 && (
+                      <li>
+                        <div class="flex items-baseline gap-x-2 relative after:absolute [&:not(:last-child>*)]:after:border-l after:border-neutral-500 after:inset-y-0 after:left-[3.5px] after:translate-y-4">
+                          <span class:list={["inline-block w-2 h-2 rounded-full", achievementClassGradient(previous.class)]} />
+                          <span class="relative flex items-baseline gap-x-2 flex-wrap">
+                            <h5>
+                              <a class:list={["font-semibold after:absolute after:-inset-0.5", achievementClassGradientText(previous.class)]} href={`/achievements/${group.groupID}/${achievementClassSlug(previous.class)}/`}>{previous.title}</a>
+                            </h5>
+                            <p class:list={["text-xs font-mono", achievementClassGradientText(previous.class)]}>{previous.details}</p>
+                          </span>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="heading-4 text-white">Stats</h2>
+      <ul class:list={["grid gap-4 sm:gap-6", stats.length < 3 ? 'sm:grid-cols-2' : 'sm:grid-cols-3']}>
+        {stats.map((stat) => <Stat {...{ ...stat, contributor, hLevel: '3' }} />)}
+      </ul>
+    </section>
+  </div>
+</Layout>

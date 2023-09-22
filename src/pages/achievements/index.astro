@@ -1,0 +1,76 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { globalAchievements } from '../../util/getGlobalStats';
+import {
+  achievementClassLabel,
+  achievementClassSlug,
+  achievementClassGradient,
+  achievementClassGradientText,
+} from '../../util/achievementClasses';
+import src from './_og.jpg?url';
+
+/** Achievements sorted alphabetically by their title. */
+const achievements = globalAchievements.sort((a, b) => (a.title > b.title ? 1 : -1));
+---
+
+<Layout
+  title="All Achievements — Astro Achievements"
+  description="List of all achievements Astro contributors have collected."
+  ogImg={{
+    src,
+    alt: 'Astro Badges Achievements showing three cards in gold, silver, and bronze colors.',
+  }}
+>
+  <div class="flex flex-col gap-10">
+    <a href="/contributors" class="link text-sm">← Back to Contributors</a>
+    <div class="flex flex-col gap-4">
+      <h1 class="heading-3 text-white">All Achievements</h1>
+      <div>
+        <p>Discover all the achievements Astro contributors have collected so far.</p>
+      </div>
+    </div>
+    <hr class="border-neutral-500" />
+
+    {
+      [2, 1, 0].map((cls) => (
+        <div class="flex flex-col gap-4 sm:gap-6">
+          <h2 class="flex items-center gap-2 font-semibold text-2xl leading-normal">
+            <span
+              class:list={['inline-block w-4 h-4 rounded-full', achievementClassGradient(cls)]}
+            />
+            <span class:list={[achievementClassGradientText(cls)]}>
+              {achievementClassLabel(cls)}
+            </span>
+          </h2>
+
+          <ul class="flex flex-wrap gap-3 sm:gap-6 font-semibold">
+            {achievements
+              .filter((a) => a.class === cls)
+              .map((achievement) => (
+                <li
+                  class:list={[
+                    'text-sm p-1 pl-3',
+                    'sm:text-base sm:py-2 sm:pl-4 sm:pr-3',
+                    'flex gap-2 items-center rounded-full relative',
+                    achievementClassGradient(cls),
+                  ]}
+                >
+                  <a
+                    class="text-black after:inset-0 after:absolute"
+                    href={`/achievements/${achievement.groupID}/${achievementClassSlug(
+                      achievement.class
+                    )}/`}
+                  >
+                    {achievement.title}
+                  </a>
+                  <span class="bg-neutral-700/60 text-white text-[13px] text-center px-2.5 py-2 min-w-[2.75em] rounded-full font-mono leading-none">
+                    {achievement.numAchieved}
+                  </span>
+                </li>
+              ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</Layout>

@@ -5,6 +5,15 @@ const sizes = {
   large: 300,
 };
 
+const aspectRatio = 1200 / 220;
+
+export const badgeSizes = Object.keys(sizes).map((slug) => ({
+  slug,
+  label: slug[0].toUpperCase() + slug.slice(1),
+  width: sizes[slug as keyof typeof sizes],
+  height: Math.round(sizes[slug as keyof typeof sizes] / aspectRatio),
+}));
+
 const gridStroke = { tiny: 8, small: 7, medium: 6, large: 4 };
 const textStroke = { tiny: 3, small: 2, medium: 1, large: 0 };
 
