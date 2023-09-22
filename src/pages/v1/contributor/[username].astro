@@ -84,18 +84,20 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
           const { title, details, numAchieved } = group.achievements[0];
           const percentage = numAchieved / contributors.length * 100;
           return (
-              <div class="flex flex-col gap-1">
-                <h3 class="font-semibold text-2xl shrink-0">
-                  <a href={`/v1/achievements/${group.groupID}/${achievementClassSlug(group.class)}/`}>
-                    <span class:list={["inline-block w-4 h-4 mr-0.5 rounded-full -translate-y-px", achievementClassGradient(group.class)]} />
-                    <span class:list={[achievementClassGradientText(group.class)]}>
-                      {title}
-                    </span>
-                  </a>
-                </h3>
-                <p class="text-sm font-mono">{details}</p>
-                <p class="text-xs leading-6">
             <li class="bg-neutral-700 border border-neutral-600 p-6 flex flex-col gap-6">
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-semibold text-2xl shrink-0">
+                    <a href={`/v1/achievements/${group.groupID}/${achievementClassSlug(group.class)}/`}>
+                      <span class:list={["inline-block w-4 h-4 mr-1 rounded-full -translate-y-px", achievementClassGradient(group.class)]} />
+                      <span class:list={[achievementClassGradientText(group.class)]}>
+                        {title}
+                      </span>
+                    </a>
+                  </h3>
+                  <p class="text-sm font-mono leading-tight">{details}</p>
+                </div>
+                <p class="text-[11px] font-mono bg-neutral-600 self-start rounded-full py-0.5 px-3">
                   {percentage < 1 ? '<1' : Math.round(percentage)}% of contributors have this
                 </p>
               </div>
@@ -107,7 +109,7 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
                   <ol class="space-y-1 text-sm p-0">
                     {group.achievements.map((previous, i) => i > 0 && (
                       <li>
-                        <div class="flex items-baseline gap-x-2">
+                        <div class="flex items-baseline gap-x-2 relative after:absolute [&:not(:last-child>*)]:after:border-l after:border-neutral-500 after:inset-y-0 after:left-[3.5px] after:translate-y-4">
                           <span class:list={["inline-block w-2 h-2 rounded-full", achievementClassGradient(previous.class)]} />
                           <span class="flex items-baseline gap-x-2 flex-wrap">
                             <h5>
