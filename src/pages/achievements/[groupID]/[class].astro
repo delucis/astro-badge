@@ -8,6 +8,7 @@ import {
   achievementClassSlug,
 } from '../../../util/achievementClasses';
 import { resizedGitHubAvatarURL } from '../../../util/resizedGitHubAvatarURL';
+import src from './_og.jpg?url';
 
 export function getStaticPaths() {
   return globalAchievements.map((achievement) => ({
@@ -27,6 +28,10 @@ const { title, details, contributors, class: cls, repo } = Astro.props;
 <Layout
   title={`${title} ${achievementClassEmoji(cls)} — Astro Achievements`}
   description={`${details}. See Astro contributors with this achievement.`}
+  ogImg={{
+    src,
+    alt: 'Astro Badges Achievements showing three cards in gold, silver, and bronze colors.',
+  }}
 >
   <div class="flex flex-col gap-10">
     <a href="/achievements" class="link text-sm">← Back to Achievements</a>

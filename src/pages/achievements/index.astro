@@ -7,6 +7,7 @@ import {
   achievementClassGradient,
   achievementClassGradientText,
 } from '../../util/achievementClasses';
+import src from './_og.jpg?url';
 
 /** Achievements sorted alphabetically by their title. */
 const achievements = globalAchievements.sort((a, b) => (a.title > b.title ? 1 : -1));
@@ -15,6 +16,10 @@ const achievements = globalAchievements.sort((a, b) => (a.title > b.title ? 1 : 
 <Layout
   title="All Achievements — Astro Achievements"
   description="List of all achievements Astro contributors have collected."
+  ogImg={{
+    src,
+    alt: 'Astro Badges Achievements showing three cards in gold, silver, and bronze colors.',
+  }}
 >
   <div class="flex flex-col gap-10">
     <a href="/contributors" class="link text-sm">← Back to Contributors</a>
