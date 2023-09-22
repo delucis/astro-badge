@@ -11,6 +11,7 @@ export async function get(ctx: APIContext): Promise<EndpointOutput> {
       loadSystemFonts: false,
       fontDirs: ['./src/fonts'],
       defaultFontFamily: 'Inter Tight',
+      monospaceFamily: 'IBM Plex Mono',
     },
   });
   return {

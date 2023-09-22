@@ -23,7 +23,7 @@ ${icons[type]}
 <text font-weight="500" font-size="8.5" x="17" y="${61 + i * 30}" text-anchor="middle">${count}</text>`
 
 const Achievement = ({ achievements }: { achievements: { title: string; details: string }[] }, i: number) =>
-`<text x="41" y="${41 + i * 17.5}"><tspan font-weight="500">${achievements[0].title}</tspan> <tspan fill="#BFC1C9">${achievements[0].details}</tspan></text>`
+`<text x="41" y="${41 + i * 17.5}"><tspan font-weight="500">${achievements[0].title}</tspan> <tspan dx="2" fill="#BFC1C9">${achievements[0].details}</tspan></text>`
 
 export async function get({ params }: APIContext): Promise<EndpointOutput> {
   const { username } = params;
@@ -50,7 +50,7 @@ export async function get({ params }: APIContext): Promise<EndpointOutput> {
   <g fill="white">
     ${stats.map(Stat).join('')}
     <g font-size="10">
-      <text x="41" y="22" font-family="monospace" font-size="13">@${username}</text>
+      <text x="41" y="22" font-family="'IBM Plex Mono', monospace" font-size="13">@${username}</text>
       ${achievements.slice(0, 7).map(Achievement)}
     </g>
   </g>
