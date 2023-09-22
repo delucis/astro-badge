@@ -48,13 +48,15 @@ const achievements = globalAchievements.sort((a, b) => (a.title > b.title ? 1 : 
             </span>
           </h3>
 
-          <ul class="flex flex-wrap gap-4 sm:gap-6 font-semibold">
+          <ul class="flex flex-wrap gap-3 sm:gap-6 font-semibold">
             {achievements
               .filter((a) => a.class === cls)
               .map((achievement) => (
                 <li
                   class:list={[
-                    'flex gap-2 items-center py-2 pl-4 pr-3 rounded-full relative',
+                    'text-sm p-1 pl-3',
+                    'sm:text-base sm:py-2 sm:pl-4 sm:pr-3',
+                    'flex gap-2 items-center rounded-full relative',
                     'bg-gradient-to-br bg-white',
                     achievementClassGradientFrom(cls),
                     achievementClassGradientTo(cls),

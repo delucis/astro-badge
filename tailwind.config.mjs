@@ -8,6 +8,9 @@ module.exports = {
   presets: [config],
   theme: {
     extend: {
+      screens: {
+        xs: '320px',
+      },
       colors: {
         neutral: config.theme.extend.colors['astro-gray'],
         accent: colors.fuchsia,

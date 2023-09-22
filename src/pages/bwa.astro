@@ -27,9 +27,12 @@ const htmlSnippet = ({ slug, width, height }: typeof badgeSizes[number]) => `<a 
       <Frame>
         <!-- tabs -->
         <ul role="tablist" class="sm:self-start border border-neutral-300 rounded-full flex text-xs sm:text-sm text-center">
-          {badgeSizes.map(({ label, slug }, idx) => (
+          {badgeSizes.map(({ label, shortLabel, slug }, idx) => (
             <li role="presentation" class="grow flex">
-              <a role="tab" class="w-full px-3 py-2 sm:px-12 sm:py-2.5 aria-selected:text-white aria-selected:bg-blue-purple-gradient rounded-full" href={`#${slug}`} aria-selected={idx === 0 ? 'true': 'false'} tabindex={idx !== 0 ? -1 : 0}>{label}</a>
+              <a role="tab" class="w-full px-3 py-2 sm:px-12 sm:py-2.5 aria-selected:text-white aria-selected:bg-blue-purple-gradient rounded-full" href={`#${slug}`} aria-selected={idx === 0 ? 'true': 'false'} tabindex={idx !== 0 ? -1 : 0}>
+								<span class="xs:hidden">{shortLabel}</span>
+								<span class="hidden xs:inline">{label}</span>
+							</a>
             </li>
           ))}
         </ul>

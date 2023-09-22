@@ -79,7 +79,7 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
     <section class="space-y-6">
       <h2 class="heading-4 text-white">@{username}’s Achievements</h2>
 
-      <ol class="gap-6 list-none p-0 grid fluid-cols-72 ">
+      <ol class="gap-6 list-none p-0 grid grid-cols-1 sm:fluid-cols-72">
         {achievements.map((group) => {
           const { title, details, numAchieved } = group.achievements[0];
           const percentage = numAchieved / contributors.length * 100;

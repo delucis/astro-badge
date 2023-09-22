@@ -71,7 +71,7 @@ const navItems = [
     >
     </div>
     <header
-      class="flex justify-between items-center px-4 sm:px-6 py-5 gap-4 shrink-0 bg-neutral-700 border-b border-neutral-600 font-mono"
+      class="flex flex-wrap xs:flex-nowrap justify-center xs:justify-between items-center px-4 sm:px-6 py-5 gap-4 shrink-0 bg-neutral-700 border-b border-neutral-600 font-mono"
     >
       <a href="/" class="flex items-center gap-2 text-white leading-none">
         <span class="sr-only">Astro</span>
@@ -92,7 +92,7 @@ const navItems = [
           {
             navItems.map(({ href, text }) => (
               <li>
-                <a {href} class="text-sm sm:text-base text-neutral-200 border-b border-current hover:text-accent-200">
+                <a {href} class="text-sm sm:text-base link">
                   {text}
                 </a>
               </li>
@@ -112,6 +112,9 @@ const navItems = [
     <style is:global>
       :root {
         color-scheme: dark;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        @apply break-words max-w-full;
       }
       .astro-code {
         @apply p-4 select-all text-left text-sm border border-neutral-500 rounded-lg;

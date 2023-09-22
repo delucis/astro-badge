@@ -100,7 +100,7 @@ const dataID = 'contributor-usernames';
         resetSvg();
         if (res.ok) {
           svgDisplay.innerHTML = `<img src="${imageSrc.href}" alt="@${username} Astro contributions" width="260" height="156" class="cursor-pointer group-hover:-translate-y-0.5 motion-safe:transition-all">`;
-          moreP.innerHTML = `<a href="${moreHref}">More about this contributor →</a>`;
+          moreP.innerHTML = `<a href="${moreHref}">More about this contributor&nbsp;→</a>`;
         } else {
           throw new Error('Contributor not found!');
         }

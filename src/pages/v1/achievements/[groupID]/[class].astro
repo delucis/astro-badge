@@ -85,10 +85,10 @@ const { title, details, contributors, class: cls, repo } = Astro.props;
         </span>
       </h2>
 
-      <ul class="flex flex-wrap gap-3 sm:gap-6">
+      <ul class="flex flex-wrap gap-3 sm:gap-6 text-sm sm:text-base text-white font-semibold">
         {
           contributors.map((contributor) => (
-            <li class="flex items-center p-2 pr-3 gap-2 relative rounded-full text-white bg-neutral-500 font-semibold">
+            <li class="flex items-center p-1 sm:p-2 pr-3 gap-2 relative rounded-full bg-neutral-500">
               <img
                 width="28"
                 height="28"
