@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import src from './_og.jpg?url';
 
 const ctas = [
   {
@@ -27,7 +28,10 @@ const ctas = [
 ];
 ---
 
-<Layout wide>
+<Layout
+  wide
+  ogImg={{ src, alt: 'The text “Badges for Astronauts” over some examples of Astro badges.' }}
+>
   <div class="absolute -z-10 top-0 left-1/2 -translate-x-1/2 translate-y-[10%] sm:-translate-y-[10%] w-[50rem] max-w-full aspect-square opacity-25 bg-blue-green-gradient mask-radial-gradient"/>
   <div class="flex flex-col gap-20 sm:gap-10">
     <h1 class="mt-8 flex flex-col items-center gap-4">
