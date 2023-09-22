@@ -30,8 +30,8 @@ export async function get({ params }: APIContext): Promise<EndpointOutput> {
   const { achievements, stats, getBase64Avatar } = contributors.find((c) => c.username === username);
   const b64 = await getBase64Avatar();
 
-  const body = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 260 156" width="300" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'" direction="ltr">
-  {<!--solid backdrop-->}
+  const body = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 260 156" width="260" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'" direction="ltr">
+  <!--solid backdrop-->
   <rect width="259" height="155" x=".5" y=".5" fill="#1A1B1E" rx="3.5"/>
   <!--gradient background-->
   <rect width="259" height="155" x=".5" y=".5" fill="url(#a)" fill-opacity=".5" rx="3.5"/>
