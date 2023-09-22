@@ -4,12 +4,12 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "/v1/achievements/:path*",
-      "destination": "/achievements/:path*"
+      "source": "/v1/achievements/:path*/",
+      "destination": "/achievements/:path*/"
     },
     {
-      "source": "/v1/contributor/:path*",
-      "destination": "/contributor/:path*"
+      "source": "/v1/contributor/:path*/",
+      "destination": "/contributor/:path*/"
     }
   ]
 }
