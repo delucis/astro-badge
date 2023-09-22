@@ -13,15 +13,17 @@ export interface Props {
 
 const { contributor, count, hLevel, type } = Astro.props;
 const H: `h${HeadingLevels}` = `h${hLevel}`;
+const { issues, reviews, merged_pulls } = contributor;
+const allCounts = [issues, reviews, merged_pulls].flatMap(type => Object.values(type));
+const maxCount = Math.max(...allCounts);
 const stat = contributor[type === "pulls" ? "merged_pulls" : type];
-const maxCount = Math.max(...Object.values(stat));
 const repoCounts = Object.entries(stat).sort(([, a], [, b]) => b - a);
 ---
 
 <li class="text-center p-6 bg-neutral-900 border border-neutral-800 flex flex-col gap-6">
-  <div>
+  <div class="flex flex-col gap-2">
     <H class="heading-5 text-white">{type[0].toUpperCase() + type.slice(1)}</H>
-    <p class="text-[2rem] text-white font-obviously-wide font-semibold">{count}</p>
+    <p class="text-[2rem] text-white font-obviously-wide font-semibold leading-none">{count}</p>
   </div>
   <ul class="text-[13px] text-white leading-tight">
     {
