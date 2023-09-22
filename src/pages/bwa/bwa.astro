@@ -1,9 +1,10 @@
 ---
 import { Code } from 'astro/components';
-import Copy from '../components/Copy.astro';
-import Layout from '../layouts/Layout.astro';
-import { badgeSizes } from './v2/built-with-astro/_data';
-import Frame from '../components/Frame.astro';
+import Copy from '../../components/Copy.astro';
+import Layout from '../../layouts/Layout.astro';
+import { badgeSizes } from '../v2/built-with-astro/_data';
+import Frame from '../../components/Frame.astro';
+import src from './_og.jpg?url';
 const title = 'Badges';
 const description =
   '“Built with Astro” SVG badges to add to your sites and GitHub READMEs!';
@@ -14,7 +15,11 @@ const htmlSnippet = ({ slug, width, height }: typeof badgeSizes[number]) => `<a 
 </a>`;
 ---
 
-<Layout {title} {description}>
+<Layout
+	{title}
+	{description}
+	ogImg={{ src, alt: 'Share your Astro pride with a “Built with Astro” badge.' }}
+>
   <div class="mx-auto flex flex-col gap-6">
     <div class="flex flex-col gap-4">
       <h1 class="heading-3 text-white">Built with Astro</h1>
