@@ -1,6 +1,6 @@
 # Astro Badges
 
-[![Built with Astro](https://astro.badg.es/v1/built-with-astro.svg)](https://astro.build)
+[![Built with Astro](./public/v2/built-with-astro/small.svg)](https://astro.build)
 
 This project aims to celebrate the contributions of the [Astro](https://astro.build/) community.
 
