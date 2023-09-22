@@ -3,17 +3,6 @@ import Layout from "../layouts/Layout.astro";
 
 const ctas = [
   {
-    title: "Badges",
-    description: "Add a badge to your repository or website",
-    href: "/bwa/",
-    img: {
-      src: "/v2/built-with-astro/previews.svg",
-      alt: "Built with Astro",
-      width: "395",
-      height: "213",
-    },
-  },
-  {
     title: "Contributors",
     description: "Celebrate your GitHub contributions 🥳",
     href: "/contributors/",
@@ -24,12 +13,23 @@ const ctas = [
       height: "192",
     },
   },
+  {
+    title: "Badges",
+    description: "Add a badge to your repository or website",
+    href: "/bwa/",
+    img: {
+      src: "/v2/built-with-astro/previews.svg",
+      alt: "Built with Astro",
+      width: "395",
+      height: "213",
+    },
+  },
 ];
 ---
 
 <Layout wide>
-  <div class="absolute -z-10 top-0 left-1/2 -translate-x-1/2 -translate-y-[10%] w-[50rem] max-w-full aspect-square opacity-25 bg-blue-green-gradient mask-radial-gradient"/>
-  <div class="flex flex-col gap-10">
+  <div class="absolute -z-10 top-0 left-1/2 -translate-x-1/2 translate-y-[10%] sm:-translate-y-[10%] w-[50rem] max-w-full aspect-square opacity-25 bg-blue-green-gradient mask-radial-gradient"/>
+  <div class="flex flex-col gap-20 sm:gap-10">
     <h1 class="mt-8 flex flex-col items-center gap-4">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-9" viewBox="0 0 92 24">
         <path fill="#fff" d="M6.2 20.44c-1.08-.99-1.4-3.07-.95-4.58.79.95 1.88 1.25 3 1.42 1.74.26 3.45.17 5.07-.63.18-.09.35-.2.55-.33.16.44.2.88.14 1.33a3.65 3.65 0 0 1-1.55 2.6c-.34.25-.71.48-1.07.72-1.1.75-1.4 1.62-1 2.9.02.02.03.05.05.13a2.9 2.9 0 0 1-1.3-1.1 3.1 3.1 0 0 1-.49-1.68c0-.3 0-.6-.04-.9-.1-.7-.44-1.02-1.07-1.04a1.25 1.25 0 0 0-1.3 1c0 .06-.02.1-.04.16ZM0 15.6s3.22-1.56 6.45-1.56l2.43-7.5c.1-.37.36-.62.66-.62.3 0 .56.25.65.61l2.44 7.51c3.82 0 6.44 1.57 6.44 1.57L13.6.72c-.16-.44-.43-.72-.78-.72H6.26c-.36 0-.61.28-.78.72L0 15.61Zm33.93-2.16c0 1.32-1.64 2.1-3.91 2.1-1.48 0-2-.36-2-1.13 0-.8.65-1.18 2.13-1.18 1.33 0 2.47.01 3.78.18v.03Zm.02-1.62c-.8-.19-2.04-.3-3.5-.3-4.25 0-6.26 1.01-6.26 3.35 0 2.43 1.37 3.37 4.55 3.37 2.69 0 4.5-.68 5.18-2.34h.1L34 17c0 .86.14.93.85.93h3.32c-.18-.5-.3-1.95-.3-3.2 0-1.33.06-2.34.06-3.69 0-2.76-1.66-4.52-6.85-4.52-2.24 0-4.73.39-6.62.95.18.75.43 2.27.56 3.26 1.64-.77 3.96-1.1 5.77-1.1 2.49 0 3.17.57 3.17 1.72v.46Zm9.11 2.39c-.45.06-1.06.06-1.7.06-.66 0-1.28-.02-1.7-.08v.46c0 2.29 1.49 3.62 6.76 3.62 4.96 0 6.56-1.31 6.56-3.64 0-2.2-1.06-3.27-5.77-3.5-3.66-.17-3.99-.57-3.99-1.03 0-.53.47-.8 2.92-.8 2.55 0 3.23.34 3.23 1.07v.17a36.87 36.87 0 0 1 3.4.02l.01-.44c0-2.7-2.23-3.57-6.56-3.57-4.87 0-6.52 1.19-6.52 3.51 0 2.09 1.32 3.38 6 3.59 3.44.1 3.82.49 3.82 1.02 0 .57-.56.82-2.98.82-2.78 0-3.48-.38-3.48-1.17v-.1Zm15.88-9.63a14.02 14.02 0 0 1-5 2.78c.02.67.02 1.92.02 2.6l1.2.01-.03 3.91c0 2.44 1.28 4.26 5.27 4.26 1.67 0 2.8-.18 4.18-.47-.14-.9-.3-2.27-.36-3.31-.83.27-1.87.42-3.03.42-1.6 0-2.25-.44-2.25-1.7l.01-3.07c2.06.02 4.12.05 5.33.09-.02-.95.01-2.32.07-3.24-1.75.04-3.72.06-5.34.06l.05-2.34h-.12ZM69.71 9.4l.05-2.54h-3.62a270.95 270.95 0 0 1 0 11.08h4.15a74.6 74.6 0 0 1-.1-4.51c0-2.49 1.02-3.2 3.3-3.2a7.2 7.2 0 0 1 2.5.36c.02-.93.2-2.74.3-3.54a8.2 8.2 0 0 0-2.36-.33c-1.97-.02-3.4.78-4.08 2.7l-.14-.02Zm18.06 2.93c0 2-1.44 2.93-3.71 2.93-2.26 0-3.7-.88-3.7-2.93 0-2.05 1.46-2.82 3.7-2.82 2.25 0 3.71.83 3.71 2.82Zm3.77-.1c0-3.96-3.1-5.73-7.48-5.73-4.4 0-7.4 1.77-7.4 5.74 0 3.95 2.8 6.07 7.38 6.07 4.62 0 7.5-2.12 7.5-6.07Z"/>
@@ -44,20 +44,20 @@ const ctas = [
       </span>
     </h1>
     
-    <ul class="grid sm:grid-cols-2 gap-6">
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-6 gap-y-12">
       {
         ctas.map(({ href, title, description, img }) => (
           <li class="flex flex-col-reverse flex-grow border border-neutral-600 shadow-2xl relative group will-change-transform focus-within:outline motion-safe:transition motion-safe:duration-700 hover:-translate-y-1 focus-within:-translate-y-1">
-            <div class="p-6 bg-neutral-600 space-y-4">
-              <h2 class="heading-3">
-                <a {href} class="after:absolute after:inset-0 focus:outline-none link">
+            <div class="p-4 sm:p-6 bg-neutral-600 group-hover:bg-neutral-600/50 transition-colors duration-700 space-y-2 sm:space-y-4">
+              <h2 class="heading-4 sm:heading-3">
+                <a {href} class="after:absolute after:inset-0 focus:outline-none link duration-700">
                   {title}
                 </a>
               </h2>
               <p>{description}</p>
             </div>
-            <div class="p-4 md:p-8 flex h-full bg-gradient-to-b from-black to-black/20">
-              <img {...img} class="pointer-events-none m-auto drop-shadow-lg" />
+            <div class="p-4 md:p-8 flex h-full bg-gradient-to-b from-black to-black sm:to-black/20 group-hover:bg-black/30 transition duration-700">
+              <img {...img} class="pointer-events-none m-auto drop-shadow-lg brightness-100 group-focus-within:brightness-125 group-hover:brightness-110 transition-[filter] duration-700" />
             </div>
           </li>
         ))
