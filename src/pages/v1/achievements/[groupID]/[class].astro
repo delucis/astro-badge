@@ -1,10 +1,10 @@
 ---
-import CTA from '../../../../components/CTA.astro';
 import Layout from '../../../../layouts/Layout.astro';
 import { globalAchievements } from '../../../../util/getGlobalStats';
 import {
   achievementClassEmoji,
-  achievementClassGradientFrom,
+  achievementClassGradient,
+  achievementClassGradientText,
   achievementClassSlug,
 } from '../../../../util/achievementClasses';
 import { resizedGitHubAvatarURL } from '../../../../util/resizedGitHubAvatarURL';
@@ -34,15 +34,10 @@ const { title, details, contributors, class: cls, repo } = Astro.props;
       <h1 class="heading-3">
         <span
           class:list={[
-            'bg-gradient-to-br to-white inline-block w-[.75em] h-[.75em] mr-0.5 rounded-full translate-y-px',
-            achievementClassGradientFrom(cls),
+            'inline-block w-[.75em] h-[.75em] mr-0.5 rounded-full translate-y-px',
+            achievementClassGradient(cls),
           ]}></span>
-        <span
-          class:list={[
-            'bg-gradient-to-br to-white bg-clip-text text-transparent',
-            achievementClassGradientFrom(cls),
-          ]}
-        >
+        <span class:list={[achievementClassGradientText(cls)]}>
           {title}
         </span>
       </h1>
@@ -80,7 +75,9 @@ const { title, details, contributors, class: cls, repo } = Astro.props;
     <section class="flex flex-col gap-6">
       <h2 class="heading-4 text-white">
         <span>Contributors with this achievement</span>
-        <span class="inline-block align-middle text-xl leading-none px-2.5 py-1.5 bg-white text-black font-mono font-semibold rounded-full">
+        <span
+          class="inline-block align-middle text-xl leading-none px-2.5 py-1.5 bg-white text-black font-mono font-semibold rounded-full"
+        >
           {contributors.length}
         </span>
       </h2>

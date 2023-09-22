@@ -2,10 +2,10 @@
 import Layout from '../../../layouts/Layout.astro';
 import { globalAchievements } from '../../../util/getGlobalStats';
 import {
-  achievementClassGradientFrom,
-  achievementClassGradientTo,
   achievementClassLabel,
   achievementClassSlug,
+  achievementClassGradient,
+  achievementClassGradientText,
 } from '../../../util/achievementClasses';
 
 /** Achievements sorted alphabetically by their title. */
@@ -31,19 +31,9 @@ const achievements = globalAchievements.sort((a, b) => (a.title > b.title ? 1 : 
         <div class="flex flex-col gap-4 sm:gap-6">
           <h3 class="flex items-center gap-2 font-semibold text-2xl leading-normal">
             <span
-              class:list={[
-                'bg-white bg-gradient-to-br inline-block w-4 h-4 rounded-full',
-                achievementClassGradientFrom(cls),
-                achievementClassGradientTo(cls),
-              ]}
+              class:list={['inline-block w-4 h-4 rounded-full', achievementClassGradient(cls)]}
             />
-            <span
-              class:list={[
-                'bg-white bg-gradient-to-br bg-clip-text text-transparent',
-                achievementClassGradientFrom(cls),
-                achievementClassGradientTo(cls),
-              ]}
-            >
+            <span class:list={[achievementClassGradientText(cls)]}>
               {achievementClassLabel(cls)}
             </span>
           </h3>
@@ -57,9 +47,7 @@ const achievements = globalAchievements.sort((a, b) => (a.title > b.title ? 1 : 
                     'text-sm p-1 pl-3',
                     'sm:text-base sm:py-2 sm:pl-4 sm:pr-3',
                     'flex gap-2 items-center rounded-full relative',
-                    'bg-gradient-to-br bg-white',
-                    achievementClassGradientFrom(cls),
-                    achievementClassGradientTo(cls),
+                    achievementClassGradient(cls),
                   ]}
                 >
                   <a
