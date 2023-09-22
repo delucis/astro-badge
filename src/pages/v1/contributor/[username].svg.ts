@@ -1,7 +1,5 @@
 import type { APIContext, EndpointOutput } from 'astro';
-import sharp from 'sharp';
 import { contributors } from "../../../util/getContributors";
-import { resizedGitHubAvatarURL } from '../../../util/resizedGitHubAvatarURL';
 
 export function getStaticPaths() {
   return contributors.map(({ username }) => ({ params: { username } }));
