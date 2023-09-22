@@ -1,13 +1,13 @@
 ---
-import Layout from '../../../../layouts/Layout.astro';
-import { globalAchievements } from '../../../../util/getGlobalStats';
+import Layout from '../../../layouts/Layout.astro';
+import { globalAchievements } from '../../../util/getGlobalStats';
 import {
   achievementClassEmoji,
   achievementClassGradient,
   achievementClassGradientText,
   achievementClassSlug,
-} from '../../../../util/achievementClasses';
-import { resizedGitHubAvatarURL } from '../../../../util/resizedGitHubAvatarURL';
+} from '../../../util/achievementClasses';
+import { resizedGitHubAvatarURL } from '../../../util/resizedGitHubAvatarURL';
 
 export function getStaticPaths() {
   return globalAchievements.map((achievement) => ({
@@ -29,7 +29,7 @@ const { title, details, contributors, class: cls, repo } = Astro.props;
   description={`${details}. See Astro contributors with this achievement.`}
 >
   <div class="flex flex-col gap-10">
-    <a href="/v1/achievements" class="link text-sm">← Back to Achievements</a>
+    <a href="/achievements" class="link text-sm">← Back to Achievements</a>
     <div class="flex flex-col gap-4">
       <h1 class="heading-3">
         <span
@@ -96,7 +96,7 @@ const { title, details, contributors, class: cls, repo } = Astro.props;
                 decoding="async"
               />
               <a
-                href={`/v1/contributor/${contributor.username}/`}
+                href={`/contributor/${contributor.username}/`}
                 class="after:absolute after:inset-0"
               >
                 {contributor.username}

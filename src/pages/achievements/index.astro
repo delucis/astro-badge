@@ -1,12 +1,12 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import { globalAchievements } from '../../../util/getGlobalStats';
+import Layout from '../../layouts/Layout.astro';
+import { globalAchievements } from '../../util/getGlobalStats';
 import {
   achievementClassLabel,
   achievementClassSlug,
   achievementClassGradient,
   achievementClassGradientText,
-} from '../../../util/achievementClasses';
+} from '../../util/achievementClasses';
 
 /** Achievements sorted alphabetically by their title. */
 const achievements = globalAchievements.sort((a, b) => (a.title > b.title ? 1 : -1));
@@ -52,7 +52,7 @@ const achievements = globalAchievements.sort((a, b) => (a.title > b.title ? 1 : 
                 >
                   <a
                     class="text-black after:inset-0 after:absolute"
-                    href={`/v1/achievements/${achievement.groupID}/${achievementClassSlug(
+                    href={`/achievements/${achievement.groupID}/${achievementClassSlug(
                       achievement.class
                     )}/`}
                   >

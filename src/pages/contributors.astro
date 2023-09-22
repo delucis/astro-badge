@@ -55,7 +55,7 @@ const dataID = 'contributor-usernames';
     
     <footer>
       <div class="">
-        <CTA href="/v1/achievements/">Browse achievements →</CTA>
+        <CTA href="/achievements/">Browse achievements →</CTA>
       </div>
     </footer>
   </div>
@@ -95,7 +95,7 @@ const dataID = 'contributor-usernames';
       try {
         if (!username) return resetSvg();
         const imageSrc = new URL(`/v2/contributor/${username}.svg`, window.location.href);
-        const moreHref = new URL(`/v1/contributor/${username}/`, window.location.href);
+        const moreHref = new URL(`/contributor/${username}/`, window.location.href);
         const res = await fetch(imageSrc.href, { method: 'HEAD' });
         resetSvg();
         if (res.ok) {

@@ -1,10 +1,10 @@
 ---
 import { Code } from "astro/components";
-import Copy from "../../../components/Copy.astro";
-import { contributors } from "../../../util/getContributors";
-import Layout from '../../../layouts/Layout.astro';
-import Stat from "../../../components/achievements/Stat.astro";
-import { achievementClassGradient, achievementClassGradientText, achievementClassSlug } from '../../../util/achievementClasses'
+import Copy from "../../components/Copy.astro";
+import { contributors } from "../../util/getContributors";
+import Layout from '../../layouts/Layout.astro';
+import Stat from "../../components/achievements/Stat.astro";
+import { achievementClassGradient, achievementClassGradientText, achievementClassSlug } from '../../util/achievementClasses'
 
 export function getStaticPaths() {
   return contributors.map((contributor) => ({
@@ -88,7 +88,7 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
               <div class="flex flex-col gap-2">
                 <div class="flex flex-col gap-1">
                   <h3 class="font-semibold text-2xl shrink-0">
-                    <a href={`/v1/achievements/${group.groupID}/${achievementClassSlug(group.class)}/`}>
+                    <a href={`/achievements/${group.groupID}/${achievementClassSlug(group.class)}/`}>
                       <span class:list={["inline-block w-4 h-4 mr-1 rounded-full -translate-y-px", achievementClassGradient(group.class)]} />
                       <span class:list={[achievementClassGradientText(group.class)]}>
                         {title}
@@ -113,7 +113,7 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
                           <span class:list={["inline-block w-2 h-2 rounded-full", achievementClassGradient(previous.class)]} />
                           <span class="relative flex items-baseline gap-x-2 flex-wrap">
                             <h5>
-                              <a class:list={["font-semibold after:absolute after:-inset-0.5", achievementClassGradientText(previous.class)]} href={`/v1/achievements/${group.groupID}/${achievementClassSlug(previous.class)}/`}>{previous.title}</a>
+                              <a class:list={["font-semibold after:absolute after:-inset-0.5", achievementClassGradientText(previous.class)]} href={`/achievements/${group.groupID}/${achievementClassSlug(previous.class)}/`}>{previous.title}</a>
                             </h5>
                             <p class:list={["text-xs font-mono", achievementClassGradientText(previous.class)]}>{previous.details}</p>
                           </span>
