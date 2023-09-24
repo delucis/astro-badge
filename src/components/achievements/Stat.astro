@@ -19,6 +19,11 @@ const allCounts = [issues, reviews, merged_pulls].flatMap(type => Object.values(
 const maxCount = Math.max(...allCounts);
 const stat = contributor[type === "pulls" ? "merged_pulls" : type];
 const repoCounts = Object.entries(stat).sort(([, a], [, b]) => b - a);
+
+const subPath = type === 'issues' ? 'issues' : 'pulls'
+const isType = `is:${type === 'issues' ? 'issue' : 'pr'}`
+const userFilter = `${type === 'reviews' ? 'reviewed-by' : 'author'}:${username}`
+const query = `${subPath}?q=${isType}+${userFilter}`
 ---
 
 <li class="text-center p-6 bg-neutral-700 border border-neutral-600 flex flex-col gap-6">
@@ -33,11 +38,7 @@ const repoCounts = Object.entries(stat).sort(([, a], [, b]) => b - a);
         return (
           <li class="grid grid-cols-2 items-center">
             <a
-              href={`https://github.com/withastro/${repo}/${
-								type === 'issues' ? 'issues' : 'pulls'
-							}?q=is:${type === 'issues' ? 'issue' : 'pr'}+${
-								type === 'reviews' ? 'reviewed-by' : 'author'
-							}:${username}`}
+              href={`https://github.com/withastro/${repo}/${query}`}
               class="text-right py-0.5 pr-2 border-r border-neutral-500 break-words link"
             >
               {repo}
