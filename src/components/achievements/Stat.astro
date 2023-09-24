@@ -38,7 +38,7 @@ const repoCounts = Object.entries(stat).sort(([, a], [, b]) => b - a);
 							}?q=is:${type === 'issues' ? 'issue' : 'pr'}+${
 								type === 'reviews' ? 'reviewed-by' : 'author'
 							}:${username}`}
-              class="text-right py-0.5 pr-2 border-r border-neutral-500 break-words hover:text-white"
+              class="text-right py-0.5 pr-2 border-r border-neutral-500 break-words link"
             >
               {repo}
             </a>
