@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import src from './_og.jpg?url';
 import BadgePicker, { type Badge } from '../../components/BadgePicker.astro';
+import Frame from '../../components/Frame.astro';
 
 const title = 'Badges';
 const description = '“Built with Astro” SVG badges to add to your sites and GitHub READMEs!';
@@ -24,6 +25,8 @@ const htmlSnippet = ({ slug, width, height }: Badge) => `<a href="https://astro.
       <p>Add a badge to your repository or website and show off your Astro pride!</p>
     </div>
 
-    <BadgePicker aspectRatio={6} {mdSnippet} {htmlSnippet} />
+		<Frame>
+			<BadgePicker aspectRatio={6} {mdSnippet} {htmlSnippet} />
+		</Frame>
   </div>
 </Layout>
