@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import src from '../_og.jpg?url';
+import BadgePicker, { type Badge } from '../../components/BadgePicker.astro';
+import Frame from '../../components/Frame.astro';
+
+const title = 'Badges';
+const description =
+  'SVG badges to add to your sites and GitHub READMEs and show off your Astro or Starlight pride!';
+---
+
+<Layout
+  {title}
+  {description}
+  ogImg={{ src, alt: 'Share your Astro pride with a “Built with Astro” badge.' }}
+>
+  <div class="mx-auto flex flex-col gap-10">
+    <div class="flex flex-col gap-4">
+      <h1 class="heading-3 text-white">Built with…</h1>
+      <p>Add a badge to your repository or website and show off your Astro or Starlight pride!</p>
+    </div>
+
+    <hr class="border-neutral-500" />
+
+    <div class="flex flex-col gap-6">
+      <h2 class="heading-4 text-white">Astro</h2>
+      <Frame>
+        <BadgePicker
+          aspectRatio={6}
+          alt="Built with Astro"
+          link="https://astro.build"
+          getImagePath={({ slug }: Badge) => `v2/built-with-astro/${slug}.svg`}
+        />
+      </Frame>
+    </div>
+
+    <div class="flex flex-col gap-6">
+      <h2 class="heading-4 text-white">Starlight</h2>
+      <Frame>
+        <BadgePicker
+          aspectRatio={7}
+          alt="Built with Starlight"
+          link="https://starlight.astro.build"
+          getImagePath={({ slug }: Badge) => `v2/built-with-starlight/${slug}.svg`}
+        />
+      </Frame>
+    </div>
+  </div>
+</Layout>
