@@ -12,11 +12,12 @@ export interface Badge {
 
 interface Props {
   aspectRatio: number;
-  mdSnippet: (badge: Badge) => string;
-  htmlSnippet: (badge: Badge) => string;
+  alt: string;
+  link: string;
+  getImagePath: (badge: Badge) => string;
 }
 
-const { aspectRatio, mdSnippet, htmlSnippet } = Astro.props;
+const { aspectRatio, alt, link, getImagePath } = Astro.props;
 
 const heights = { tiny: 20, small: 32, medium: 40, large: 48 } as const;
 
@@ -27,6 +28,12 @@ const badgeSizes: Badge[] = Object.keys(heights).map((slug: keyof typeof heights
   width: heights[slug] * aspectRatio,
   height: heights[slug],
 }));
+
+const mdSnippet = (badge: Badge) =>
+  `[![${alt}](${Astro.site}${getImagePath(badge)})](${link})`;
+const htmlSnippet = (badge: Badge) => `<a href="${link}">`
+  +`<img src="${Astro.site}${getImagePath(badge)}" alt="${alt}" width="${badge.width}" height="${badge.height}">`
+  +`</a>`;
 ---
 
 <starlight-tabs class="contents">
@@ -44,13 +51,13 @@ const badgeSizes: Badge[] = Object.keys(heights).map((slug: keyof typeof heights
   {badgeSizes.map((badge, idx) => (
     <!-- panel -->
   <section role="tabpanel" hidden={idx !== 0} class="flex-col gap-4 sm:gap-8 [&:not([hidden])]:flex">
-    <h2 class="sr-only" id={badge.slug}>{badge.label}</h2>
+    <h3 class="sr-only" id={badge.slug}>{badge.label}</h3>
     <!-- preview well -->
     <div
       class="relative text-center pt-28 pb-4 rounded-lg border border-neutral-500 bg-neutral-600"
     >
       <div class="absolute inset-0 grid place-content-center">
-        <img class="shadow-md" src={`/v2/built-with-astro/${badge.slug}.svg`} width={badge.width} height={badge.height} alt="Built with Astro" />
+        <img class="shadow-md" src={`/${getImagePath(badge)}`} width={badge.width} height={badge.height} alt={alt} />
       </div>
       <p class="font-mono text-xs">Badge preview — {badge.width}×{badge.height}</p>
     </div>
@@ -58,14 +65,14 @@ const badgeSizes: Badge[] = Object.keys(heights).map((slug: keyof typeof heights
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
       <div class="flex flex-col gap-4 [&>:last-child]:grow">
         <div class="flex items-baseline justify-between">
-          <h3 class="heading-5 text-white">Markdown</h3>
+          <h4 class="heading-5 text-white">Markdown</h4>
           <Copy text={mdSnippet(badge)} />
         </div>
         <Code code={mdSnippet(badge)} lang="md" />
       </div>
       <div class="flex flex-col gap-4">
         <div class="flex items-baseline justify-between">
-          <h3 class="heading-5 text-white">HTML</h3>
+          <h4 class="heading-5 text-white">HTML</h4>
           <Copy text={htmlSnippet(badge)} />
         </div>
         <Code code={htmlSnippet(badge)} lang="html" />
