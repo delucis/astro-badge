@@ -1,18 +1,15 @@
 ---
+import type { EnhancedContributor } from '../../util/getContributors';
 type HeadingLevels = "1" | "2" | "3" | "4" | "5" | "6";
 
 export interface Props {
-  username: string;
-  contributor: Record<
-    "merged_pulls" | "issues" | "reviews",
-    Record<string, number>
-  >;
+  contributor: EnhancedContributor;
   count: string;
   type: "pulls" | "issues" | "reviews";
   hLevel: HeadingLevels;
 }
 
-const { username, contributor, count, hLevel, type } = Astro.props;
+const { contributor, count, hLevel, type } = Astro.props;
 const H: `h${HeadingLevels}` = `h${hLevel}`;
 const { issues, reviews, merged_pulls } = contributor;
 const allCounts = [issues, reviews, merged_pulls].flatMap(type => Object.values(type));
@@ -22,7 +19,7 @@ const repoCounts = Object.entries(stat).sort(([, a], [, b]) => b - a);
 
 const subPath = type === 'issues' ? 'issues' : 'pulls'
 const isType = `is:${type === 'issues' ? 'issue' : 'pr'}`
-const userFilter = `${type === 'reviews' ? 'reviewed-by' : 'author'}:${username}`
+const userFilter = `${type === 'reviews' ? 'reviewed-by' : 'author'}:${contributor.username}`
 const query = `${subPath}?q=${isType}+${userFilter}`
 ---
 

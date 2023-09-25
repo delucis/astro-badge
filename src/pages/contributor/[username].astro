@@ -132,7 +132,7 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
     <section class="space-y-6">
       <h2 class="heading-4 text-white">Stats</h2>
       <ul class:list={["grid gap-4 sm:gap-6", stats.length < 3 ? 'sm:grid-cols-2' : 'sm:grid-cols-3']}>
-        {stats.map((stat) => <Stat {...{ ...stat, username, contributor, hLevel: '3' }} />)}
+        {stats.map((stat) => <Stat {...{ ...stat, contributor, hLevel: '3' }} />)}
       </ul>
     </section>
   </div>

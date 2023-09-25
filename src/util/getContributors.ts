@@ -6,7 +6,7 @@ import { getStats } from './getStats';
 import { objSum } from './objSum';
 import { resizedGitHubAvatarURL } from './resizedGitHubAvatarURL';
 
-interface EnhancedContributor extends Contributor {
+export interface EnhancedContributor extends Contributor {
   username: string;
   achievements: ReturnType<typeof getAchievements>;
   stats: ReturnType<typeof getStats>;
