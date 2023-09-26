@@ -155,6 +155,22 @@ export default AchievementSpec({
       { count: 30, title: 'Superstar', details: '30 starlight PRs' },
     ],
   },
+  'hacktoberfest-merges': {
+    getCount: ({ merged_pulls_by_label }) => {
+      if (!merged_pulls_by_label) return 0;
+      let sum = 0;
+      for (const repo of Object.keys(merged_pulls_by_label)) {
+        if (merged_pulls_by_label[repo]["hacktoberfest-accepted"])
+          sum += merged_pulls_by_label[repo]["hacktoberfest-accepted"];
+      }
+      return sum;
+    },
+    achievements: [
+      { count: 1, title: 'Commit Trickster', details: '1 Hacktoberfest contribution' },
+      { count: 2, title: 'Brewer of PRs', details: '2 Hacktoberfest contributions' },
+      { count: 4, title: 'Hack-o-Lantern', details: '4 Hacktoberfest contributions' },
+    ],
+  },
   'total-issues': {
     stat: 'issues',
     achievements: [
