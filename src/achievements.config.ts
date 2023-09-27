@@ -166,9 +166,9 @@ export default AchievementSpec({
       return sum;
     },
     achievements: [
-      { count: 1, title: 'Commit Trickster', details: '1 Hacktoberfest contribution' },
-      { count: 2, title: 'Brewer of PRs', details: '2 Hacktoberfest contributions' },
-      { count: 4, title: 'Hack-o-Lantern', details: '4 Hacktoberfest contributions' },
+      { count: 1, title: 'Hacker', details: '1 Hacktoberfest contribution' },
+      { count: 5, title: 'Commit or Treat', details: '5 Hacktoberfest contributions' },
+      { count: 15, title: 'Hack-o-Lantern', details: '15 Hacktoberfest contributions' },
     ],
   },
   'total-issues': {
