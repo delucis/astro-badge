@@ -14,15 +14,8 @@ export default AchievementSpec({
     ],
   },
   'i18n-reviews': {
-    getCount: ({ reviews_by_category }) => {
-      if (!reviews_by_category) return 0;
-      let sum = 0;
-      for (const repo of Object.keys(reviews_by_category)) {
-        if (reviews_by_category[repo]['i18n']) 
-          sum += reviews_by_category[repo]['i18n'];
-      }
-      return sum;
-    },
+    stat: 'reviews_by_category',
+    category: 'i18n',
     achievements: [
       { count: 1, title: 'Proofreader', details: 'Reviewed an i18n PR' },
       { count: 15, title: 'Polyglot', details: 'Reviewed 15 i18n PRs' },
@@ -30,15 +23,8 @@ export default AchievementSpec({
     ]
   },
   'i18n-merges': {
-    getCount: ({ merged_pulls_by_label }) => {
-      if (!merged_pulls_by_label) return 0;
-      let sum = 0;
-      for (const repo of Object.keys(merged_pulls_by_label)) {
-        if (merged_pulls_by_label[repo]['i18n']) 
-          sum += merged_pulls_by_label[repo]['i18n'];
-      }
-      return sum;
-    },
+    stat: 'merged_pulls_by_label',
+    label: 'i18n',
     achievements: [
       { count: 1, title: 'Decoder', details: 'First i18n PR' },
       { count: 15, title: 'Babel Fish', details: '15 i18n PRs' },
@@ -156,15 +142,8 @@ export default AchievementSpec({
     ],
   },
   'hacktoberfest-merges': {
-    getCount: ({ merged_pulls_by_label }) => {
-      if (!merged_pulls_by_label) return 0;
-      let sum = 0;
-      for (const repo of Object.keys(merged_pulls_by_label)) {
-        if (merged_pulls_by_label[repo]["hacktoberfest-accepted"])
-          sum += merged_pulls_by_label[repo]["hacktoberfest-accepted"];
-      }
-      return sum;
-    },
+    stat: 'merged_pulls_by_label',
+    label: 'hacktoberfest-accepted',
     achievements: [
       { count: 1, title: 'Hacker', details: '1 Hacktoberfest contribution' },
       { count: 5, title: 'Commit or Treat', details: '5 Hacktoberfest contributions' },
