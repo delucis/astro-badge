@@ -29,11 +29,7 @@ interface AchievementGroupBase {
    */
   repo?: string;
   /** Tuple of achievements in ascending order: `[bronze, silver, gold]`. */
-  achievements: [
-    bronze: AchievementDef,
-    silver: AchievementDef,
-    gold: AchievementDef
-  ];
+  achievements: [bronze: AchievementDef, silver: AchievementDef, gold: AchievementDef];
 }
 
 interface BuiltinAchievementGroup extends AchievementGroupBase {
@@ -42,8 +38,13 @@ interface BuiltinAchievementGroup extends AchievementGroupBase {
 }
 
 interface LabelAchievementGroup extends AchievementGroupBase {
-  stat: 'merges_by_label';
+  stat: 'merged_pulls_by_label';
   label: string;
+}
+
+interface CategoryAchievementGroup extends AchievementGroupBase {
+  stat: 'reviews_by_category';
+  category: string;
 }
 
 interface CustomAchievementGroup extends AchievementGroupBase {
@@ -51,7 +52,11 @@ interface CustomAchievementGroup extends AchievementGroupBase {
   getCount: (contributor: Contributor) => number;
 }
 
-type AchievementGroup = BuiltinAchievementGroup | LabelAchievementGroup | CustomAchievementGroup;
+type AchievementGroup =
+  | BuiltinAchievementGroup
+  | LabelAchievementGroup
+  | CustomAchievementGroup
+  | CategoryAchievementGroup;
 
 export function AchievementSpec(spec: Record<string, AchievementGroup>) {
   return Object.fromEntries(

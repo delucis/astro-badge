@@ -14,15 +14,8 @@ export default AchievementSpec({
     ],
   },
   'i18n-reviews': {
-    getCount: ({ reviews_by_category }) => {
-      if (!reviews_by_category) return 0;
-      let sum = 0;
-      for (const repo of Object.keys(reviews_by_category)) {
-        if (reviews_by_category[repo]['i18n']) 
-          sum += reviews_by_category[repo]['i18n'];
-      }
-      return sum;
-    },
+    stat: 'reviews_by_category',
+    category: 'i18n',
     achievements: [
       { count: 1, title: 'Proofreader', details: 'Reviewed an i18n PR' },
       { count: 15, title: 'Polyglot', details: 'Reviewed 15 i18n PRs' },
@@ -30,7 +23,7 @@ export default AchievementSpec({
     ]
   },
   'i18n-merges': {
-    stat: 'merges_by_label',
+    stat: 'merged_pulls_by_label',
     label: 'i18n',
     achievements: [
       { count: 1, title: 'Decoder', details: 'First i18n PR' },
@@ -149,7 +142,7 @@ export default AchievementSpec({
     ],
   },
   'hacktoberfest-merges': {
-    stat: 'merges_by_label',
+    stat: 'merged_pulls_by_label',
     label: 'hacktoberfest-accepted',
     achievements: [
       { count: 1, title: 'Hacker', details: '1 Hacktoberfest contribution' },
