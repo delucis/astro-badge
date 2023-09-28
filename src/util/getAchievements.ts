@@ -17,6 +17,11 @@ function getAchievementsFromSpec(contributor: Contributor) {
     let count: number;
     if ('getCount' in group) {
       count = group.getCount(contributor);
+    } else if (group.stat === 'merges_by_label') {
+      const merges = contributor.merged_pulls_by_label;
+      count = repo
+        ? merges[repo][group.label] || 0
+        : Object.values(merges).reduce((sum, repo) => sum + (repo[group.label] || 0), 0);
     } else {
       const stat = group.stat === 'merges' ? 'merged_pulls' : group.stat;
       count = repo ? contributor[stat][repo] : objSum(contributor[stat]);
