@@ -1,19 +1,19 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "cleanUrls": true,
-  "trailingSlash": true,
-  "redirects": [
-    {
-      "source": "/bwa/",
-      "destination": "/badges/"
-    },
-    {
-      "source": "/v1/achievements/:path*/",
-      "destination": "/achievements/:path*/"
-    },
-    {
-      "source": "/v1/contributor/:path*/",
-      "destination": "/contributor/:path*/"
-    }
-  ]
+	"$schema": "https://openapi.vercel.sh/vercel.json",
+	"cleanUrls": true,
+	"trailingSlash": true,
+	"redirects": [
+		{
+			"source": "/bwa/",
+			"destination": "/badges/"
+		},
+		{
+			"source": "/v1/achievements/:path*/",
+			"destination": "/achievements/:path*/"
+		},
+		{
+			"source": "/v1/contributor/:path*/",
+			"destination": "/contributor/:path*/"
+		}
+	]
 }

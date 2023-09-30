@@ -1,30 +1,40 @@
 {
-  "name": "@example/minimal",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "collect-stats": "tsm ./scripts/collect-stats.ts",
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
-  },
-  "devDependencies": {
-    "@astrojs/site-kit": "github:withastro/site-kit",
-    "@astrojs/tailwind": "^4.0.0",
-    "@fontsource-variable/inter": "^5.0.5",
-    "@octokit/core": "^4.1.0",
-    "@resvg/resvg-js": "^2.4.1",
-    "@tailwindcss/typography": "^0.5.7",
-    "@types/node": "^20.3.3",
-    "@vercel/analytics": "^0.1.3",
-    "astro": "^2.8.0",
-    "minimatch": "^9.0.2",
-    "p-retry": "^5.1.1",
-    "sharp": "^0.32.1",
-    "tailwindcss": "^3.3.2",
-    "tsm": "^2.2.2",
-    "web-vitals": "^3.1.0"
-  },
-  "packageManager": "pnpm@8.2.0"
+	"name": "@example/minimal",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"collect-stats": "tsm ./scripts/collect-stats.ts",
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"format": "prettier --write . && biome format --write ./*",
+		"lint": "biome lint ./*",
+		"lint:fix": "biome lint --apply ./*",
+		"check": "biome check ./*",
+		"check:fix": "biome check --apply ./*",
+		"check-format": "prettier --check . && biome check ./*",
+		"precommit": "pnpm run check-format && pnpm run lint"
+	},
+	"devDependencies": {
+		"@astrojs/site-kit": "github:withastro/site-kit",
+		"@astrojs/tailwind": "^4.0.0",
+		"@biomejs/biome": "^1.2.2",
+		"@fontsource-variable/inter": "^5.0.5",
+		"@octokit/core": "^4.1.0",
+		"@resvg/resvg-js": "^2.4.1",
+		"@tailwindcss/typography": "^0.5.7",
+		"@types/node": "^20.3.3",
+		"@vercel/analytics": "^0.1.3",
+		"astro": "^2.8.0",
+		"minimatch": "^9.0.2",
+		"p-retry": "^5.1.1",
+		"prettier": "^3.0.3",
+		"prettier-plugin-astro": "^0.12.0",
+		"sharp": "^0.32.1",
+		"tailwindcss": "^3.3.2",
+		"tsm": "^2.2.2",
+		"web-vitals": "^3.1.0"
+	},
+	"packageManager": "pnpm@8.2.0"
 }
