@@ -41,7 +41,7 @@ const query = `${subPath}?q=${isType}+${userFilter}`
               {repo}
             </a>
             <span
-              class="pl-2"
+              class="pl-2 flex gap-2 items-center"
             >
               <span
                 class="block w-[var(--bar-w)] min-w-[2px] bg-blue-purple-gradient h-2 rounded-full"
@@ -49,6 +49,7 @@ const query = `${subPath}?q=${isType}+${userFilter}`
               >
                 <span class="sr-only">{repoCount} {type}</span>
               </span>
+              <span>({repoCount})</span>
             </span>
           </li>
         );
