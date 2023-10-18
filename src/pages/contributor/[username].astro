@@ -101,26 +101,6 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
                   {percentage < 1 ? '<1' : Math.round(percentage)}% of contributors have this
                 </p>
               </div>
-              {group.nextAchievement && (
-                <div class="space-y-2">
-          <h4 class="text-sm font-mono text-white">
-            Next up
-          </h4>
-          <ol class="space-y-1 text-sm p-0">
-            <li>
-              <div class="flex items-baseline gap-x-2 relative">
-                <span class:list={["inline-block w-2 h-2 rounded-full", achievementClassGradient(group.nextAchievement.class)]} />
-                <span class="relative flex items-baseline gap-x-2 flex-wrap">
-                  <h5>
-                    <a class:list={["font-semibold", achievementClassGradientText(group.nextAchievement.class)]} href={`/achievements/${group.groupID}/${achievementClassSlug(group.nextAchievement.class)}/`}>{group.nextAchievement.title}</a>
-                  </h5>
-                  <p class:list={["text-xs font-mono", achievementClassGradientText(group.nextAchievement.class)]}>{group.nextAchievement.details}</p>
-                </span>
-              </div>
-            </li>
-          </ol>
-          </div>
-              )}
               {group.achievements.length > 1 && (
                 <div class="space-y-2">
                   <h4 class="text-sm font-mono text-white">
@@ -140,6 +120,26 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
                         </div>
                       </li>
                     ))}
+                  </ol>
+                </div>
+              )}
+              {group.nextAchievement && (
+                <div class="space-y-2">
+                  <h4 class="text-sm font-mono text-white">
+                    Next up
+                  </h4>
+                  <ol class="space-y-1 text-sm p-0">
+                    <li>
+                      <div class="flex items-baseline gap-x-2 relative">
+                        <span class:list={["inline-block w-2 h-2 rounded-full", achievementClassGradient(group.nextAchievement.class)]} />
+                        <span class="relative flex items-baseline gap-x-2 flex-wrap">
+                          <h5>
+                            <a class:list={["font-semibold", achievementClassGradientText(group.nextAchievement.class)]} href={`/achievements/${group.groupID}/${achievementClassSlug(group.nextAchievement.class)}/`}>{group.nextAchievement.title}</a>
+                          </h5>
+                          <p class:list={["text-xs font-mono", achievementClassGradientText(group.nextAchievement.class)]}>{group.nextAchievement.details}</p>
+                        </span>
+                      </div>
+                    </li>
                   </ol>
                 </div>
               )}
