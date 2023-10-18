@@ -27,23 +27,18 @@ function getAchievementsFromSpec(contributor: Contributor) {
       const stat = group.stat === 'merges' ? 'merged_pulls' : group.stat;
       count = repo ? contributor[stat][repo] : objSum(contributor[stat]);
     }
+    let nextAchievement: Achievement | undefined;
     for (const achievement of Object.values(achievements)) {
       if (count >= achievement.count) {
         groupAchieved.push(achievement);
         achievement.numAchieved++;
-      }
-    }
-    if (groupAchieved.length === 0) continue;
-    groupAchieved.sort((a, b) => b.class - a.class);
-
-    let nextAchievement: Achievement | null = null;
-    for (let i = 0; i < Object.values(achievements).length; i++) {
-      const achievement = Object.values(achievements)[i];
-      if (count < achievement.count) {
+      } else {
         nextAchievement = achievement;
         break;
       }
     }
+    if (groupAchieved.length === 0) continue;
+    groupAchieved.sort((a, b) => b.class - a.class);
 
     achieved.push({
       groupID,
