@@ -8,8 +8,8 @@ function getAchievementsFromSpec(contributor: Contributor) {
     groupID: string;
     repo?: string;
     class: AchievementClass;
-      achievements: Achievement[];
-      nextAchievement?: Achievement;
+    achievements: Achievement[];
+    nextAchievement?: Achievement;
   }[] = [];
   for (const groupID in spec) {
     const group = spec[groupID];
@@ -34,23 +34,23 @@ function getAchievementsFromSpec(contributor: Contributor) {
       }
     }
     if (groupAchieved.length === 0) continue;
-      groupAchieved.sort((a, b) => b.class - a.class);
+    groupAchieved.sort((a, b) => b.class - a.class);
 
-      let nextAchievement: Achievement | null = null;
-      for (let i = 0; i < Object.values(achievements).length; i++) {
-          const achievement = Object.values(achievements)[i];
-            if (count < achievement.count) {
-                nextAchievement = achievement;
-                break;
-            }
+    let nextAchievement: Achievement | null = null;
+    for (let i = 0; i < Object.values(achievements).length; i++) {
+      const achievement = Object.values(achievements)[i];
+      if (count < achievement.count) {
+        nextAchievement = achievement;
+        break;
       }
+    }
 
     achieved.push({
       groupID,
       repo,
       class: groupAchieved[0].class,
-        achievements: groupAchieved,
-        nextAchievement,
+      achievements: groupAchieved,
+      nextAchievement,
     });
   }
   achieved.sort((a, b) => b.class - a.class);
