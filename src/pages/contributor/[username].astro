@@ -4,7 +4,7 @@ import Copy from "../../components/Copy.astro";
 import { contributors } from "../../util/getContributors";
 import Layout from '../../layouts/Layout.astro';
 import Stat from "../../components/achievements/Stat.astro";
-import { achievementClassGradient, achievementClassGradientText, achievementClassSlug } from '../../util/achievementClasses'
+import { achievementClassFill, achievementClassGradient, achievementClassGradientText, achievementClassSlug, achievementClassStroke } from '../../util/achievementClasses'
 
 export function getStaticPaths() {
   return contributors.map((contributor) => ({
@@ -84,7 +84,7 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
           const { title, details, numAchieved } = group.achievements[0];
           const percentage = numAchieved / contributors.length * 100;
           return (
-            <li class="bg-neutral-700 border border-neutral-600 p-6 flex flex-col gap-6">
+            <li class="bg-neutral-700 border border-neutral-600 p-6 pt-5 flex flex-col gap-6">
               <div class="flex flex-col gap-2">
                 <div class="flex flex-col gap-1">
                   <h3 class="font-semibold text-2xl shrink-0">
@@ -123,24 +123,42 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
                   </ol>
                 </div>
               )}
-              {group.nextAchievement && (
-                <div class="space-y-2">
-                  <h4 class="text-sm font-mono text-white">
-                    Next up
-                  </h4>
-                  <ol class="space-y-1 text-sm p-0">
-                    <li>
-                      <div class="flex items-baseline gap-x-2 relative">
-                        <span class:list={["inline-block w-2 h-2 rounded-full", achievementClassGradient(group.nextAchievement.class)]} />
-                        <span class="relative flex items-baseline gap-x-2 flex-wrap">
-                          <h5>
-                            <a class:list={["font-semibold", achievementClassGradientText(group.nextAchievement.class)]} href={`/achievements/${group.groupID}/${achievementClassSlug(group.nextAchievement.class)}/`}>{group.nextAchievement.title}</a>
-                          </h5>
-                          <p class:list={["text-xs font-mono", achievementClassGradientText(group.nextAchievement.class)]}>{group.nextAchievement.details}</p>
-                        </span>
-                      </div>
-                    </li>
-                  </ol>
+
+              {group.next && (
+                <div class="-mx-6 -mb-6 mt-auto p-6 py-3 border-t border-dashed border-neutral-700 bg-neutral-600">
+                  <div class="flex items-center gap-x-2 relative text-sm">
+                    <h4 class="shrink-0 font-mono text-white">Next</h4>
+                    <span class="flex items-center gap-x-2">
+                      <svg class="-rotate-90 stroke-2" fill="none" width="16" height="16" viewBox="0 0 16 16">
+                        <title>{Math.round(group.next.progress * 100)}%</title>
+                        <circle r="6" cx="8" cy="8" opacity="0.3" class={achievementClassStroke(group.next.achievement.class)} />
+                        <circle r="6" cx="8" cy="8" class={achievementClassStroke(group.next.achievement.class)}
+                          stroke-dasharray="1"
+                          stroke-dashoffset={1 - group.next.progress}
+                          pathLength="1"
+                        />
+                      </svg>
+                      <p class="flex items-center gap-1 font-semibold"
+                      >
+                        {(group.next.achievement.numAchieved > 0) ? (
+                          <a
+                            class={achievementClassGradientText(group.next.achievement.class)}
+                            href={`/achievements/${group.groupID}/${achievementClassSlug(group.next.achievement.class)}/`}
+                          >
+                            {group.next.achievement.title}
+                          </a>
+                        ) : (
+                          <svg width="16" height="16" viewBox="0 0 24 24" class={achievementClassFill(group.next.achievement.class)}>
+                            <title>Locked</title>
+                            <path d="M12 13a1.49 1.49 0 0 0-1 2.61V17a1 1 0 0 0 2 0v-1.39A1.49 1.49 0 0 0 12 13Zm5-4V7A5 5 0 0 0 7 7v2a3 3 0 0 0-3 3v7a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-7a3 3 0 0 0-3-3ZM9 7a3 3 0 0 1 6 0v2H9Zm9 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1Z"/>
+                          </svg>
+                          <span class={achievementClassGradientText(group.next.achievement.class)}>
+                            ???
+                          </span>
+                        )}
+                      </p>
+                    </span>
+                  </div>
                 </div>
               )}
             </li>
