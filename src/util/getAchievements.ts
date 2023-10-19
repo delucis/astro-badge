@@ -3,12 +3,18 @@ import { objSum } from './objSum';
 import { Achievement, AchievementClass } from './achievementsHelpers';
 import spec from '../achievements.config';
 
+interface NextAchievement {
+  achievement: Achievement;
+  progress: number;
+}
+
 function getAchievementsFromSpec(contributor: Contributor) {
   const achieved: {
     groupID: string;
     repo?: string;
     class: AchievementClass;
     achievements: Achievement[];
+    next?: NextAchievement;
   }[] = [];
   for (const groupID in spec) {
     const group = spec[groupID];
@@ -26,19 +32,25 @@ function getAchievementsFromSpec(contributor: Contributor) {
       const stat = group.stat === 'merges' ? 'merged_pulls' : group.stat;
       count = repo ? contributor[stat][repo] : objSum(contributor[stat]);
     }
+    let next: NextAchievement | undefined;
     for (const achievement of Object.values(achievements)) {
       if (count >= achievement.count) {
         groupAchieved.push(achievement);
         achievement.numAchieved++;
+      } else {
+        next = { progress: count / achievement.count, achievement };
+        break;
       }
     }
     if (groupAchieved.length === 0) continue;
     groupAchieved.sort((a, b) => b.class - a.class);
+
     achieved.push({
       groupID,
       repo,
       class: groupAchieved[0].class,
       achievements: groupAchieved,
+      next,
     });
   }
   achieved.sort((a, b) => b.class - a.class);
