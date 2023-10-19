@@ -14,6 +14,11 @@ export const achievementClassGradientText = (cls: AchievementClass, dir = 'bg-gr
 		achievementClassGradientTo(cls),
 	].join(' ');
 
+export const achievementClassStroke = (cls: AchievementClass) =>
+  (['stroke-bronze', 'stroke-silver', 'stroke-gold'] as const)[cls];
+export const achievementClassFill = (cls: AchievementClass) =>
+  (['fill-bronze', 'fill-silver', 'fill-gold'] as const)[cls];
+
 export const achievementClassSlug = (cls: AchievementClass) =>
 	(['bronze', 'silver', 'gold'] as const)[cls];
 
