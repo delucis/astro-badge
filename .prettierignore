@@ -1,8 +1,8 @@
-dist/
-node_modules/
+**/dist
+**/node_modules
+**/.vercel
+
 pnpm-lock.yaml
-.vercel/
-.astro/
 *.js
 *.ts
 *.mjs
