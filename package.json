@@ -11,9 +11,8 @@
 		"format": "prettier --write . && biome format --write ./*",
 		"lint": "biome lint ./*",
 		"lint:fix": "biome lint --apply ./*",
-		"check": "biome check ./*",
-		"check:fix": "biome check --apply ./*",
 		"check-format": "prettier --check . && biome check ./*",
+		"check-format:fix": "biome --apply ./*",
 		"precommit": "pnpm run check-format && pnpm run lint"
 	},
 	"devDependencies": {
