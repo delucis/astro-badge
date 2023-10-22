@@ -5,7 +5,7 @@
 	},
 	"files": {
 		"ignoreUnknown": true,
-		"ignore": ["**/dist", "**/node_modules", "**/.vercel", "*.yaml", "src/data/contributors.json"]
+		"ignore": ["dist", "node_modules", ".vercel", ".yaml", ".astro", "src/data/contributors.json"]
 	},
 	"linter": {
 		"enabled": true,
