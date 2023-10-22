@@ -1,10 +1,10 @@
-import type { APIContext, EndpointOutput } from 'astro';
+import type { APIRoute } from 'astro';
 import { Resvg } from '@resvg/resvg-js';
-import { get as getSvg } from './[username].svg';
+import { getSvg, type Context } from './[username].svg';
 export { getStaticPaths } from './[username].svg';
 
-export async function get(ctx: APIContext): Promise<EndpointOutput> {
-  const { body: svg } = await getSvg(ctx);
+export const GET: APIRoute = async function GET(ctx: Context) {
+  const svg = await getSvg(ctx);
   const resvg = new Resvg(svg, {
     fitTo: { mode: 'zoom', value: 1200 / 260 },
     font: {
@@ -14,8 +14,5 @@ export async function get(ctx: APIContext): Promise<EndpointOutput> {
       monospaceFamily: 'IBM Plex Mono',
     },
   });
-  return {
-    body: resvg.render().asPng(),
-    encoding: 'binary',
-  };
-}
+  return new Response(resvg.render().asPng(), { headers: { 'Content-Type': 'image/png' } });
+};

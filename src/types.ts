@@ -1,3 +1,5 @@
+import type { APIContext, InferGetStaticParamsType, InferGetStaticPropsType } from 'astro';
+
 export interface Contributor {
   avatar_url: string;
   issues: Record<string, number>;
@@ -7,3 +9,8 @@ export interface Contributor {
   reviews: Record<string, number>;
   reviews_by_category: Record<string, Record<string, number>>
 }
+
+export type InferStaticContext<T> = APIContext<
+  InferGetStaticPropsType<T>,
+  InferGetStaticParamsType<T>
+>;
