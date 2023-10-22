@@ -1,9 +1,11 @@
-import type { APIContext, EndpointOutput } from 'astro';
+import type { APIRoute } from 'astro';
+import type { InferStaticContext } from '../../../types';
 import { contributors } from "../../../util/getContributors";
 
 export function getStaticPaths() {
   return contributors.map(({ username }) => ({ params: { username } }));
 }
+type Context = InferStaticContext<typeof getStaticPaths>;
 
 const icons = {
   commits:
@@ -31,7 +33,7 @@ const AstroLogo = `<svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="
   <path d="M.5 51.4s10.6-5.2 21.2-5.2l8-24.7c.3-1.2 1.2-2 2.2-2 1 0 1.9.8 2.2 2l8 24.7a45 45 0 0 1 21.2 5.2l-18-49C44.8.9 43.9 0 42.7 0H21.1c-1.2 0-2 1-2.6 2.4l-18 49Z"/>
 </svg>`;
 
-export async function get({ params }: APIContext): Promise<EndpointOutput> {
+export const GET: APIRoute = async ({ params }: Context) => {
   const { username } = params;
   const { achievements, stats, getBase64Avatar } = contributors.find((c) => c.username === username);
   const b64 = await getBase64Avatar();
@@ -60,7 +62,7 @@ export async function get({ params }: APIContext): Promise<EndpointOutput> {
   <image href="data:image/jpeg;base64,${b64}" x="5" y="5" width="30" height="30" clip-path="url(#avatar-clip)" />
 </svg>`;
 
-  return { body };
+  return new Response(body, { headers: { 'Content-Type': 'image/svg+xml' } });
 }
 
-export const head = get;
+export const HEAD = GET;

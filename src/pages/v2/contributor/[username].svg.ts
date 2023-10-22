@@ -1,9 +1,11 @@
-import type { APIContext, EndpointOutput } from 'astro';
+import type { APIRoute } from 'astro';
+import type { InferStaticContext } from '../../../types';
 import { contributors } from "../../../util/getContributors";
 
 export function getStaticPaths() {
   return contributors.map(({ username }) => ({ params: { username } }));
 }
+export type Context = InferStaticContext<typeof getStaticPaths>;
 
 const icons = {
   commits:
@@ -25,12 +27,12 @@ ${icons[type]}
 const Achievement = ({ achievements }: { achievements: { title: string; details: string }[] }, i: number) =>
 `<text x="41" y="${41 + i * 17.5}"><tspan font-weight="500">${achievements[0].title}</tspan> <tspan dx="2" fill="#BFC1C9">${achievements[0].details}</tspan></text>`
 
-export async function get({ params }: APIContext): Promise<EndpointOutput> {
-  const { username } = params;
+export async function getSvg(ctx: Context): Promise<string> {
+  const { username } = ctx.params;
   const { achievements, stats, getBase64Avatar } = contributors.find((c) => c.username === username);
   const b64 = await getBase64Avatar();
 
-  const body = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 260 156" width="260" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'" direction="ltr">
+  return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 260 156" width="260" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'" direction="ltr">
   <!--solid backdrop-->
   <rect width="259" height="155" x=".5" y=".5" fill="#1A1B1E" rx="3.5"/>
   <!--gradient background-->
@@ -62,8 +64,11 @@ export async function get({ params }: APIContext): Promise<EndpointOutput> {
     </linearGradient>
   </defs>
 </svg>`;
-
-  return { body };
 }
 
-export const head = get;
+export const GET: APIRoute = async (ctx: Context) => {
+  const body = await getSvg(ctx);
+  return new Response(body, { headers: { 'Content-Type': 'image/svg+xml' }});
+}
+
+export const HEAD = GET;
