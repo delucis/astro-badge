@@ -99,7 +99,7 @@ const dataID = 'contributor-usernames';
   const svgDisplay = document.getElementById('svg-display') as HTMLDivElement;
   const moreP = document.getElementById('more-link') as HTMLParagraphElement;
   const datalist = document.getElementById('contributor-usernames');
-  const options = datalist.querySelectorAll('option');
+  const options = datalist?.querySelectorAll('option') || [];
   const usernames = [...options].map((option) => option.value);
   const lowercaseMap = new Map(usernames.map((name) => [name.toLowerCase(), name]));
 
@@ -123,7 +123,7 @@ const dataID = 'contributor-usernames';
     }
   };
 
-  let to: NodeJS.Timeout;
+  let to: NodeJS.Timeout | undefined;
 
   const resetSvg = () => {
     svgDisplay.innerHTML =
@@ -138,7 +138,7 @@ const dataID = 'contributor-usernames';
   searchBox.addEventListener('input', async () => {
     if (to) {
       clearTimeout(to);
-      to = null;
+      to = undefined;
     }
     moreP.innerHTML = '&nbsp;';
     to = setTimeout(async () => {
