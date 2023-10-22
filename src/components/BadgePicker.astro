@@ -17,15 +17,15 @@ interface Props {
   getImagePath: (badge: Badge) => string;
 }
 
-const { aspectRatio, alt, link, getImagePath } = Astro.props;
+const { aspectRatio, alt, link, getImagePath } = Astro.props as Props;
 
 const heights = { tiny: 20, small: 32, medium: 40, large: 48 } as const;
 const heightsKeys = Object.keys(heights) as Array<keyof typeof heights>;
 
 const badgeSizes: Badge[] = heightsKeys.map((slug) => ({
   slug,
-  label: (slug[0].toUpperCase() + slug.slice(1)) as Badge['label'],
-  shortLabel: (slug === 'tiny' ? 'XS' : slug[0].toUpperCase()) as Badge['shortLabel'],
+  label: (slug[0]!.toUpperCase() + slug.slice(1)) as Badge['label'],
+  shortLabel: (slug === 'tiny' ? 'XS' : slug[0]!.toUpperCase()) as Badge['shortLabel'],
   width: heights[slug] * aspectRatio,
   height: heights[slug],
 }));

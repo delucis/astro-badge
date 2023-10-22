@@ -103,7 +103,7 @@ const dataID = 'contributor-usernames';
   const usernames = [...options].map((option) => option.value);
   const lowercaseMap = new Map(usernames.map((name) => [name.toLowerCase(), name]));
 
-  const findUsername = (query: string) => {
+  const findUsername = (query: string): string | undefined => {
     if (!query) return;
     query = query.toLowerCase();
     const fullMatch = lowercaseMap.get(query);
@@ -112,15 +112,16 @@ const dataID = 'contributor-usernames';
       const keys = [...lowercaseMap.keys()];
       {
         const [partialMatchKey] = keys.filter((key) => key.startsWith(query));
-        const partialMatch = lowercaseMap.get(partialMatchKey);
+        const partialMatch = lowercaseMap.get(partialMatchKey!);
         if (partialMatch) return partialMatch;
       }
       {
         const [partialMatchKey] = keys.filter((key) => key.includes(query));
-        const partialMatch = lowercaseMap.get(partialMatchKey);
+        const partialMatch = lowercaseMap.get(partialMatchKey!);
         if (partialMatch) return partialMatch;
       }
     }
+    return;
   };
 
   let to: NodeJS.Timeout | undefined;
