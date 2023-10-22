@@ -32,17 +32,7 @@ const path = Object.entries(Astro.params).reduce(
   }
 
   function getConnectionSpeed(): string {
-    if (
-      'connection' in navigator &&
-      typeof navigator.connection === 'object' &&
-      navigator.connection &&
-      'effectiveType' in navigator.connection &&
-      typeof navigator.connection.effectiveType === 'string'
-    ) {
-      return navigator.connection.effectiveType;
-    } else {
-      return '';
-    }
+    return (navigator as any)?.['connection']?.['effectiveType'] || '';
   }
 
   interface VitalsOpts {
