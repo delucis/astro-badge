@@ -54,8 +54,8 @@ devDependencies:
     specifier: ^5.2.2
     version: 5.2.2
   web-vitals:
-    specifier: ^3.1.0
-    version: 3.1.0
+    specifier: ^3.5.0
+    version: 3.5.0
 
 packages:
 
@@ -6754,8 +6754,8 @@ packages:
     resolution: {integrity: sha512-bKr1DkiNa2krS7qxNtdrtHAmzuYGFQLiQ13TsorsdT6ULTkPLKuu5+GsFpDlg6JFjUTwX2DyhMPG2be8uPrqsQ==}
     dev: true
 
-  /web-vitals@3.1.0:
-    resolution: {integrity: sha512-zCeQ+bOjWjJbXv5ZL0r8Py3XP2doCQMZXNKlBGfUjPAVZWokApdeF/kFlK1peuKlCt8sL9TFkKzyXE9/cmNJQA==}
+  /web-vitals@3.5.0:
+    resolution: {integrity: sha512-f5YnCHVG9Y6uLCePD4tY8bO/Ge15NPEQWtvm3tPzDKygloiqtb4SVqRHBcrIAqo2ztqX5XueqDn97zHF0LdT6w==}
     dev: true
 
   /which-boxed-primitive@1.0.2:

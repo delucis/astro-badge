@@ -27,7 +27,7 @@
     "tailwindcss": "^3.3.3",
     "tsm": "^2.2.2",
     "typescript": "^5.2.2",
-    "web-vitals": "^3.1.0"
+    "web-vitals": "^3.5.0"
   },
   "packageManager": "pnpm@8.2.0"
 }
