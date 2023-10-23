@@ -20,7 +20,7 @@
     "@resvg/resvg-js": "^2.6.0",
     "@types/node": "^20.3.3",
     "@vercel/analytics": "^1.1.1",
-    "astro": "^3.3.2",
+    "astro": "^3.3.3",
     "minimatch": "^9.0.3",
     "p-retry": "^6.1.0",
     "sharp": "^0.32.6",
