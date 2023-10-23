@@ -1,4 +1,4 @@
-import { Contributor } from '../types';
+import type { Contributor } from '../types';
 import { objSum } from './objSum';
 
 export function getStats({

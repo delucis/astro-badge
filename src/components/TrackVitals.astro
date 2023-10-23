@@ -12,7 +12,7 @@ const path = Object.entries(Astro.params).reduce(
 );
 ---
 
-<web-vitals-data data-path={path} />
+<web-vitals-data data-path={path}></web-vitals-data>
 
 <script>
   // Based on https://vercel.com/docs/concepts/analytics/api
@@ -32,7 +32,7 @@ const path = Object.entries(Astro.params).reduce(
   }
 
   function getConnectionSpeed(): string {
-    return navigator?.['connection']?.['effectiveType'] || '';
+    return (navigator as any)?.['connection']?.['effectiveType'] || '';
   }
 
   interface VitalsOpts {

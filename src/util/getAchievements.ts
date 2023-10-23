@@ -1,6 +1,6 @@
-import { Contributor } from '../types';
+import type { Contributor } from '../types';
 import { objSum } from './objSum';
-import { Achievement, AchievementClass } from './achievementsHelpers';
+import type { Achievement, AchievementClass } from './achievementsHelpers';
 import spec from '../achievements.config';
 
 interface NextAchievement {
@@ -11,13 +11,13 @@ interface NextAchievement {
 function getAchievementsFromSpec(contributor: Contributor) {
   const achieved: {
     groupID: string;
-    repo?: string;
+    repo?: string | undefined;
     class: AchievementClass;
-    achievements: Achievement[];
-    next?: NextAchievement;
+    achievements: [Achievement, ...Achievement[]];
+    next?: NextAchievement | undefined;
   }[] = [];
   for (const groupID in spec) {
-    const group = spec[groupID];
+    const group = spec[groupID]!;
     const groupAchieved: Achievement[] = [];
     const { repo, achievements } = group;
     let count: number;
@@ -26,11 +26,11 @@ function getAchievementsFromSpec(contributor: Contributor) {
     } else if (group.stat === 'merged_pulls_by_label' || group.stat === 'reviews_by_category') {
       const key = group.stat === 'merged_pulls_by_label' ? group.label : group.category;
       count = repo
-        ? contributor[group.stat][repo][key] || 0
+        ? contributor[group.stat][repo]?.[key] || 0
         : Object.values(contributor[group.stat]).reduce((sum, repo) => sum + (repo[key] || 0), 0);
     } else {
       const stat = group.stat === 'merges' ? 'merged_pulls' : group.stat;
-      count = repo ? contributor[stat][repo] : objSum(contributor[stat]);
+      count = repo ? contributor[stat][repo] || 0 : objSum(contributor[stat]);
     }
     let next: NextAchievement | undefined;
     for (const achievement of Object.values(achievements)) {
@@ -42,14 +42,15 @@ function getAchievementsFromSpec(contributor: Contributor) {
         break;
       }
     }
-    if (groupAchieved.length === 0) continue;
     groupAchieved.sort((a, b) => b.class - a.class);
+    const [best, ...rest] = groupAchieved;
+    if (!best) continue;
 
     achieved.push({
       groupID,
       repo,
-      class: groupAchieved[0].class,
-      achievements: groupAchieved,
+      class: best.class,
+      achievements: [best, ...rest],
       next,
     });
   }

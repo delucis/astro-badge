@@ -35,9 +35,7 @@ const dataID = 'contributor-usernames';
     </div>
 
     <Frame>
-      <form onsubmit="return f
-      alse" class=
-"flex flex-col gap-4 sm:gap-8">
+      <form onsubmit="return false" class="flex flex-col gap-4 sm:gap-8">
         <label for="find-contributor" class="heading-5 text-white">
           Find an Astro contributor
         </label>
@@ -101,11 +99,11 @@ const dataID = 'contributor-usernames';
   const svgDisplay = document.getElementById('svg-display') as HTMLDivElement;
   const moreP = document.getElementById('more-link') as HTMLParagraphElement;
   const datalist = document.getElementById('contributor-usernames');
-  const options = datalist.querySelectorAll('option');
+  const options = datalist?.querySelectorAll('option') || [];
   const usernames = [...options].map((option) => option.value);
   const lowercaseMap = new Map(usernames.map((name) => [name.toLowerCase(), name]));
 
-  const findUsername = (query: string) => {
+  const findUsername = (query: string): string | undefined => {
     if (!query) return;
     query = query.toLowerCase();
     const fullMatch = lowercaseMap.get(query);
@@ -114,18 +112,19 @@ const dataID = 'contributor-usernames';
       const keys = [...lowercaseMap.keys()];
       {
         const [partialMatchKey] = keys.filter((key) => key.startsWith(query));
-        const partialMatch = lowercaseMap.get(partialMatchKey);
+        const partialMatch = lowercaseMap.get(partialMatchKey!);
         if (partialMatch) return partialMatch;
       }
       {
         const [partialMatchKey] = keys.filter((key) => key.includes(query));
-        const partialMatch = lowercaseMap.get(partialMatchKey);
+        const partialMatch = lowercaseMap.get(partialMatchKey!);
         if (partialMatch) return partialMatch;
       }
     }
+    return;
   };
 
-  let to: NodeJS.Timeout;
+  let to: NodeJS.Timeout | undefined;
 
   const resetSvg = () => {
     svgDisplay.innerHTML =
@@ -140,7 +139,7 @@ const dataID = 'contributor-usernames';
   searchBox.addEventListener('input', async () => {
     if (to) {
       clearTimeout(to);
-      to = null;
+      to = undefined;
     }
     moreP.innerHTML = '&nbsp;';
     to = setTimeout(async () => {

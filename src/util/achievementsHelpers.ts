@@ -1,4 +1,4 @@
-import { Contributor } from '../types';
+import type { Contributor } from '../types';
 
 export enum AchievementClass {
   Bronze,

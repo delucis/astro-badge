@@ -1,9 +1,9 @@
-import type { APIRoute } from 'astro';
 import { Resvg } from '@resvg/resvg-js';
-import { getSvg, type Context } from './[username].svg';
+import { getSvg, getStaticPaths } from './[username].svg';
+import type { InferStaticAPIRoute } from '../../../types';
 export { getStaticPaths } from './[username].svg';
 
-export const GET: APIRoute = async function GET(ctx: Context) {
+export const GET: InferStaticAPIRoute<typeof getStaticPaths> = async function GET(ctx) {
   const svg = await getSvg(ctx);
   const resvg = new Resvg(svg, {
     fitTo: { mode: 'zoom', value: 1200 / 260 },

@@ -1,6 +1,6 @@
 import sharp from 'sharp';
 import data from '../data/contributors.json';
-import { Contributor } from '../types';
+import type { Contributor } from '../types';
 import { getAchievements } from './getAchievements';
 import { getStats } from './getStats';
 import { objSum } from './objSum';

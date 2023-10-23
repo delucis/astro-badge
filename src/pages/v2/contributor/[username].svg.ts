@@ -1,6 +1,5 @@
-import type { APIRoute } from 'astro';
-import type { InferStaticContext } from '../../../types';
-import { contributors } from "../../../util/getContributors";
+import type { InferStaticAPIRoute, InferStaticContext } from '../../../types';
+import { contributors, type EnhancedContributor } from "../../../util/getContributors";
 
 export function getStaticPaths() {
   return contributors.map(({ username }) => ({ params: { username } }));
@@ -24,12 +23,12 @@ ${icons[type]}
 </svg>
 <text font-weight="500" font-size="8.5" x="17" y="${61 + i * 30}" text-anchor="middle">${count}</text>`
 
-const Achievement = ({ achievements }: { achievements: { title: string; details: string }[] }, i: number) =>
+const Achievement = ({ achievements }: EnhancedContributor['achievements'][number], i: number) =>
 `<text x="41" y="${41 + i * 17.5}"><tspan font-weight="500">${achievements[0].title}</tspan> <tspan dx="2" fill="#BFC1C9">${achievements[0].details}</tspan></text>`
 
 export async function getSvg(ctx: Context): Promise<string> {
   const { username } = ctx.params;
-  const { achievements, stats, getBase64Avatar } = contributors.find((c) => c.username === username);
+  const { achievements, stats, getBase64Avatar } = contributors.find((c) => c.username === username)!;
   const b64 = await getBase64Avatar();
 
   return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 260 156" width="260" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'" direction="ltr">
@@ -66,7 +65,7 @@ export async function getSvg(ctx: Context): Promise<string> {
 </svg>`;
 }
 
-export const GET: APIRoute = async (ctx: Context) => {
+export const GET: InferStaticAPIRoute<typeof getStaticPaths> = async (ctx) => {
   const body = await getSvg(ctx);
   return new Response(body, { headers: { 'Content-Type': 'image/svg+xml' }});
 }
