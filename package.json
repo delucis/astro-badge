@@ -17,7 +17,7 @@
     "@fontsource-variable/inter": "^5.0.5",
     "@octokit/core": "^5.0.1",
     "@octokit/types": "^12.0.0",
-    "@resvg/resvg-js": "^2.4.1",
+    "@resvg/resvg-js": "^2.6.0",
     "@types/node": "^20.3.3",
     "@vercel/analytics": "^1.1.1",
     "astro": "^3.3.2",
