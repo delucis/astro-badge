@@ -3,7 +3,7 @@ import type { Endpoints } from '@octokit/types';
 import { writeFile } from 'node:fs/promises';
 import { minimatch } from 'minimatch';
 import pRretry from 'p-retry';
-import { Contributor } from '../src/types';
+import type { Contributor } from '../src/types';
 
 type APIData<T extends keyof Endpoints> = Endpoints[T]['response']['data'];
 type Repo = APIData<'GET /orgs/{org}/repos'>[number];
@@ -14,7 +14,11 @@ type CustomCategories = {
 }
 interface AugmentedRepo extends Repo {
   reviews: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
-  issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
+  issues: Array<
+    Omit<APIData<'GET /repos/{owner}/{repo}/issues'>[number], 'state_reason'> & {
+      state_reason?: string | null;
+    }
+  >;
 }
 
 const retry: typeof pRretry = (fn, opts) =>
@@ -52,27 +56,30 @@ class StatsCollector {
           continue;
         }
         const { avatar_url, login } = user;
-        contributors[login] =
-          contributors[login] || this.#newContributor({ avatar_url });
+        const contributor =
+          contributors[login] =
+            contributors[login] || this.#newContributor({ avatar_url });
         if (pull_request) {
-          contributors[login].pulls[repo.name] =
-            (contributors[login].pulls[repo.name] || 0) + 1;
+          contributor.pulls[repo.name] =
+            (contributor.pulls[repo.name] || 0) + 1;
           if (pull_request.merged_at) {
-            contributors[login].merged_pulls[repo.name] =
-              (contributors[login].merged_pulls[repo.name] || 0) + 1;
+            contributor.merged_pulls[repo.name] =
+              (contributor.merged_pulls[repo.name] || 0) + 1;
             if (labels.length) {
-              if (!contributors[login].merged_pulls_by_label[repo.name]) {
-                contributors[login].merged_pulls_by_label[repo.name] = {};
+              if (!contributor.merged_pulls_by_label[repo.name]) {
+                contributor.merged_pulls_by_label[repo.name] = {};
               }
                 for (const label of labels) {
-                  contributors[login].merged_pulls_by_label[repo.name][label.name] = 
-                    (contributors[login].merged_pulls_by_label[repo.name][label.name] || 0) + 1;
+                  const name = typeof label === 'string' ? label : label.name;
+                  if (!name) continue;
+                  contributor.merged_pulls_by_label[repo.name]![name] = 
+                    (contributor.merged_pulls_by_label[repo.name]![name] || 0) + 1;
                 }
             }
           }
         } else {
-          contributors[login].issues[repo.name] =
-            (contributors[login].issues[repo.name] || 0) + 1;
+          contributor.issues[repo.name] =
+            (contributor.issues[repo.name] || 0) + 1;
         }
       }
 
@@ -88,29 +95,31 @@ class StatsCollector {
           continue;
         }
         const { avatar_url, login } = user;
-        contributors[login] =
-          contributors[login] || this.#newContributor({ avatar_url });
-        reviewedPRs[login] = reviewedPRs[login] || new Set();
-        if (!reviewedPRs[login].has(pull_request_url)) {
-          contributors[login].reviews[repo.name] =
-            (contributors[login].reviews[repo.name] || 0) + 1;
+        const contributor =
+          contributors[login] =
+            contributors[login] || this.#newContributor({ avatar_url });
+        const contributorReviews =
+          reviewedPRs[login] = reviewedPRs[login] || new Set();
+        if (!contributorReviews.has(pull_request_url)) {
+          contributor.reviews[repo.name] =
+            (contributor.reviews[repo.name] || 0) + 1;
 
-          if (!contributors[login].reviews_by_category[repo.name]) {
-            contributors[login].reviews_by_category[repo.name] = {};
+          if (!contributor.reviews_by_category[repo.name]) {
+            contributor.reviews_by_category[repo.name] = {};
           }
 
           for (const categoryName in customCategories) {
             for (const repoName in customCategories[categoryName]) {
               if (repoName !== repo.name) continue;
-              for (const glob of customCategories[categoryName][repoName]) {
+              for (const glob of customCategories[categoryName]![repoName]!) {
                 if (minimatch(path, glob)) {
-                  contributors[login].reviews_by_category[repo.name][categoryName] =
-                    (contributors[login].reviews_by_category[repo.name][categoryName] || 0) + 1;
+                  contributor.reviews_by_category[repo.name]![categoryName] =
+                    (contributor.reviews_by_category[repo.name]![categoryName] || 0) + 1;
                 }
               }
             }
           }
-          reviewedPRs[login].add(pull_request_url);
+          contributorReviews.add(pull_request_url);
         }
       }
     }
@@ -121,7 +130,7 @@ class StatsCollector {
     console.log('Mission complete!');
   }
 
-  #newContributor({ avatar_url }): Contributor {
+  #newContributor({ avatar_url }: { avatar_url: string }): Contributor {
     return { avatar_url, issues: {}, pulls: {}, merged_pulls: {}, merged_pulls_by_label: {}, reviews: {}, reviews_by_category: {} };
   }
 

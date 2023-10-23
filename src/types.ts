@@ -14,3 +14,7 @@ export type InferStaticContext<T> = APIContext<
   InferGetStaticPropsType<T>,
   InferGetStaticParamsType<T>
 >;
+
+export type InferStaticAPIRoute<T> = (
+  context: InferStaticContext<T>
+) => Response | Promise<Response>;

@@ -1,5 +1,4 @@
-import type { APIRoute } from "astro";
-import type { InferStaticContext } from "../../../types";
+import type { InferStaticAPIRoute } from "../../../types";
 
 const sizes = {
   tiny: 109,
@@ -7,25 +6,25 @@ const sizes = {
   medium: 200,
   large: 300,
 };
+const sizeKeys = Object.keys(sizes) as Array<keyof typeof sizes>;
 
 const aspectRatio = 1200 / 220;
 
-export const badgeSizes = Object.keys(sizes).map((slug) => ({
+export const badgeSizes = sizeKeys.map((slug) => ({
   slug,
-  label: slug[0].toUpperCase() + slug.slice(1),
-  width: sizes[slug as keyof typeof sizes],
-  height: Math.round(sizes[slug as keyof typeof sizes] / aspectRatio),
+  label: slug[0]!.toUpperCase() + slug.slice(1),
+  width: sizes[slug],
+  height: Math.round(sizes[slug] / aspectRatio),
 }));
 
 const gridStroke = { tiny: 8, small: 7, medium: 6, large: 4 };
 const textStroke = { tiny: 3, small: 2, medium: 1, large: 0 };
 
 export function getStaticPaths() {
-  return Object.keys(sizes).map((size) => ({ params: { size } }));
+  return sizeKeys.map((size) => ({ params: { size } }));
 }
-type Context = InferStaticContext<typeof getStaticPaths>;
 
-export const GET: APIRoute = ({ params }: Context) => {
+export const GET: InferStaticAPIRoute<typeof getStaticPaths> = ({ params }) => {
   const body = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" enable-background="new 0 0 1200 220" viewBox="0 0 1200 220" width="${sizes[params.size]}">
   <filter id="star-blur"><feGaussianBlur stdDeviation="3"/></filter>
   <linearGradient id="a" x1="0" x2="0" y1="0" y2="250%" gradientUnits="userSpaceOnUse">

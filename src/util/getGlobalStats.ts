@@ -3,7 +3,7 @@ import { contributors } from './getContributors';
 
 interface Stat extends Achievement {
   groupID: string;
-  repo?: string;
+  repo?: string | undefined;
   contributors: typeof contributors;
 }
 
@@ -14,15 +14,15 @@ export const globalAchievements: Stat[] = Object.values(
         stats[group.groupID] = {};
       }
       for (const achievement of group.achievements) {
-        if (!stats[group.groupID][achievement.class]) {
-          stats[group.groupID][achievement.class] = {
+        if (!stats[group.groupID]![achievement.class]) {
+          stats[group.groupID]![achievement.class] = {
             ...achievement,
             groupID: group.groupID,
             repo: group.repo,
             contributors: [],
           };
         }
-        stats[group.groupID][achievement.class].contributors.push(contributor);
+        stats[group.groupID]![achievement.class]!.contributors.push(contributor);
       }
     });
     return stats;
