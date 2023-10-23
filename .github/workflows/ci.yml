@@ -11,6 +11,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name == 'pull_request_target' && github.head_ref || github.ref }}
   cancel-in-progress: true
 
+defaults:
+  run:
+    shell: bash
+
 env:
   NODE_VERSION: 18
 
@@ -26,7 +30,6 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
       - run: pnpm i
-        shell: bash
       - run: pnpm check
 
   tsc:
@@ -40,5 +43,4 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
       - run: pnpm i
-        shell: bash
       - run: pnpm tsc
