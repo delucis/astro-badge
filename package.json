@@ -29,5 +29,5 @@
     "typescript": "^5.2.2",
     "web-vitals": "^3.5.0"
   },
-  "packageManager": "pnpm@8.2.0"
+  "packageManager": "pnpm@8.9.2"
 }
