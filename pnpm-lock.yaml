@@ -15,8 +15,8 @@ devDependencies:
     specifier: ^5.0.2
     version: 5.0.2(astro@3.3.2)(tailwindcss@3.3.3)
   '@fontsource-variable/inter':
-    specifier: ^5.0.5
-    version: 5.0.5
+    specifier: ^5.0.15
+    version: 5.0.15
   '@octokit/core':
     specifier: ^5.0.1
     version: 5.0.1
@@ -986,8 +986,8 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
-  /@fontsource-variable/inter@5.0.5:
-    resolution: {integrity: sha512-hmj/jffr+1tabEPmvm+/b89MtbO6hd5PVbQ6HoMGTO7RMF5eD2C9UcprCgZTOF3OWh5uC21C9HZGN0O9wxe+UQ==}
+  /@fontsource-variable/inter@5.0.15:
+    resolution: {integrity: sha512-CdQPQQgOVxg6ifmbrqYZeUqtQf7p2wPn6EvJ4M+vdNnsmYZgYwPPPQDNlIOU7LCUlSGaN26v6H0uA030WKn61g==}
     dev: true
 
   /@humanwhocodes/config-array@0.11.13:
