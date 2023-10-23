@@ -14,11 +14,7 @@ type CustomCategories = {
 }
 interface AugmentedRepo extends Repo {
   reviews: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
-  issues: Array<
-    Omit<APIData<'GET /repos/{owner}/{repo}/issues'>[number], 'state_reason'> & {
-      state_reason?: string | null;
-    }
-  >;
+  issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
 }
 
 const retry: typeof pRretry = (fn, opts) =>
