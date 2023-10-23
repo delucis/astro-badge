@@ -10,7 +10,7 @@ devDependencies:
     version: 0.2.1(prettier@3.0.3)(typescript@5.2.2)
   '@astrojs/site-kit':
     specifier: github:withastro/site-kit
-    version: github.com/withastro/site-kit/87027f7f1371945eb5a17317cac4caa3d6c76083(@types/node@20.3.3)(eslint@8.52.0)(prettier@3.0.3)(sharp@0.32.6)(tailwindcss@3.3.3)(typescript@5.2.2)
+    version: github.com/withastro/site-kit/87027f7f1371945eb5a17317cac4caa3d6c76083(@types/node@20.8.7)(eslint@8.52.0)(prettier@3.0.3)(sharp@0.32.6)(tailwindcss@3.3.3)(typescript@5.2.2)
   '@astrojs/tailwind':
     specifier: ^5.0.2
     version: 5.0.2(astro@3.3.3)(tailwindcss@3.3.3)
@@ -27,14 +27,14 @@ devDependencies:
     specifier: ^2.6.0
     version: 2.6.0
   '@types/node':
-    specifier: ^20.3.3
-    version: 20.3.3
+    specifier: ^20.8.7
+    version: 20.8.7
   '@vercel/analytics':
     specifier: ^1.1.1
     version: 1.1.1
   astro:
     specifier: ^3.3.3
-    version: 3.3.3(@types/node@20.3.3)(typescript@5.2.2)
+    version: 3.3.3(@types/node@20.8.7)(typescript@5.2.2)
   minimatch:
     specifier: ^9.0.3
     version: 9.0.3
@@ -173,7 +173,7 @@ packages:
       astro: ^2.5.0
     dependencies:
       '@astrojs/prism': 2.1.2
-      astro: 2.2.1(@types/node@20.3.3)(sharp@0.32.6)
+      astro: 2.2.1(@types/node@20.8.7)(sharp@0.32.6)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -196,7 +196,7 @@ packages:
       astro: ^3.3.0
     dependencies:
       '@astrojs/prism': 3.0.0
-      astro: 3.3.3(@types/node@20.3.3)(typescript@5.2.2)
+      astro: 3.3.3(@types/node@20.8.7)(typescript@5.2.2)
       github-slugger: 2.0.0
       import-meta-resolve: 3.0.0
       mdast-util-definitions: 6.0.0
@@ -234,7 +234,7 @@ packages:
       astro: ^3.2.4
       tailwindcss: ^3.0.24
     dependencies:
-      astro: 3.3.3(@types/node@20.3.3)(typescript@5.2.2)
+      astro: 3.3.3(@types/node@20.8.7)(typescript@5.2.2)
       autoprefixer: 10.4.16(postcss@8.4.31)
       postcss: 8.4.31
       postcss-load-config: 4.0.1(postcss@8.4.31)
@@ -1372,8 +1372,10 @@ packages:
       '@types/unist': 3.0.1
     dev: true
 
-  /@types/node@20.3.3:
-    resolution: {integrity: sha512-wheIYdr4NYML61AjC8MKj/2jrR/kDQri/CIpVoZwldwhnIrD/j9jIU5bJ8yBKuB2VhpFV7Ab6G2XkBjv9r9Zzw==}
+  /@types/node@20.8.7:
+    resolution: {integrity: sha512-21TKHHh3eUHIi2MloeptJWALuCu5H7HQTdTrWIFReA8ad+aggoX+lRes3ex7/FtpC+sVUpFMQ+QTfYr74mruiQ==}
+    dependencies:
+      undici-types: 5.25.3
     dev: true
 
   /@types/parse5@6.0.3:
@@ -1813,7 +1815,7 @@ packages:
       - supports-color
     dev: true
 
-  /astro@2.2.1(@types/node@20.3.3)(sharp@0.32.6):
+  /astro@2.2.1(@types/node@20.8.7)(sharp@0.32.6):
     resolution: {integrity: sha512-yYPRzh3su38bi3VBCKmYAUBkQSaFQMKFsu8JAVDzFRoGLbskJ/6JkDX2abSB9/iRug8GAKaH/FWxXOTzIsSQ7Q==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
@@ -1873,7 +1875,7 @@ packages:
       typescript: 5.2.2
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.5.0(@types/node@20.3.3)
+      vite: 4.5.0(@types/node@20.8.7)
       vitefu: 0.2.5(vite@4.5.0)
       yargs-parser: 21.1.1
       zod: 3.22.4
@@ -1888,7 +1890,7 @@ packages:
       - terser
     dev: true
 
-  /astro@3.3.3(@types/node@20.3.3)(typescript@5.2.2):
+  /astro@3.3.3(@types/node@20.8.7)(typescript@5.2.2):
     resolution: {integrity: sha512-FZkv5nJfa2KADzwo8m6fytWzzhO3Uw/EOvxmBT2E1OW/dWUgIKbZd59TY3816gZl3le5Ct5amSAkaxcQghbUZA==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
@@ -1944,7 +1946,7 @@ packages:
       tsconfck: 3.0.0(typescript@5.2.2)
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.5.0(@types/node@20.3.3)
+      vite: 4.5.0(@types/node@20.8.7)
       vitefu: 0.2.5(vite@4.5.0)
       which-pm: 2.1.1
       yargs-parser: 21.1.1
@@ -6383,6 +6385,10 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: true
 
+  /undici-types@5.25.3:
+    resolution: {integrity: sha512-Ga1jfYwRn7+cP9v8auvEXN1rX3sWqlayd4HP7OKk4mZWylEmu3KzXDUGrQUN6Ol7qo1gPvB2e5gX6udnyEPgdA==}
+    dev: true
+
   /undici@5.26.5:
     resolution: {integrity: sha512-cSb4bPFd5qgR7qr2jYAi0hlX9n5YKK2ONKkLFkxl+v/9BvC0sOpZjBHDBSXc5lWAf5ty9oZdRXytBIHzgUcerw==}
     engines: {node: '>=14.0'}
@@ -6586,7 +6592,7 @@ packages:
       vfile-message: 4.0.2
     dev: true
 
-  /vite@4.5.0(@types/node@20.3.3):
+  /vite@4.5.0(@types/node@20.8.7):
     resolution: {integrity: sha512-ulr8rNLA6rkyFAlVWw2q5YJ91v098AFQ2R0PRFwPzREXOUJQPtFUG0t+/ZikhaOCDqFoDhN6/v8Sq0o4araFAw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -6614,7 +6620,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.3.3
+      '@types/node': 20.8.7
       esbuild: 0.18.20
       postcss: 8.4.31
       rollup: 3.29.4
@@ -6630,7 +6636,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.5.0(@types/node@20.3.3)
+      vite: 4.5.0(@types/node@20.8.7)
     dev: true
 
   /volar-service-css@0.0.14(@volar/language-service@1.10.4):
@@ -6959,7 +6965,7 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: true
 
-  github.com/withastro/site-kit/87027f7f1371945eb5a17317cac4caa3d6c76083(@types/node@20.3.3)(eslint@8.52.0)(prettier@3.0.3)(sharp@0.32.6)(tailwindcss@3.3.3)(typescript@5.2.2):
+  github.com/withastro/site-kit/87027f7f1371945eb5a17317cac4caa3d6c76083(@types/node@20.8.7)(eslint@8.52.0)(prettier@3.0.3)(sharp@0.32.6)(tailwindcss@3.3.3)(typescript@5.2.2):
     resolution: {tarball: https://codeload.github.com/withastro/site-kit/tar.gz/87027f7f1371945eb5a17317cac4caa3d6c76083}
     id: github.com/withastro/site-kit/87027f7f1371945eb5a17317cac4caa3d6c76083
     name: '@astrojs/site-kit'
@@ -6975,7 +6981,7 @@ packages:
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.8.0(@typescript-eslint/parser@6.8.0)(eslint@8.52.0)(typescript@5.2.2)
       '@typescript-eslint/parser': 6.8.0(eslint@8.52.0)(typescript@5.2.2)
-      astro: 2.2.1(@types/node@20.3.3)(sharp@0.32.6)
+      astro: 2.2.1(@types/node@20.8.7)(sharp@0.32.6)
       eslint: 8.52.0
       eslint-config-prettier: 9.0.0(eslint@8.52.0)
       eslint-plugin-astro: 0.29.1(eslint@8.52.0)
