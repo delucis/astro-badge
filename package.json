@@ -23,7 +23,7 @@
     "astro": "^3.3.2",
     "minimatch": "^9.0.2",
     "p-retry": "^6.1.0",
-    "sharp": "^0.32.1",
+    "sharp": "^0.32.6",
     "tailwindcss": "^3.3.3",
     "tsm": "^2.3.0",
     "typescript": "^5.2.2",
