@@ -10,5 +10,10 @@ export default defineConfig({
     ssr: { external: ['@resvg/resvg-js'] },
     optimizeDeps: { exclude: ['@resvg/resvg-js'] },
     build: { rollupOptions: { external: ["@resvg/resvg-js"] } },
+    // Expose Vercel’s analytics ID to client-side scripts.
+    define: {
+      'import.meta.env.PUBLIC_VERCEL_ANALYTICS_ID':
+        JSON.stringify(process.env.VERCEL_ANALYTICS_ID),
+    },
   }
 });
