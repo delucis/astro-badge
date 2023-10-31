@@ -41,7 +41,7 @@ const { title, details, contributors, class: cls, repo } = Astro.props;
           class:list={[
             'inline-block w-[.75em] h-[.75em] mr-0.5 rounded-full translate-y-px',
             achievementClassGradient(cls),
-          ]}></span>
+          ]}></span>{' '}
         <span class:list={[achievementClassGradientText(cls)]}>
           {title}
         </span>

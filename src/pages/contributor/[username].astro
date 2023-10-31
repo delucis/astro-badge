@@ -89,7 +89,7 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
                 <div class="flex flex-col gap-1">
                   <h3 class="font-semibold text-2xl shrink-0">
                     <a href={`/achievements/${group.groupID}/${achievementClassSlug(group.class)}/`}>
-                      <span class:list={["inline-block w-4 h-4 mr-1 rounded-full -translate-y-px", achievementClassGradient(group.class)]} />
+                      <span class:list={["inline-block w-4 h-4 mr-1 rounded-full -translate-y-px", achievementClassGradient(group.class)]} />{' '}
                       <span class:list={[achievementClassGradientText(group.class)]}>
                         {title}
                       </span>
