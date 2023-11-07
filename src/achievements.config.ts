@@ -19,8 +19,8 @@ export default AchievementSpec({
     achievements: [
       { count: 1, title: 'Proofreader', details: 'Reviewed an i18n PR' },
       { count: 15, title: 'Polyglot', details: 'Reviewed 15 i18n PRs' },
-      { count: 40, title: 'Rosetta Stone', details: 'Reviewed 40 i18n PRs' }
-    ]
+      { count: 40, title: 'Rosetta Stone', details: 'Reviewed 40 i18n PRs' },
+    ],
   },
   'i18n-merges': {
     stat: 'merged_pulls_by_label',
@@ -28,8 +28,8 @@ export default AchievementSpec({
     achievements: [
       { count: 1, title: 'Decoder', details: 'First i18n PR' },
       { count: 15, title: 'Babel Fish', details: '15 i18n PRs' },
-      { count: 40, title: 'Universal Translator', details: '40 i18n PRs' }
-    ]
+      { count: 40, title: 'Universal Translator', details: '40 i18n PRs' },
+    ],
   },
   'total-reviews': {
     stat: 'reviews',
@@ -139,6 +139,33 @@ export default AchievementSpec({
       { count: 1, title: 'Twinkle, twinkle', details: 'First starlight PR' },
       { count: 10, title: 'Stargazer', details: '10 starlight PRs' },
       { count: 30, title: 'Superstar', details: '30 starlight PRs' },
+    ],
+  },
+  'adapters-merges': {
+    repo: 'adapters',
+    stat: 'merges',
+    achievements: [
+      { count: 1, title: 'Ahead of the Serve', details: 'First adapters PR' },
+      { count: 10, title: 'SSRsly', details: '10 adapters PRs' },
+      { count: 30, title: 'Adapter in Chief', details: '30 adapters PRs' },
+    ],
+  },
+  'cli-kit-merges': {
+    repo: 'cli-kit',
+    stat: 'merges',
+    achievements: [
+      { count: 1, title: 'Click, clack', details: 'First cli-kit PR' },
+      { count: 5, title: 'Niftty', details: '5 cli-kit PRs' },
+      { count: 15, title: 'Shellebrity', details: '15 cli-kit PRs' },
+    ],
+  },
+  'houston-bot-merges': {
+    repo: 'houston-bot',
+    stat: 'merges',
+    achievements: [
+      { count: 1, title: 'Assistant', details: 'First houston-bot PR' },
+      { count: 5, title: 'Botanist', details: '5 houston-bot PRs' },
+      { count: 15, title: 'Chatterbox', details: '15 houston-bot PRs' },
     ],
   },
   'hacktoberfest-merges': {
