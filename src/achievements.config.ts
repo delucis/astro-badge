@@ -160,12 +160,12 @@ export default AchievementSpec({
     ],
   },
   'houston-bot-merges': {
-    repo: 'houston-bot',
+    repo: 'houston-discord',
     stat: 'merges',
     achievements: [
-      { count: 1, title: 'Assistant', details: 'First houston-bot PR' },
-      { count: 5, title: 'Botanist', details: '5 houston-bot PRs' },
-      { count: 15, title: 'Chatterbox', details: '15 houston-bot PRs' },
+      { count: 1, title: 'Assistant', details: 'First Discord Bot PR' },
+      { count: 5, title: 'Botanist', details: '5 Discord Bot PRs' },
+      { count: 15, title: 'Chatterbox', details: '15 Discord Bot PRs' },
     ],
   },
   'hacktoberfest-merges': {
