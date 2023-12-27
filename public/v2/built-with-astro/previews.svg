@@ -15,31 +15,25 @@
     <linearGradient id="a" x1="0" x2="194.65" y1="43.79" y2="-95.29" gradientUnits="userSpaceOnUse">
       <stop stop-color="#3245FF"/>
       <stop offset="1" stop-color="#BC52EE"/>
-      <stop offset="1" stop-color="#BC52EE"/>
     </linearGradient>
     <linearGradient id="b" x1="0" x2="194.65" y1="43.79" y2="-95.29" gradientUnits="userSpaceOnUse">
       <stop stop-color="#3245FF"/>
-      <stop offset="1" stop-color="#BC52EE"/>
       <stop offset="1" stop-color="#BC52EE"/>
     </linearGradient>
     <linearGradient id="c" x1="0" x2="243.31" y1="122.53" y2="-51.33" gradientUnits="userSpaceOnUse">
       <stop stop-color="#3245FF"/>
       <stop offset="1" stop-color="#BC52EE"/>
-      <stop offset="1" stop-color="#BC52EE"/>
     </linearGradient>
     <linearGradient id="d" x1="0" x2="243.31" y1="122.53" y2="-51.33" gradientUnits="userSpaceOnUse">
       <stop stop-color="#3245FF"/>
-      <stop offset="1" stop-color="#BC52EE"/>
       <stop offset="1" stop-color="#BC52EE"/>
     </linearGradient>
     <linearGradient id="e" x1="0" x2="291.97" y1="212.21" y2="3.59" gradientUnits="userSpaceOnUse">
       <stop stop-color="#3245FF"/>
       <stop offset="1" stop-color="#BC52EE"/>
-      <stop offset="1" stop-color="#BC52EE"/>
     </linearGradient>
     <linearGradient id="f" x1="0" x2="291.97" y1="212.21" y2="3.59" gradientUnits="userSpaceOnUse">
       <stop stop-color="#3245FF"/>
-      <stop offset="1" stop-color="#BC52EE"/>
       <stop offset="1" stop-color="#BC52EE"/>
     </linearGradient>
   </defs>
