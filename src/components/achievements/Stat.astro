@@ -40,15 +40,17 @@ const query = `${subPath}?q=${isType}+${userFilter}`
             >
               {repo}
             </a>
-            <span
-              class="pl-2"
-              title={repoCount.toString()}
-            >
+            <span class="pl-2">
               <span
-                class="block w-[var(--bar-w)] min-w-[2px] bg-blue-purple-gradient h-2 rounded-full"
+                class="block w-[var(--bar-w)] min-w-[2px] bg-blue-purple-gradient h-2 rounded-full group relative"
                 style={`--bar-w: ${percentage}%;`}
               >
-                <span class="sr-only">{repoCount} {type}</span>
+                <span class="not-sr-only invisible absolute z-50 -mt-8 rounded bg-gray-100 p-1 text-neutral-700 shadow-lg group-hover:visible">
+                  {repoCount.toString()}
+                </span>
+                <span class="sr-only">
+                  {repoCount} {type}
+                </span>
               </span>
             </span>
           </li>
