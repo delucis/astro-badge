@@ -50,7 +50,7 @@ const query = `${subPath}?q=${isType}+${userFilter}`
                 <span class="sr-only">{repoCount} {type}</span>
                 <span
                   aria-hidden="true"
-                  class="invisible absolute z-50 -mt-8 rounded bg-gray-100 p-1 text-neutral-700 shadow-lg group-hover:visible"
+                  class="invisible absolute z-50 -mt-8 rounded bg-gray-100 p-1 text-neutral-700 opacity-0 transition-opacity duration-300 ease-in-out group-hover:visible group-hover:opacity-100"
                 >
                   {repoCount.toString()}
                 </span>
