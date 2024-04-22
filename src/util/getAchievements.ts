@@ -4,7 +4,7 @@ import type { Achievement, AchievementClass } from './achievementsHelpers';
 import spec from '../achievements.config';
 
 interface NextAchievement {
-  achievement: Achievement;
+  achievement: Achievement & { count: number };
   progress: number;
 }
 

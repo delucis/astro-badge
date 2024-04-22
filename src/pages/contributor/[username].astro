@@ -128,7 +128,7 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
                 <div class="-mx-6 -mb-6 mt-auto p-6 py-3 border-t border-dashed border-neutral-700 bg-neutral-600">
                   <div class="flex items-center gap-x-2 relative text-sm">
                     <h4 class="shrink-0 font-mono text-white">Next</h4>
-                    <span class="flex items-center gap-x-2">
+                    <span class="flex items-center gap-x-2 w-full">
                       <svg class="-rotate-90 stroke-2" fill="none" width="16" height="16" viewBox="0 0 16 16">
                         <title>{Math.round(group.next.progress * 100)}%</title>
                         <circle r="6" cx="8" cy="8" opacity="0.3" class={achievementClassStroke(group.next.achievement.class)} />
@@ -157,6 +157,9 @@ const htmlSnippet = `<a href="${Astro.url.href}">\n  <img src="${Astro.site}v2/c
                           </span>
                         )}
                       </p>
+                      <div class="ml-auto text-xs font-mono">
+                        {Math.round(group.next.progress * group.next.achievement.count)}/{group.next.achievement.count}
+                      </div>
                     </span>
                   </div>
                 </div>
