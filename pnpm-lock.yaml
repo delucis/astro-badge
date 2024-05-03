@@ -21,8 +21,8 @@ devDependencies:
     specifier: ^7.5.4
     version: 7.5.4(astro@4.7.1)
   '@astrojs/web-vitals':
-    specifier: ^0.1.0
-    version: 0.1.0(@astrojs/db@0.11.0)
+    specifier: 0.0.0-vitals-fix-20240503214211
+    version: 0.0.0-vitals-fix-20240503214211(@astrojs/db@0.11.0)
   '@fontsource-variable/inter':
     specifier: ^5.0.15
     version: 5.0.15
@@ -281,8 +281,8 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/web-vitals@0.1.0(@astrojs/db@0.11.0):
-    resolution: {integrity: sha512-QWptTDiPXCZxOFjN5lXVeb9DSW6MAgsN7U+o/93NQZwVEj/71nVAfpiS85rAuWJdD6Gz0uCC47lsMJCI7eJnKQ==}
+  /@astrojs/web-vitals@0.0.0-vitals-fix-20240503214211(@astrojs/db@0.11.0):
+    resolution: {integrity: sha512-z19LVQ2dvrmax7p3dj+GrbzX0FHBEIZdaMb1KKhBmWTHXr7sSSSCEkxrNZft3wCeRB8qM2u9GQRYdPohs2enXA==}
     peerDependencies:
       '@astrojs/db': ^0.11.0
     dependencies:
