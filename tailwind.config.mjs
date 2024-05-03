@@ -1,4 +1,3 @@
-// @ts-check
 import config from '@astrojs/site-kit/tailwind-preset';
 import colors from 'tailwindcss/colors';
 import defaultTheme from 'tailwindcss/defaultTheme';
