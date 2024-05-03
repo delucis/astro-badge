@@ -1,0 +1,13 @@
+diff --git a/dist/index.js b/dist/index.js
+index 760acbe4435ecb701a04da02860413112853eac8..8114d66d04b039faeffa34f4790f10f3f825d8a5 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -24,7 +24,7 @@ function webVitals() {
+         addMiddleware({ entrypoint: "@astrojs/web-vitals/middleware", order: "post" });
+         injectRoute({
+           entrypoint: "@astrojs/web-vitals/endpoint",
+-          pattern: WEB_VITALS_ENDPOINT_PATH,
++          pattern: WEB_VITALS_ENDPOINT_PATH + '/[...any]',
+           prerender: false
+         });
+         injectScript("page", `import '@astrojs/web-vitals/client-script';`);

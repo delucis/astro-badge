@@ -1,6 +1,9 @@
 # build output
 dist/
 
+# Astro generated files
+.astro/
+
 # dependencies
 node_modules/
 
