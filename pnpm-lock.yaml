@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@astrojs/web-vitals@0.0.0-vitals-fix-20240503214211':
+    hash: qxcsw4ghwlhdemqmihh2gutmdm
+    path: patches/@astrojs__web-vitals@0.0.0-vitals-fix-20240503214211.patch
+
 devDependencies:
   '@astrojs/check':
     specifier: ^0.5.10
@@ -22,7 +27,7 @@ devDependencies:
     version: 7.5.4(astro@4.7.1)
   '@astrojs/web-vitals':
     specifier: 0.0.0-vitals-fix-20240503214211
-    version: 0.0.0-vitals-fix-20240503214211(@astrojs/db@0.11.0)
+    version: 0.0.0-vitals-fix-20240503214211(patch_hash=qxcsw4ghwlhdemqmihh2gutmdm)(@astrojs/db@0.11.0)
   '@fontsource-variable/inter':
     specifier: ^5.0.15
     version: 5.0.15
@@ -281,7 +286,7 @@ packages:
       - supports-color
     dev: true
 
-  /@astrojs/web-vitals@0.0.0-vitals-fix-20240503214211(@astrojs/db@0.11.0):
+  /@astrojs/web-vitals@0.0.0-vitals-fix-20240503214211(patch_hash=qxcsw4ghwlhdemqmihh2gutmdm)(@astrojs/db@0.11.0):
     resolution: {integrity: sha512-z19LVQ2dvrmax7p3dj+GrbzX0FHBEIZdaMb1KKhBmWTHXr7sSSSCEkxrNZft3wCeRB8qM2u9GQRYdPohs2enXA==}
     peerDependencies:
       '@astrojs/db': ^0.11.0
@@ -289,6 +294,7 @@ packages:
       '@astrojs/db': 0.11.0
       web-vitals: 3.5.2
     dev: true
+    patched: true
 
   /@babel/code-frame@7.24.2:
     resolution: {integrity: sha512-y5+tLQyV8pg3fsiln67BVLD1P13Eg4lh5RW9mF0zUuvLrv9uIQ4MCL+CRT+FTsBlBjcIan6PGsLcBN0m3ClUyQ==}

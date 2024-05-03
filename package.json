@@ -32,5 +32,10 @@
     "typescript": "^5.2.2",
     "web-vitals": "^3.5.0"
   },
-  "packageManager": "pnpm@8.9.2"
+  "packageManager": "pnpm@8.9.2",
+  "pnpm": {
+    "patchedDependencies": {
+      "@astrojs/web-vitals@0.0.0-vitals-fix-20240503214211": "patches/@astrojs__web-vitals@0.0.0-vitals-fix-20240503214211.patch"
+    }
+  }
 }
