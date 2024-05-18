@@ -62,7 +62,13 @@ const navItems = [
 
     <script>
       import { inject } from '@vercel/analytics';
-      inject();
+      // @ts-expect-error New property — https://developer.mozilla.org/en-US/docs/Web/API/Document/prerendering
+      if (document.prerendering) {
+        // @ts-expect-error New event — https://developer.mozilla.org/en-US/docs/Web/API/Document/prerenderingchange_event
+        document.addEventListener("prerenderingchange", inject, { once: true });
+      } else {
+        inject();
+      }
     </script>
   </head>
 
