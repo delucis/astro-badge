@@ -11,7 +11,7 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.5.10",
+    "@astrojs/check": "^0.7.0",
     "@astrojs/db": "^0.11.3",
     "@astrojs/site-kit": "github:withastro/site-kit",
     "@astrojs/tailwind": "^5.1.0",
