@@ -4,7 +4,6 @@ import '@fontsource-variable/inter';
 import '../styles/fonts.css';
 import Footer from '../components/Footer.astro';
 import Preloads from '../components/Preloads.astro';
-import TrackVitals from '../components/TrackVitals.astro';
 export interface Props {
   title?: string;
   description?: string;
@@ -63,7 +62,23 @@ const navItems = [
 
     <script>
       import { inject } from '@vercel/analytics';
-      inject();
+      // @ts-expect-error New property — https://developer.mozilla.org/en-US/docs/Web/API/Document/prerendering
+      if (document.prerendering) {
+        // @ts-expect-error New event — https://developer.mozilla.org/en-US/docs/Web/API/Document/prerenderingchange_event
+        document.addEventListener("prerenderingchange", inject, { once: true });
+      } else {
+        inject();
+      }
+    </script>
+
+    <script is:inline type="speculationrules">
+      {
+        "prerender": [{
+          "source": "document",
+          "where": { "href_matches": "/*" },
+          "eagerness": "moderate"
+        }]
+      }
     </script>
   </head>
 
@@ -122,6 +137,5 @@ const navItems = [
         @apply p-4 select-all text-left text-sm border border-neutral-500 rounded-lg;
       }
     </style>
-    <TrackVitals />
   </body>
 </html>

@@ -1,5 +1,6 @@
 # build output
 dist/
+.vercel/
 
 # Astro generated files
 .astro/
