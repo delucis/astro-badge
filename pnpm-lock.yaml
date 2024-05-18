@@ -67,9 +67,6 @@ devDependencies:
   typescript:
     specifier: ^5.2.2
     version: 5.2.2
-  web-vitals:
-    specifier: ^3.5.0
-    version: 3.5.0
 
 packages:
 
@@ -7129,10 +7126,6 @@ packages:
   /web-streams-polyfill@3.3.3:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
-    dev: true
-
-  /web-vitals@3.5.0:
-    resolution: {integrity: sha512-f5YnCHVG9Y6uLCePD4tY8bO/Ge15NPEQWtvm3tPzDKygloiqtb4SVqRHBcrIAqo2ztqX5XueqDn97zHF0LdT6w==}
     dev: true
 
   /web-vitals@3.5.2:
