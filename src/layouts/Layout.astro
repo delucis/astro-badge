@@ -70,6 +70,16 @@ const navItems = [
         inject();
       }
     </script>
+
+    <script is:inline type="speculationrules">
+      {
+        "prerender": [{
+          "source": "document",
+          "where": { "href_matches": "/*" },
+          "eagerness": "moderate"
+        }]
+      }
+    </script>
   </head>
 
   <body class="min-h-full bg-neutral-700 text-neutral-200 flex flex-col noise-container">
