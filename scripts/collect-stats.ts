@@ -14,7 +14,7 @@ type CustomCategories = {
   };
 };
 interface AugmentedRepo extends Repo {
-  reviews: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
+  reviewComments: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
   issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
 }
 
@@ -77,7 +77,7 @@ class StatsCollector {
 
       const customCategories = this.#customCategories;
 
-      for (const review of repo.reviews) {
+      for (const review of repo.reviewComments) {
         const { user, pull_request_url, path } = review;
         if (!user) {
           console.warn(`No user found for PR review: ${review.url}`);
@@ -149,7 +149,7 @@ class StatsCollector {
     return issues;
   }
 
-  async #getAllReviews(repo: string) {
+  async #getAllReviewComments(repo: string) {
     console.log(`Fetching PR reviews for ${this.#org}/${repo}...`);
     const reviews = await this.#app.paginate('GET /repos/{owner}/{repo}/pulls/comments', {
       owner: this.#org,
@@ -169,7 +169,7 @@ class StatsCollector {
       reposWithStats.push({
         ...repo,
         issues: await this.#getAllIssues(repo.name),
-        reviews: await this.#getAllReviews(repo.name),
+        reviewComments: await this.#getAllReviewComments(repo.name),
       });
     }
     return reposWithStats;
