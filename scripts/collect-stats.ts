@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/core';
-import { paginateGraphQL } from '@octokit/plugin-paginate-graphql';
+import { paginateGraphQL, type PageInfoForward } from '@octokit/plugin-paginate-graphql';
 import { paginateRest } from '@octokit/plugin-paginate-rest';
 import { retry } from '@octokit/plugin-retry';
 import type { Endpoints } from '@octokit/types';
@@ -14,9 +14,16 @@ type CustomCategories = {
     [key: string]: string[];
   };
 };
+interface Review {
+  login: string;
+  avatarUrl: string;
+  prNumber: number;
+  labels: string[];
+}
 interface AugmentedRepo extends Repo {
   reviewComments: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
   issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
+  reviews: Review[];
 }
 
 const OctokitWithPlugins = Octokit.plugin(paginateRest, paginateGraphQL, retry);
@@ -74,12 +81,13 @@ class StatsCollector {
       }
 
       /** Temporary store for deduplicating multiple reviews on the same PR. */
-      const reviewedPRs: Record<string, Set<string>> = {};
+      const reviewedPRs: Record<string, Set<number>> = {};
 
       const customCategories = this.#customCategories;
 
       for (const review of repo.reviewComments) {
         const { user, pull_request_url, path } = review;
+        const prNumber = parseInt(pull_request_url.split('/').pop()!);
         if (!user) {
           console.warn(`No user found for PR review: ${review.url}`);
           continue;
@@ -88,7 +96,7 @@ class StatsCollector {
         const contributor = (contributors[login] =
           contributors[login] || this.#newContributor({ avatar_url }));
         const contributorReviews = (reviewedPRs[login] = reviewedPRs[login] || new Set());
-        if (!contributorReviews.has(pull_request_url)) {
+        if (!contributorReviews.has(prNumber)) {
           contributor.reviews[repo.name] = (contributor.reviews[repo.name] || 0) + 1;
 
           if (!contributor.reviews_by_category[repo.name]) {
@@ -106,7 +114,27 @@ class StatsCollector {
               }
             }
           }
-          contributorReviews.add(pull_request_url);
+          contributorReviews.add(prNumber);
+        }
+      }
+
+      for (const review of repo.reviews) {
+        const { login, avatarUrl, prNumber, labels } = review;
+        if (!login || !avatarUrl) {
+          console.warn(`No user found for PR review on ${repo.full_name}#${prNumber}`);
+          continue;
+        }
+        const contributor = (contributors[login] =
+          contributors[login] || this.#newContributor({ avatar_url: avatarUrl }));
+        const contributorReviews = (reviewedPRs[login] = reviewedPRs[login] || new Set());
+        if (!contributorReviews.has(prNumber)) {
+          contributor.reviews[repo.name] = (contributor.reviews[repo.name] || 0) + 1;
+
+          if (!contributor.reviews_by_category[repo.name]) {
+            contributor.reviews_by_category[repo.name] = {};
+          }
+
+          contributorReviews.add(prNumber);
         }
       }
     }
@@ -138,25 +166,88 @@ class StatsCollector {
     ).data.filter((repo) => !repo.private);
   }
 
-  async #getAllIssues(repo: string) {
-    console.log(`Fetching issues for ${this.#org}/${repo}...`);
+  async #getAllIssuesAndPRs(repo: string) {
+    console.log(`Fetching issues and PRs for ${this.#org}/${repo}...`);
     const issues = await this.#app.paginate('GET /repos/{owner}/{repo}/issues', {
       owner: this.#org,
       repo,
       per_page: 100,
       state: 'all',
     });
-    console.log(`Done fetching ${issues.length} issues for ${this.#org}/${repo}`);
+    console.log(`Done fetching ${issues.length} issues and PRs for ${this.#org}/${repo}`);
     return issues;
   }
 
   async #getAllReviewComments(repo: string) {
-    console.log(`Fetching PR reviews for ${this.#org}/${repo}...`);
+    console.log(`Fetching PR review comments for ${this.#org}/${repo}...`);
     const reviews = await this.#app.paginate('GET /repos/{owner}/{repo}/pulls/comments', {
       owner: this.#org,
       repo,
       per_page: 100,
     });
+    console.log(`Done fetching ${reviews.length} PR review comments for ${this.#org}/${repo}`);
+    return reviews;
+  }
+
+  async #getAllReviews(repo: string) {
+    console.log(`Fetching PR reviews for ${this.#org}/${repo}...`);
+    const {
+      repository: {
+        pullRequests: { nodes: pullRequests },
+      },
+    } = await this.#app.graphql.paginate<{
+      repository: {
+        pullRequests: {
+          pageInfo: PageInfoForward;
+          nodes: Array<{
+            number: number;
+            labels: { nodes: Array<{ name: string }> };
+            latestReviews: { nodes: Array<{ author: { login: string; avatarUrl: string } }> };
+          }>;
+        };
+      };
+    }>(
+      `
+      query ($org: String!, $repo: String!, $cursor: String) {
+        repository(owner: $org, name: $repo) {
+          pullRequests(first: 100, after: $cursor) {
+            nodes {
+              number
+              labels(first: 10) {
+                nodes {
+                  name
+                }
+              }
+              latestReviews(first: 15) {
+                nodes {
+                  author {
+                    login
+                    avatarUrl
+                  }
+                }
+              }
+            }
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+          }
+        }
+      }
+`,
+      { org: this.#org, repo },
+    );
+    const reviews: Review[] = [];
+    for (const { number, labels, latestReviews } of pullRequests) {
+      for (const { author } of latestReviews.nodes) {
+        reviews.push({
+          prNumber: number,
+          labels: labels.nodes.map(({ name }) => name),
+          login: author.login,
+          avatarUrl: author.avatarUrl,
+        });
+      }
+    }
     console.log(`Done fetching ${reviews.length} PR reviews for ${this.#org}/${repo}`);
     return reviews;
   }
@@ -169,8 +260,9 @@ class StatsCollector {
     for (const repo of repos) {
       reposWithStats.push({
         ...repo,
-        issues: await this.#getAllIssues(repo.name),
+        issues: await this.#getAllIssuesAndPRs(repo.name),
         reviewComments: await this.#getAllReviewComments(repo.name),
+        reviews: await this.#getAllReviews(repo.name),
       });
     }
     return reposWithStats;
