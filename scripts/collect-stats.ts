@@ -15,8 +15,8 @@ type CustomCategories = {
   };
 };
 interface Review {
-  login: string;
-  avatarUrl: string;
+  login: string | undefined;
+  avatarUrl: string | undefined;
   prNumber: number;
   labels: string[];
 }
@@ -202,7 +202,9 @@ class StatsCollector {
           nodes: Array<{
             number: number;
             labels: { nodes: Array<{ name: string }> };
-            latestReviews: { nodes: Array<{ author: { login: string; avatarUrl: string } }> };
+            latestReviews: {
+              nodes: Array<{ author: null | { login: string; avatarUrl: string } }>;
+            };
           }>;
         };
       };
@@ -243,8 +245,8 @@ class StatsCollector {
         reviews.push({
           prNumber: number,
           labels: labels.nodes.map(({ name }) => name),
-          login: author.login,
-          avatarUrl: author.avatarUrl,
+          login: author?.login,
+          avatarUrl: author?.avatarUrl,
         });
       }
     }
