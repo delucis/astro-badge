@@ -1,8 +1,9 @@
 import { Octokit } from '@octokit/core';
+import { paginateRest } from '@octokit/plugin-paginate-rest';
+import { retry } from '@octokit/plugin-retry';
 import type { Endpoints } from '@octokit/types';
-import { writeFile } from 'node:fs/promises';
 import { minimatch } from 'minimatch';
-import pRretry from 'p-retry';
+import { writeFile } from 'node:fs/promises';
 import type { Contributor } from '../src/types';
 
 type APIData<T extends keyof Endpoints> = Endpoints[T]['response']['data'];
@@ -17,24 +18,16 @@ interface AugmentedRepo extends Repo {
   issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
 }
 
-const retry: typeof pRretry = (fn, opts) =>
-  pRretry(fn, {
-    onFailedAttempt: (e) =>
-      console.log(
-        `Attempt ${e.attemptNumber} failed. There are ${e.retriesLeft} retries left.\n `,
-        e.message
-      ),
-    ...opts,
-  });
+const OctokitWithPlugins = Octokit.plugin(paginateRest, retry);
 
 class StatsCollector {
   #org: string;
-  #app: Octokit;
+  #app: InstanceType<typeof OctokitWithPlugins>;
   #customCategories: CustomCategories;
 
   constructor(opts: { org: string; token: string | undefined, customCategories: CustomCategories}) {
     this.#org = opts.org;
-    this.#app = new Octokit({ auth: opts.token });
+    this.#app = new OctokitWithPlugins({ auth: opts.token });
     this.#customCategories = opts.customCategories;
   }
 
@@ -131,63 +124,34 @@ class StatsCollector {
   }
 
   async #getRepos() {
-    const request = () =>
-      this.#app.request(`GET /orgs/{org}/repos`, {
+    return (
+      await this.#app.request(`GET /orgs/{org}/repos`, {
         org: this.#org,
         type: 'sources',
-      });
-    return (await retry(request)).data.filter((repo) => !repo.private);
+      })
+    ).data.filter((repo) => !repo.private);
   }
 
-  async #getAllIssues(repo: string, page = 1) {
-    if (page === 1) console.log(`Fetching issues for ${this.#org}/${repo}...`);
-    const per_page = 100;
-
-    const { data: issues, headers } = await retry(() =>
-      this.#app.request('GET /repos/{owner}/{repo}/issues', {
-        owner: this.#org,
-        repo,
-        page,
-        per_page,
-        state: 'all',
-      })
-    );
-
-    if (headers.link?.includes('rel="next"')) {
-      const nextPage = await this.#getAllIssues(repo, page + 1);
-      issues.push(...nextPage);
-    }
-
-    if (page === 1)
-      console.log(
-        `Done fetching ${issues.length} issues for ${this.#org}/${repo}`
-      );
+  async #getAllIssues(repo: string) {
+    console.log(`Fetching issues for ${this.#org}/${repo}...`);
+    const issues = await this.#app.paginate('GET /repos/{owner}/{repo}/issues', {
+      owner: this.#org,
+      repo,
+      per_page: 100,
+      state: 'all',
+    });
+    console.log(`Done fetching ${issues.length} issues for ${this.#org}/${repo}`);
     return issues;
   }
 
-  async #getAllReviews(repo: string, page = 1) {
-    if (page === 1)
-      console.log(`Fetching PR reviews for ${this.#org}/${repo}...`);
-    const per_page = 100;
-
-    const { data: reviews, headers } = await retry(() =>
-      this.#app.request('GET /repos/{owner}/{repo}/pulls/comments', {
-        owner: this.#org,
-        repo,
-        page,
-        per_page,
-      })
-    );
-
-    if (headers.link?.includes('rel="next"')) {
-      const nextPage = await this.#getAllReviews(repo, page + 1);
-      reviews.push(...nextPage);
-    }
-
-    if (page === 1)
-      console.log(
-        `Done fetching ${reviews.length} PR reviews for ${this.#org}/${repo}`
-      );
+  async #getAllReviews(repo: string) {
+    console.log(`Fetching PR reviews for ${this.#org}/${repo}...`);
+    const reviews = await this.#app.paginate('GET /repos/{owner}/{repo}/pulls/comments', {
+      owner: this.#org,
+      repo,
+      per_page: 100,
+    });
+    console.log(`Done fetching ${reviews.length} PR reviews for ${this.#org}/${repo}`);
     return reviews;
   }
 

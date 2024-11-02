@@ -34,6 +34,12 @@ devDependencies:
   '@octokit/core':
     specifier: ^5.0.1
     version: 5.0.1
+  '@octokit/plugin-paginate-rest':
+    specifier: ^11.3.5
+    version: 11.3.5(@octokit/core@5.0.1)
+  '@octokit/plugin-retry':
+    specifier: ^7.1.2
+    version: 7.1.2(@octokit/core@5.0.1)
   '@octokit/types':
     specifier: ^12.0.0
     version: 12.0.0
@@ -49,12 +55,12 @@ devDependencies:
   astro:
     specifier: ^4.16.1
     version: 4.16.1(@types/node@20.12.12)(typescript@5.4.5)
+  dotenv:
+    specifier: ^16.4.5
+    version: 16.4.5
   minimatch:
     specifier: ^9.0.4
     version: 9.0.4
-  p-retry:
-    specifier: ^6.2.0
-    version: 6.2.0
   sharp:
     specifier: ^0.33.4
     version: 0.33.4
@@ -1479,6 +1485,32 @@ packages:
     resolution: {integrity: sha512-PclQ6JGMTE9iUStpzMkwLCISFn/wDeRjkZFIKALpvJQNBGwDoYYi2fFvuHwssoQ1rXI5mfh6jgTgWuddeUzfWw==}
     dev: true
 
+  /@octokit/openapi-types@22.2.0:
+    resolution: {integrity: sha512-QBhVjcUa9W7Wwhm6DBFu6ZZ+1/t/oYxqc2tp81Pi41YNuJinbFRx8B133qVOrAaBbF7D/m0Et6f9/pZt9Rc+tg==}
+    dev: true
+
+  /@octokit/plugin-paginate-rest@11.3.5(@octokit/core@5.0.1):
+    resolution: {integrity: sha512-cgwIRtKrpwhLoBi0CUNuY83DPGRMaWVjqVI/bGKsLJ4PzyWZNaEmhHroI2xlrVXkk6nFv0IsZpOp+ZWSWUS2AQ==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@octokit/core': '>=6'
+    dependencies:
+      '@octokit/core': 5.0.1
+      '@octokit/types': 13.6.1
+    dev: true
+
+  /@octokit/plugin-retry@7.1.2(@octokit/core@5.0.1):
+    resolution: {integrity: sha512-XOWnPpH2kJ5VTwozsxGurw+svB2e61aWlmk5EVIYZPwFK5F9h4cyPyj9CIKRyMXMHSwpIsI3mPOdpMmrRhe7UQ==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@octokit/core': '>=6'
+    dependencies:
+      '@octokit/core': 5.0.1
+      '@octokit/request-error': 6.1.5
+      '@octokit/types': 13.6.1
+      bottleneck: 2.19.5
+    dev: true
+
   /@octokit/request-error@5.0.1:
     resolution: {integrity: sha512-X7pnyTMV7MgtGmiXBwmO6M5kIPrntOXdyKZLigNfQWSEQzVxR4a4vo49vJjTWX70mPndj8KhfT4Dx+2Ng3vnBQ==}
     engines: {node: '>= 18'}
@@ -1486,6 +1518,13 @@ packages:
       '@octokit/types': 12.0.0
       deprecation: 2.3.1
       once: 1.4.0
+    dev: true
+
+  /@octokit/request-error@6.1.5:
+    resolution: {integrity: sha512-IlBTfGX8Yn/oFPMwSfvugfncK2EwRLjzbrpifNaMY8o/HTEAFqCA1FZxjD9cWvSKBHgrIhc4CSBIzMxiLsbzFQ==}
+    engines: {node: '>= 18'}
+    dependencies:
+      '@octokit/types': 13.6.1
     dev: true
 
   /@octokit/request@8.1.4:
@@ -1503,6 +1542,12 @@ packages:
     resolution: {integrity: sha512-EzD434aHTFifGudYAygnFlS1Tl6KhbTynEWELQXIbTY8Msvb5nEqTZIm7sbPEt4mQYLZwu3zPKVdeIrw0g7ovg==}
     dependencies:
       '@octokit/openapi-types': 19.0.0
+    dev: true
+
+  /@octokit/types@13.6.1:
+    resolution: {integrity: sha512-PHZE9Z+kWXb23Ndik8MKPirBPziOc0D2/3KH1P+6jK5nGWe96kadZuE4jev2/Jq7FvIfTlT2Ltg8Fv2x1v0a5g==}
+    dependencies:
+      '@octokit/openapi-types': 22.2.0
     dev: true
 
   /@oslojs/encoding@1.1.0:
@@ -1917,10 +1962,6 @@ packages:
     resolution: {integrity: sha512-eWLDGF/FOSPtAvEqeRAQ4C8LSA7M1I7i0ky1I8U7kD1J5ITyW3AsRhQrKVoWf5pFKZ2kILsEGJhsI9r93PYnOw==}
     dependencies:
       undici-types: 5.26.5
-    dev: true
-
-  /@types/retry@0.12.2:
-    resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
     dev: true
 
   /@types/semver@7.5.6:
@@ -2610,6 +2651,10 @@ packages:
       file-uri-to-path: 1.0.0
     dev: true
 
+  /bottleneck@2.19.5:
+    resolution: {integrity: sha512-VHiNCbI1lKdl44tGrhNfU3lup0Tj/ZBMJB5/2ZbNXRCPuRCO7ed2mgcK4r17y+KB2EfuYuRaVlwNbAeaWGSpbw==}
+    dev: true
+
   /boxen@8.0.1:
     resolution: {integrity: sha512-F3PH5k5juxom4xktynS7MoFY+NUWH5LC4CnH11YB8NPew+HLpmBLCybSAEyb2F+4pRXhuhWqFesoQd6DAyc2hw==}
     engines: {node: '>=18'}
@@ -3079,6 +3124,11 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
+    dev: true
+
+  /dotenv@16.4.5:
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+    engines: {node: '>=12'}
     dev: true
 
   /drizzle-orm@0.30.10(@libsql/client@0.6.0):
@@ -4508,11 +4558,6 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /is-network-error@1.0.0:
-    resolution: {integrity: sha512-P3fxi10Aji2FZmHTrMPSNFbNC6nnp4U5juPAIjXPHkUNubi4+qK7vvdsaNpAUwXslhYm9oyjEYTxs1xd/+Ph0w==}
-    engines: {node: '>=16'}
-    dev: true
-
   /is-number-object@1.0.7:
     resolution: {integrity: sha512-k1U0IRzLMo7ZlYIfzRu23Oh6MiIFasgpb9X76eqfFZAqwH44UI4KTBvBYIZ1dSL9ZzChTB9ShHfLkR4pdW5krQ==}
     engines: {node: '>= 0.4'}
@@ -5652,15 +5697,6 @@ packages:
       p-timeout: 6.1.2
     dev: true
 
-  /p-retry@6.2.0:
-    resolution: {integrity: sha512-JA6nkq6hKyWLLasXQXUrO4z8BUZGUt/LjlJxx8Gb2+2ntodU/SS63YZ8b0LUTbQ8ZB9iwOfhEPhg4ykKnn2KsA==}
-    engines: {node: '>=16.17'}
-    dependencies:
-      '@types/retry': 0.12.2
-      is-network-error: 1.0.0
-      retry: 0.13.1
-    dev: true
-
   /p-timeout@6.1.2:
     resolution: {integrity: sha512-UbD77BuZ9Bc9aABo74gfXhNvzC9Tx7SxtHSh1fxvx3jTLLYvmVhiQZZrJzqqU0jKbN32kb5VOKiLEQI/3bIjgQ==}
     engines: {node: '>=14.16'}
@@ -6209,11 +6245,6 @@ packages:
       retext-latin: 4.0.0
       retext-stringify: 4.0.0
       unified: 11.0.5
-    dev: true
-
-  /retry@0.13.1:
-    resolution: {integrity: sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg==}
-    engines: {node: '>= 4'}
     dev: true
 
   /reusify@1.0.4:
