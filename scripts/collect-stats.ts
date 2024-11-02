@@ -10,9 +10,9 @@ type APIData<T extends keyof Endpoints> = Endpoints[T]['response']['data'];
 type Repo = APIData<'GET /orgs/{org}/repos'>[number];
 type CustomCategories = {
   [key: string]: {
-    [key: string]: string[]
-  },
-}
+    [key: string]: string[];
+  };
+};
 interface AugmentedRepo extends Repo {
   reviews: APIData<'GET /repos/{owner}/{repo}/pulls/comments'>;
   issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
@@ -25,7 +25,11 @@ class StatsCollector {
   #app: InstanceType<typeof OctokitWithPlugins>;
   #customCategories: CustomCategories;
 
-  constructor(opts: { org: string; token: string | undefined, customCategories: CustomCategories}) {
+  constructor(opts: {
+    org: string;
+    token: string | undefined;
+    customCategories: CustomCategories;
+  }) {
     this.#org = opts.org;
     this.#app = new OctokitWithPlugins({ auth: opts.token });
     this.#customCategories = opts.customCategories;
@@ -45,30 +49,26 @@ class StatsCollector {
           continue;
         }
         const { avatar_url, login } = user;
-        const contributor =
-          contributors[login] =
-            contributors[login] || this.#newContributor({ avatar_url });
+        const contributor = (contributors[login] =
+          contributors[login] || this.#newContributor({ avatar_url }));
         if (pull_request) {
-          contributor.pulls[repo.name] =
-            (contributor.pulls[repo.name] || 0) + 1;
+          contributor.pulls[repo.name] = (contributor.pulls[repo.name] || 0) + 1;
           if (pull_request.merged_at) {
-            contributor.merged_pulls[repo.name] =
-              (contributor.merged_pulls[repo.name] || 0) + 1;
+            contributor.merged_pulls[repo.name] = (contributor.merged_pulls[repo.name] || 0) + 1;
             if (labels.length) {
               if (!contributor.merged_pulls_by_label[repo.name]) {
                 contributor.merged_pulls_by_label[repo.name] = {};
               }
-                for (const label of labels) {
-                  const name = typeof label === 'string' ? label : label.name;
-                  if (!name) continue;
-                  contributor.merged_pulls_by_label[repo.name]![name] = 
-                    (contributor.merged_pulls_by_label[repo.name]![name] || 0) + 1;
-                }
+              for (const label of labels) {
+                const name = typeof label === 'string' ? label : label.name;
+                if (!name) continue;
+                contributor.merged_pulls_by_label[repo.name]![name] =
+                  (contributor.merged_pulls_by_label[repo.name]![name] || 0) + 1;
+              }
             }
           }
         } else {
-          contributor.issues[repo.name] =
-            (contributor.issues[repo.name] || 0) + 1;
+          contributor.issues[repo.name] = (contributor.issues[repo.name] || 0) + 1;
         }
       }
 
@@ -84,14 +84,11 @@ class StatsCollector {
           continue;
         }
         const { avatar_url, login } = user;
-        const contributor =
-          contributors[login] =
-            contributors[login] || this.#newContributor({ avatar_url });
-        const contributorReviews =
-          reviewedPRs[login] = reviewedPRs[login] || new Set();
+        const contributor = (contributors[login] =
+          contributors[login] || this.#newContributor({ avatar_url }));
+        const contributorReviews = (reviewedPRs[login] = reviewedPRs[login] || new Set());
         if (!contributorReviews.has(pull_request_url)) {
-          contributor.reviews[repo.name] =
-            (contributor.reviews[repo.name] || 0) + 1;
+          contributor.reviews[repo.name] = (contributor.reviews[repo.name] || 0) + 1;
 
           if (!contributor.reviews_by_category[repo.name]) {
             contributor.reviews_by_category[repo.name] = {};
@@ -120,7 +117,15 @@ class StatsCollector {
   }
 
   #newContributor({ avatar_url }: { avatar_url: string }): Contributor {
-    return { avatar_url, issues: {}, pulls: {}, merged_pulls: {}, merged_pulls_by_label: {}, reviews: {}, reviews_by_category: {} };
+    return {
+      avatar_url,
+      issues: {},
+      pulls: {},
+      merged_pulls: {},
+      merged_pulls_by_label: {},
+      reviews: {},
+      reviews_by_category: {},
+    };
   }
 
   async #getRepos() {
@@ -158,7 +163,7 @@ class StatsCollector {
   async #getReposWithExtraStats() {
     console.log('Fetching repos...');
     const repos = await this.#getRepos();
-    console.log('Done fetching repos!');
+    console.log(`Done fetching ${repos.length} repos!`);
     const reposWithStats: AugmentedRepo[] = [];
     for (const repo of repos) {
       reposWithStats.push({
@@ -171,34 +176,30 @@ class StatsCollector {
   }
 
   async #writeData(data: any) {
-    return await writeFile(
-      'src/data/contributors.json',
-      JSON.stringify(data),
-      'utf8'
-    );
+    return await writeFile('src/data/contributors.json', JSON.stringify(data), 'utf8');
   }
 }
 
 const collector = new StatsCollector({
   org: 'withastro',
   token: process.env.GITHUB_TOKEN,
-   customCategories: {
+  customCategories: {
     i18n: {
       docs: [
         // Astro Docs content translations
-        "src/content/docs/!(en)/**/*",
-        // Astro Docs labels translations 
-        "src/i18n/!(en)/**/*",
+        'src/content/docs/!(en)/**/*',
+        // Astro Docs labels translations
+        'src/i18n/!(en)/**/*',
         // Astro Docs translations before migrating to Content Collections
-        "src/pages/+(ar|de|es|fr|ja|pl|pt-br|ru|zh-cn|zh-tw)/**/*",
+        'src/pages/+(ar|de|es|fr|ja|pl|pt-br|ru|zh-cn|zh-tw)/**/*',
       ],
       starlight: [
         // Starlight Docs content translations
-        "docs/src/content/docs/!(en)/**/*",
+        'docs/src/content/docs/!(en)/**/*',
         // Starlight package labels translations
-        "packages/starlight/translations/!(en.json)"
+        'packages/starlight/translations/!(en.json)',
       ],
-     },
-  }
+    },
+  },
 });
 await collector.run();
