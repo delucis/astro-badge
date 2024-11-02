@@ -1,4 +1,5 @@
 import { Octokit } from '@octokit/core';
+import { paginateGraphQL } from '@octokit/plugin-paginate-graphql';
 import { paginateRest } from '@octokit/plugin-paginate-rest';
 import { retry } from '@octokit/plugin-retry';
 import type { Endpoints } from '@octokit/types';
@@ -18,7 +19,7 @@ interface AugmentedRepo extends Repo {
   issues: APIData<'GET /repos/{owner}/{repo}/issues'>;
 }
 
-const OctokitWithPlugins = Octokit.plugin(paginateRest, retry);
+const OctokitWithPlugins = Octokit.plugin(paginateRest, paginateGraphQL, retry);
 
 class StatsCollector {
   #org: string;
