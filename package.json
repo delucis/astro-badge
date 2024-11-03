@@ -19,6 +19,7 @@
     "@astrojs/web-vitals": "0.0.0-vitals-fix-20240503214211",
     "@fontsource-variable/inter": "^5.0.18",
     "@octokit/core": "^5.0.1",
+    "@octokit/plugin-paginate-graphql": "^5.2.4",
     "@octokit/plugin-paginate-rest": "^11.3.5",
     "@octokit/plugin-retry": "^7.1.2",
     "@octokit/types": "^12.0.0",
@@ -38,8 +39,5 @@
     "patchedDependencies": {
       "@astrojs/web-vitals@0.0.0-vitals-fix-20240503214211": "patches/@astrojs__web-vitals@0.0.0-vitals-fix-20240503214211.patch"
     }
-  },
-  "dependencies": {
-    "@octokit/plugin-paginate-graphql": "^5.2.4"
   }
 }
