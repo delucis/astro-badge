@@ -67,11 +67,12 @@ class StatsCollector {
               if (!contributor.merged_pulls_by_label[repo.name]) {
                 contributor.merged_pulls_by_label[repo.name] = {};
               }
-              for (const label of labels) {
-                const name = typeof label === 'string' ? label : label.name;
-                if (!name) continue;
-                contributor.merged_pulls_by_label[repo.name]![name] =
-                  (contributor.merged_pulls_by_label[repo.name]![name] || 0) + 1;
+              for (const labelOrObject of labels) {
+                const label =
+                  typeof labelOrObject === 'string' ? labelOrObject : labelOrObject.name;
+                if (!label) continue;
+                contributor.merged_pulls_by_label[repo.name]![label] =
+                  (contributor.merged_pulls_by_label[repo.name]![label] || 0) + 1;
               }
             }
           }
