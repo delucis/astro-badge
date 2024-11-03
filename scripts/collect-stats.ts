@@ -114,7 +114,24 @@ class StatsCollector {
               }
             }
           }
-          contributorReviews.add(prNumber);
+
+          const associatedIssue = repo.issues.find((issue) => issue.number === prNumber);
+          if (!associatedIssue) {
+            console.warn(`No associated PR ${repo.full_name}#${prNumber} found`);
+            continue;
+          }
+          if (associatedIssue.labels.length) {
+            if (!contributor.reviews_by_label[repo.name]) {
+              contributor.reviews_by_label[repo.name] = {};
+            }
+            for (const labelOrObject of associatedIssue.labels) {
+              const label = typeof labelOrObject === 'string' ? labelOrObject : labelOrObject.name;
+              if (!label) continue;
+              contributor.reviews_by_label[repo.name]![label] =
+                (contributor.reviews_by_label[repo.name]![label] || 0) + 1;
+            }
+            contributorReviews.add(prNumber);
+          }
         }
       }
 
@@ -129,11 +146,13 @@ class StatsCollector {
         const contributorReviews = (reviewedPRs[login] = reviewedPRs[login] || new Set());
         if (!contributorReviews.has(prNumber)) {
           contributor.reviews[repo.name] = (contributor.reviews[repo.name] || 0) + 1;
-
-          if (!contributor.reviews_by_category[repo.name]) {
-            contributor.reviews_by_category[repo.name] = {};
+          if (!contributor.reviews_by_label[repo.name]) {
+            contributor.reviews_by_label[repo.name] = {};
           }
-
+          for (const label of labels) {
+            contributor.reviews_by_label[repo.name]![label] =
+              (contributor.reviews_by_label[repo.name]![label] || 0) + 1;
+          }
           contributorReviews.add(prNumber);
         }
       }
@@ -154,6 +173,7 @@ class StatsCollector {
       merged_pulls_by_label: {},
       reviews: {},
       reviews_by_category: {},
+      reviews_by_label: {},
     };
   }
 

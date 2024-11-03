@@ -5,9 +5,10 @@ export interface Contributor {
   issues: Record<string, number>;
   pulls: Record<string, number>;
   merged_pulls: Record<string, number>;
-  merged_pulls_by_label: Record<string, Record<string, number>>
+  merged_pulls_by_label: Record<string, Record<string, number>>;
   reviews: Record<string, number>;
-  reviews_by_category: Record<string, Record<string, number>>
+  reviews_by_category: Record<string, Record<string, number>>;
+  reviews_by_label: Record<string, Record<string, number>>;
 }
 
 export type InferStaticContext<T> = APIContext<
@@ -16,5 +17,5 @@ export type InferStaticContext<T> = APIContext<
 >;
 
 export type InferStaticAPIRoute<T> = (
-  context: InferStaticContext<T>
+  context: InferStaticContext<T>,
 ) => Response | Promise<Response>;
