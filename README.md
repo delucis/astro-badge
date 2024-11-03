@@ -22,4 +22,8 @@ All commands are run from the root of the project, from a terminal:
 
 This project uses the GitHub REST API to gather public data about contributions to [the `withastro` org](https://github.com/withastro/). Data collection is run once per day in a GitHub action and automatically committed to this repository.
 
-You can run `pnpm collect-stats` to run data collection locally (for example to test changes to the script), but should first ensure a `GITHUB_TOKEN` [environment variable](https://docs.astro.build/en/guides/environment-variables/) is set up, containing a GitHub personal access token.
+You can run `pnpm collect-stats` to run data collection locally (for example to test changes to the script), but should first ensure a `GITHUB_TOKEN` [environment variable](https://docs.astro.build/en/guides/environment-variables/) is set up, containing a GitHub personal access token. Create a `.env` file in the repo root and add your token there for it to be detected automatically for local runs:
+
+```dotenv
+GITHUB_TOKEN=github_pat_......
+```
