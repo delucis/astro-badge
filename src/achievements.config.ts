@@ -15,8 +15,8 @@ export default AchievementSpec({
   },
   'i18n-reviews': {
     getCount: ({ reviews_by_category, reviews_by_label }) =>
-      Math.max(reviews_by_category.docs?.i18n || 0, reviews_by_label.docs?.i18n || 0) +
-      Math.max(reviews_by_category.starlight?.i18n || 0, reviews_by_label.starlight?.i18n || 0),
+      Math.max(reviews_by_category?.docs?.i18n || 0, reviews_by_label?.docs?.i18n || 0) +
+      Math.max(reviews_by_category?.starlight?.i18n || 0, reviews_by_label?.starlight?.i18n || 0),
     achievements: [
       { count: 1, title: 'Proofreader', details: 'Reviewed an i18n PR' },
       { count: 15, title: 'Polyglot', details: 'Reviewed 15 i18n PRs' },
