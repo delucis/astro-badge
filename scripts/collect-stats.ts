@@ -180,11 +180,12 @@ class StatsCollector {
 
   async #getRepos() {
     return (
-      await this.#app.request(`GET /orgs/{org}/repos`, {
+      await this.#app.paginate(`GET /orgs/{org}/repos`, {
         org: this.#org,
         type: 'sources',
+        per_page: 100,
       })
-    ).data.filter((repo) => !repo.private);
+    ).filter((repo) => !repo.private);
   }
 
   async #getAllIssuesAndPRs(repo: string) {
