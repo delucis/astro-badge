@@ -14,5 +14,6 @@ export const GET: InferStaticAPIRoute<typeof getStaticPaths> = async function GE
       monospaceFamily: 'IBM Plex Mono',
     },
   });
-  return new Response(resvg.render().asPng(), { headers: { 'Content-Type': 'image/png' } });
+  const png = resvg.render().asPng().buffer as ArrayBuffer;
+  return new Response(png, { headers: { 'Content-Type': 'image/png' } });
 };
