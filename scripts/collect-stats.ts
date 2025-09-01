@@ -1,13 +1,12 @@
 import { Octokit } from '@octokit/core';
 import { paginateGraphQL, type PageInfoForward } from '@octokit/plugin-paginate-graphql';
-import { paginateRest } from '@octokit/plugin-paginate-rest';
+import { paginateRest, type PaginatingEndpoints } from '@octokit/plugin-paginate-rest';
 import { retry } from '@octokit/plugin-retry';
-import type { Endpoints } from '@octokit/types';
 import { minimatch } from 'minimatch';
 import { writeFile } from 'node:fs/promises';
 import type { Contributor } from '../src/types';
 
-type APIData<T extends keyof Endpoints> = Endpoints[T]['response']['data'];
+type APIData<T extends keyof PaginatingEndpoints> = PaginatingEndpoints[T]['response']['data'];
 type Repo = APIData<'GET /orgs/{org}/repos'>[number];
 type CustomCategories = {
   [key: string]: {

@@ -20,7 +20,7 @@ async function getBase64Avatar(avatar_url: string) {
     return cached;
   }
   const avatarRes = await fetch(resizedGitHubAvatarURL(avatar_url, 60));
-  let avatarBuffer = Buffer.from(await (await avatarRes.blob()).arrayBuffer());
+  let avatarBuffer: Buffer = Buffer.from(await (await avatarRes.blob()).arrayBuffer());
   if (avatarRes.headers.get('content-type') !== 'image/jpeg') {
     // resvg doesn’t like PNG avatars, so force to JPEG:
     avatarBuffer = await sharp(avatarBuffer).flatten().jpeg().toBuffer();
