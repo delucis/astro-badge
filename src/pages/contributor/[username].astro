@@ -1,10 +1,11 @@
 ---
+
 import { Code } from "astro/components";
-import Copy from "../../components/Copy.astro";
-import { contributors } from "../../util/getContributors";
-import Layout from '../../layouts/Layout.astro';
 import Stat from "../../components/achievements/Stat.astro";
+import Copy from "../../components/Copy.astro";
+import Layout from '../../layouts/Layout.astro';
 import { achievementClassFill, achievementClassGradient, achievementClassGradientText, achievementClassSlug, achievementClassStroke } from '../../util/achievementClasses'
+import { contributors } from "../../util/getContributors";
 
 export function getStaticPaths() {
   return contributors.map((contributor) => ({

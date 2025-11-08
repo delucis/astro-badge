@@ -1,4 +1,5 @@
 ---
+
 import '@astrojs/site-kit/tailwind.css';
 import '@fontsource-variable/inter';
 import '../styles/fonts.css';
@@ -62,6 +63,7 @@ const navItems = [
 
     <script>
       import { inject } from '@vercel/analytics';
+
       // @ts-expect-error New property — https://developer.mozilla.org/en-US/docs/Web/API/Document/prerendering
       if (document.prerendering) {
         // @ts-expect-error New event — https://developer.mozilla.org/en-US/docs/Web/API/Document/prerenderingchange_event

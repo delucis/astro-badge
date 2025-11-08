@@ -1,6 +1,6 @@
-import config from '@astrojs/site-kit/tailwind-preset';
-import colors from 'tailwindcss/colors';
-import defaultTheme from 'tailwindcss/defaultTheme';
+import config from '@astrojs/site-kit/tailwind-preset'
+import colors from 'tailwindcss/colors'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -31,4 +31,4 @@ module.exports = {
       }),
     },
   },
-};
+}

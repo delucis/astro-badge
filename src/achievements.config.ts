@@ -1,4 +1,4 @@
-import { AchievementSpec } from './util/achievementsHelpers';
+import { AchievementSpec } from './util/achievementsHelpers'
 
 export default AchievementSpec({
   'repos-with-merges': {
@@ -186,4 +186,4 @@ export default AchievementSpec({
       { count: 30, title: 'Entomologist', details: 'Opened 30 issues' },
     ],
   },
-});
+})
