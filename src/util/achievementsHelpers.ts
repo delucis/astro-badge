@@ -1,4 +1,4 @@
-import type { Contributor } from '../types'
+import type { Contributor } from '../types';
 
 export enum AchievementClass {
   Bronze,
@@ -7,19 +7,19 @@ export enum AchievementClass {
 }
 
 export interface Achievement {
-  title: string
-  details: string
-  class: AchievementClass
-  numAchieved: number
+  title: string;
+  details: string;
+  class: AchievementClass;
+  numAchieved: number;
 }
 
 interface AchievementDef {
   /** The title for this achievement. Short, sweet and entertaining. */
-  title: string
+  title: string;
   /** Description of how this was achieved, e.g. `'First docs PR'`. */
-  details: string
+  details: string;
   /** The stat count required to receive this achievement. */
-  count: number
+  count: number;
 }
 
 interface AchievementGroupBase {
@@ -27,36 +27,36 @@ interface AchievementGroupBase {
    * The repository this achievement is for.
    * If omitted, built-in achievements are calculated for all repos.
    */
-  repo?: string
+  repo?: string;
   /** Tuple of achievements in ascending order: `[bronze, silver, gold]`. */
-  achievements: [bronze: AchievementDef, silver: AchievementDef, gold: AchievementDef]
+  achievements: [bronze: AchievementDef, silver: AchievementDef, gold: AchievementDef];
 }
 
 interface BuiltinAchievementGroup extends AchievementGroupBase {
   /** Specify a built-in stat count type. */
-  stat: 'merges' | 'issues' | 'reviews'
+  stat: 'merges' | 'issues' | 'reviews';
 }
 
 interface LabelAchievementGroup extends AchievementGroupBase {
-  stat: 'merged_pulls_by_label'
-  label: string
+  stat: 'merged_pulls_by_label';
+  label: string;
 }
 
 interface CategoryAchievementGroup extends AchievementGroupBase {
-  stat: 'reviews_by_category'
-  category: string
+  stat: 'reviews_by_category';
+  category: string;
 }
 
 interface CustomAchievementGroup extends AchievementGroupBase {
   /** A custom function to calculate the stat count for this achievement. */
-  getCount: (contributor: Contributor) => number
+  getCount: (contributor: Contributor) => number;
 }
 
 type AchievementGroup =
   | BuiltinAchievementGroup
   | LabelAchievementGroup
   | CustomAchievementGroup
-  | CategoryAchievementGroup
+  | CategoryAchievementGroup;
 
 export function AchievementSpec(spec: Record<string, AchievementGroup>) {
   return Object.fromEntries(
@@ -71,7 +71,7 @@ export function AchievementSpec(spec: Record<string, AchievementGroup>) {
             numAchieved: 0,
           })),
         },
-      ]
+      ];
     }),
-  )
+  );
 }

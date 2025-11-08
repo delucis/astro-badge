@@ -1,5 +1,5 @@
-import type { APIRoute } from 'astro'
-import { contributors } from '../../../util/getContributors'
+import type { APIRoute } from 'astro';
+import { contributors } from '../../../util/getContributors';
 
 /**
  * Generate a JSON file with a list of the top 50 contributors.
@@ -26,4 +26,4 @@ export const GET: APIRoute = () =>
       data: contributors.slice(0, 50).map(({ username, avatar_url }) => ({ username, avatar_url })),
     }),
     { headers: { 'Content-Type': 'application/json' } },
-  )
+  );
