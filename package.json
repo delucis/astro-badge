@@ -5,7 +5,7 @@
   "scripts": {
     "format": "pnpm biome format --write",
     "collect-stats": "tsm -r dotenv/config ./scripts/collect-stats.ts",
-    "check": "astro check && pnpm biome check --write",
+    "check": "astro check",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",

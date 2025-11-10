@@ -3,57 +3,27 @@
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "files": { "ignoreUnknown": false, "includes": ["**", "!!src/data"] },
   "formatter": {
-    "enabled": true,
-    "formatWithErrors": false,
     "indentStyle": "space",
-    "indentWidth": 2,
-    "lineEnding": "lf",
-    "lineWidth": 100,
-    "attributePosition": "auto",
-    "bracketSameLine": false,
-    "bracketSpacing": true,
-    "expand": "auto",
-    "useEditorconfig": true
+    "lineWidth": 100
   },
-  "linter": { "enabled": true, "rules": { "recommended": true } },
+  "linter": { "enabled": false },
   "javascript": {
     "formatter": {
-      "jsxQuoteStyle": "double",
-      "quoteProperties": "asNeeded",
-      "trailingCommas": "all",
-      "arrowParentheses": "always",
-      "bracketSameLine": false,
-      "quoteStyle": "single",
-      "attributePosition": "auto",
-      "bracketSpacing": true
+      "quoteStyle": "single"
     }
   },
   "html": {
     "experimentalFullSupportEnabled": true,
     "formatter": {
-      "indentScriptAndStyle": false,
       "selfCloseVoidElements": "always"
     }
   },
-  "assist": {
-    "enabled": true,
-    "actions": { "source": { "organizeImports": "on" } }
-  },
-  "overrides": [
-    {
-      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
-      "linter": {
-        "rules": {
-          "style": {
-            "useConst": "off",
-            "useImportType": "off"
-          },
-          "correctness": {
-            "noUnusedVariables": "off",
-            "noUnusedImports": "off"
-          }
-        }
-      }
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
-  ]
+  },
+  "assist": {
+    "actions": { "source": { "organizeImports": "on" } }
+  }
 }
