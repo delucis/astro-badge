@@ -1,7 +1,6 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
-  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
-  "files": { "ignoreUnknown": false, "includes": ["**", "!!src/data"] },
+  "files": { "includes": ["**", "!!src/data"] },
   "formatter": {
     "indentStyle": "space",
     "lineWidth": 100
@@ -22,8 +21,5 @@
     "parser": {
       "tailwindDirectives": true
     }
-  },
-  "assist": {
-    "actions": { "source": { "organizeImports": "on" } }
   }
 }
