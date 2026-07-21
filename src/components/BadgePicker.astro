@@ -50,10 +50,10 @@ const htmlSnippet = (badge: Badge) => `<a href="${link}">`
     ))}
   </ul>
   {badgeSizes.map((badge, idx) => (
-    <!-- panel -->
+    // panel
   <section role="tabpanel" hidden={idx !== 0} class="flex-col gap-4 sm:gap-8 [&:not([hidden])]:flex">
     <h3 class="sr-only" id={badge.slug}>{badge.label}</h3>
-    <!-- preview well -->
+    {/* preview well */}
     <div
       class="relative text-center pt-28 pb-4 rounded-lg border border-neutral-500 bg-neutral-600"
     >
@@ -62,7 +62,7 @@ const htmlSnippet = (badge: Badge) => `<a href="${link}">`
       </div>
       <p class="font-mono text-xs">Badge preview — {badge.width}×{badge.height}</p>
     </div>
-    <!-- code snippets to copy/paste -->
+    {/* code snippets to copy/paste */}
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
       <div class="flex flex-col gap-4 [&>:last-child]:grow">
         <div class="flex items-baseline justify-between">
