@@ -27,7 +27,7 @@
     "astro": "^7.0.0",
     "dotenv": "^16.6.1",
     "minimatch": "^10.2.1",
-    "sharp": "^0.35.0",
+    "sharp": "^0.35.3",
     "tailwindcss": "^3.4.3",
     "tsm": "^2.3.0",
     "typescript": "^5.9.2"
