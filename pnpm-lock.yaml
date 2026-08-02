@@ -13,13 +13,13 @@ importers:
         version: 0.9.10(prettier-plugin-astro@0.12.3)(prettier@3.9.6)(typescript@5.9.3)
       '@astrojs/site-kit':
         specifier: github:withastro/site-kit
-        version: https://codeload.github.com/withastro/site-kit/tar.gz/c53071893428a3069310ae7c79c4485342c364ed(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(eslint@8.57.1)(prettier@3.9.6)(tailwindcss@3.4.17)(typescript@5.9.3)
+        version: https://codeload.github.com/withastro/site-kit/tar.gz/c53071893428a3069310ae7c79c4485342c364ed(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(eslint@8.57.1)(prettier@3.9.6)(tailwindcss@3.4.17)(typescript@5.9.3)
       '@astrojs/tailwind':
         specifier: ^6.0.2
-        version: 6.0.2(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(tailwindcss@3.4.17)
+        version: 6.0.2(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(tailwindcss@3.4.17)
       '@astrojs/vercel':
         specifier: ^10.0.8
-        version: 10.0.8(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(rollup@4.62.2)
+        version: 10.0.8(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(rollup@4.62.2)
       '@fontsource-variable/inter':
         specifier: ^5.0.18
         version: 5.2.6
@@ -42,14 +42,14 @@ importers:
         specifier: ^2.6.2
         version: 2.6.2
       '@types/node':
-        specifier: ^20.19.43
-        version: 20.19.43
+        specifier: ^24.13.3
+        version: 24.13.3
       '@vercel/analytics':
         specifier: ^1.5.0
         version: 1.6.1
       astro:
         specifier: ^7.1.6
-        version: 7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3)
+        version: 7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3)
       dotenv:
         specifier: ^16.6.1
         version: 16.6.1
@@ -58,7 +58,7 @@ importers:
         version: 10.2.4
       sharp:
         specifier: ^0.35.3
-        version: 0.35.3(@types/node@20.19.43)
+        version: 0.35.3(@types/node@24.13.3)
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.17
@@ -1348,8 +1348,8 @@ packages:
   '@types/nlcst@2.0.3':
     resolution: {integrity: sha512-vSYNSDe6Ix3q+6Z7ri9lyWqgGhJTmzRjZRqyq15N0Z/1/UnVsno9G/N40NBijoYx2seFDIl0+B2mgAb9mezUCA==}
 
-  '@types/node@20.19.43':
-    resolution: {integrity: sha512-6oYBAi5ikg4Pl+kGsoYtawUMBT2zZMCvPNF7pVLnHZfd1zf38DRiWn/gT01RYCdUqkv7Fhr+C9ot4/tb+2sVvA==}
+  '@types/node@24.13.3':
+    resolution: {integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q==}
 
   '@types/semver@7.7.0':
     resolution: {integrity: sha512-k107IF4+Xr7UHjwDc7Cfd6PRQfbdkiRabXGRjo07b4WyPahFBZCZ1sE+BNxYIJPPg73UkfOsVOLwqVc/6ETrIA==}
@@ -3623,8 +3623,8 @@ packages:
   uncrypto@0.1.3:
     resolution: {integrity: sha512-Ql87qFHB3s/De2ClA9e0gsnS6zXG27SkTiSJwjCc9MebbfapQfuPzumMIUMi38ezPZVNFcHI9sUIepeQfw8J8Q==}
 
-  undici-types@6.21.0:
-    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
+  undici-types@7.18.2:
+    resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
   unified@11.0.5:
     resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
@@ -4100,7 +4100,7 @@ snapshots:
     dependencies:
       prismjs: 1.30.0
 
-  '@astrojs/site-kit@https://codeload.github.com/withastro/site-kit/tar.gz/c53071893428a3069310ae7c79c4485342c364ed(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(eslint@8.57.1)(prettier@3.9.6)(tailwindcss@3.4.17)(typescript@5.9.3)':
+  '@astrojs/site-kit@https://codeload.github.com/withastro/site-kit/tar.gz/c53071893428a3069310ae7c79c4485342c364ed(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(eslint@8.57.1)(prettier@3.9.6)(tailwindcss@3.4.17)(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.21.0(@typescript-eslint/parser@6.21.0(eslint@8.57.1)(typescript@5.9.3))(eslint@8.57.1)(typescript@5.9.3)
       '@typescript-eslint/parser': 6.21.0(eslint@8.57.1)(typescript@5.9.3)
@@ -4117,7 +4117,7 @@ snapshots:
       smartypants: 0.1.6
       typescript: 5.9.3
     optionalDependencies:
-      astro: 7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3)
+      astro: 7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3)
       tailwindcss: 3.4.17
     transitivePeerDependencies:
       - '@ianvs/prettier-plugin-sort-imports'
@@ -4137,9 +4137,9 @@ snapshots:
       - prettier-plugin-svelte
       - supports-color
 
-  '@astrojs/tailwind@6.0.2(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(tailwindcss@3.4.17)':
+  '@astrojs/tailwind@6.0.2(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(tailwindcss@3.4.17)':
     dependencies:
-      astro: 7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3)
+      astro: 7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3)
       autoprefixer: 10.4.21(postcss@8.5.21)
       postcss: 8.5.21
       postcss-load-config: 4.0.2(postcss@8.5.21)
@@ -4154,14 +4154,14 @@ snapshots:
       is-docker: 4.0.0
       package-manager-detector: 1.6.0
 
-  '@astrojs/vercel@10.0.8(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(rollup@4.62.2)':
+  '@astrojs/vercel@10.0.8(astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3))(rollup@4.62.2)':
     dependencies:
       '@astrojs/internal-helpers': 0.10.0
       '@vercel/analytics': 1.6.1
       '@vercel/functions': 3.4.3
       '@vercel/nft': 1.5.0(rollup@4.62.2)
       '@vercel/routing-utils': 5.3.3
-      astro: 7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3)
+      astro: 7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3)
       esbuild: 0.27.4
       tinyglobby: 0.2.17
     transitivePeerDependencies:
@@ -4985,9 +4985,9 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
-  '@types/node@20.19.43':
+  '@types/node@24.13.3':
     dependencies:
-      undici-types: 6.21.0
+      undici-types: 7.18.2
 
   '@types/semver@7.7.0': {}
 
@@ -5298,7 +5298,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@20.19.43)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3):
+  astro@7.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)(@types/node@24.13.3)(@vercel/functions@3.4.3)(jiti@1.21.7)(rollup@4.62.2)(yaml@2.8.3):
     dependencies:
       '@astrojs/compiler-rs': 0.3.2(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)
       '@astrojs/internal-helpers': 0.10.2
@@ -5348,13 +5348,13 @@ snapshots:
       ultrahtml: 1.6.0
       unifont: 0.7.4
       unstorage: 1.17.5(@vercel/functions@3.4.3)
-      vite: 8.1.5(@types/node@20.19.43)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.8.3)
-      vitefu: 1.1.3(vite@8.1.5(@types/node@20.19.43)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.8.3))
+      vite: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.8.3)
+      vitefu: 1.1.3(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.8.3))
       xxhash-wasm: 1.1.0
       yargs-parser: 22.0.0
       zod: 4.4.3
     optionalDependencies:
-      sharp: 0.35.3(@types/node@20.19.43)
+      sharp: 0.35.3(@types/node@24.13.3)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -7280,7 +7280,7 @@ snapshots:
       es-errors: 1.3.0
       es-object-atoms: 1.1.1
 
-  sharp@0.35.3(@types/node@20.19.43):
+  sharp@0.35.3(@types/node@24.13.3):
     dependencies:
       '@img/colour': 1.1.0
       detect-libc: 2.1.2
@@ -7311,7 +7311,7 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.3
       '@img/sharp-win32-ia32': 0.35.3
       '@img/sharp-win32-x64': 0.35.3
-      '@types/node': 20.19.43
+      '@types/node': 24.13.3
 
   shebang-command@2.0.0:
     dependencies:
@@ -7622,7 +7622,7 @@ snapshots:
 
   uncrypto@0.1.3: {}
 
-  undici-types@6.21.0: {}
+  undici-types@7.18.2: {}
 
   unified@11.0.5:
     dependencies:
@@ -7705,7 +7705,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.3
 
-  vite@8.1.5(@types/node@20.19.43)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.8.3):
+  vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.8.3):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.5
@@ -7713,15 +7713,15 @@ snapshots:
       rolldown: 1.1.5
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 20.19.43
+      '@types/node': 24.13.3
       esbuild: 0.28.1
       fsevents: 2.3.3
       jiti: 1.21.7
       yaml: 2.8.3
 
-  vitefu@1.1.3(vite@8.1.5(@types/node@20.19.43)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.8.3)):
+  vitefu@1.1.3(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.8.3)):
     optionalDependencies:
-      vite: 8.1.5(@types/node@20.19.43)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.8.3)
+      vite: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.8.3)
 
   volar-service-css@0.0.71(@volar/language-service@2.4.28):
     dependencies:
