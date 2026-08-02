@@ -24,19 +24,19 @@ importers:
         specifier: ^5.0.18
         version: 5.2.6
       '@octokit/core':
-        specifier: ^5.0.1
+        specifier: ^5.2.2
         version: 5.2.2
       '@octokit/plugin-paginate-graphql':
         specifier: ^5.2.4
         version: 5.2.4(@octokit/core@5.2.2)
       '@octokit/plugin-paginate-rest':
-        specifier: ^11.3.5
+        specifier: ^11.6.0
         version: 11.6.0(@octokit/core@5.2.2)
       '@octokit/plugin-retry':
-        specifier: ^7.1.2
+        specifier: ^7.2.1
         version: 7.2.1(@octokit/core@5.2.2)
       '@octokit/types':
-        specifier: ^12.0.0
+        specifier: ^12.6.0
         version: 12.6.0
       '@resvg/resvg-js':
         specifier: ^2.6.2
