@@ -45,7 +45,7 @@ importers:
         specifier: ^24.13.3
         version: 24.13.3
       '@vercel/analytics':
-        specifier: ^1.5.0
+        specifier: ^1.6.1
         version: 1.6.1
       astro:
         specifier: ^7.1.6
