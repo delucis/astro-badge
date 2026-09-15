@@ -22,7 +22,7 @@
     "@octokit/plugin-retry": "^8.1.1",
     "@octokit/types": "^18.0.0",
     "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^24.13.3",
+    "@types/node": "^24.13.4",
     "@vercel/analytics": "^2.0.1",
     "astro": "^7.2.9",
     "dotenv": "^17.4.2",
