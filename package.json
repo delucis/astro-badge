@@ -25,7 +25,7 @@
     "@types/node": "^24.19.0",
     "@vercel/analytics": "^2.0.1",
     "astro": "^7.3.5",
-    "dotenv": "^17.4.2",
+    "dotenv": "^18.0.4",
     "minimatch": "^10.2.6",
     "sharp": "^0.35.4",
     "tailwindcss": "^3.4.19",
