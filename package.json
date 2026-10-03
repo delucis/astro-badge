@@ -27,7 +27,7 @@
     "@vercel/analytics": "^2.0.1",
     "astro": "^7.3.5",
     "minimatch": "^10.2.6",
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.19",
     "tsm": "^2.3.0",
     "typescript": "^5.9.3"
