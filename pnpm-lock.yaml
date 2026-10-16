@@ -18,7 +18,7 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2(astro@7.3.8(@types/node@24.19.2)(@vercel/functions@3.10.1)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.9.1))(tailwindcss@3.4.19)
       '@astrojs/vercel':
-        specifier: ^11.0.13
+        specifier: ^11.0.14
         version: 11.0.14(astro@7.3.8(@types/node@24.19.2)(@vercel/functions@3.10.1)(esbuild@0.28.1)(jiti@1.21.7)(yaml@2.9.1))(rollup@4.62.2)(supports-color@7.2.0)
       '@fontsource-variable/inter':
         specifier: ^5.3.0
