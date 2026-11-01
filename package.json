@@ -23,7 +23,7 @@
     "@octokit/plugin-retry": "^8.1.1",
     "@octokit/types": "^18.0.0",
     "@resvg/resvg-js": "^2.6.2",
-    "@types/node": "^24.19.2",
+    "@types/node": "^26.6.6",
     "@vercel/analytics": "^2.0.1",
     "astro": "^7.3.8",
     "minimatch": "^10.2.6",
